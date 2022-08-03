@@ -2,9 +2,11 @@ import React from "react";
 import { Text, View, StatusBar, StyleSheet, useWindowDimensions, Image } from "react-native";
 import { Button, Icon, Input } from 'native-base'
 import { EvilIcons, AntDesign } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
         const { height } = useWindowDimensions()
+        const navigation = useNavigation()
         return (
                 <View style={{ flex: 1, backgroundColor: "#E6E3EA" }}>
                         <StatusBar backgroundColor="#fff" barStyle="dark-content" />
@@ -20,7 +22,7 @@ export default function HomeScreen() {
                         </View>
                         <Button
                                 borderRadius={15}
-                                //     onPress={()=>navigation.navigate('Scan')}
+                                onPress={()=>navigation.navigate('Scan')}
                                 mt={7}
                                 backgroundColor={"#F58424"}
                                 py={3.5}
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
                 marginHorizontal: 10,
                 borderRadius: 20,
                 borderWidth: 3,
-                borderColor: "#fff"
+                borderColor: "#F58424"
         },
         footer: {
                 marginHorizontal: 10,
