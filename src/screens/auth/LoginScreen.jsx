@@ -14,7 +14,7 @@ export default function LoginScreen() {
         const navigation = useNavigation()
 
         const handleLogin = async () => {
-
+                navigation.navigate("Root")
         }
 
         return (
