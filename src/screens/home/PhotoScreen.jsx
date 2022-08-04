@@ -3,13 +3,16 @@ import { View, Text, StyleSheet, useWindowDimensions, TouchableOpacity, ScrollVi
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialIcons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { Button, Icon, Input, FormControl, WarningOutlineIcon } from 'native-base'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function PhotoScreen() {
         const [imagepassport, setImagepassport] = useState(null)
         const [imagebordereaux, setImagebordereaux] = useState(null)
         const photoTypeSelectRef = useRef(null)
         const navigation = useNavigation()
+        const route = useRoute()
+
+        const {donnees} = route.params
 
         const onTakePictureSelect = async () => {
                 photoTypeSelectRef.current?.close()

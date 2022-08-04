@@ -22,7 +22,7 @@ export default function HomeScreen() {
                         </View>
                         <Button
                                 borderRadius={15}
-                                onPress={()=>navigation.navigate('Photo')}
+                                onPress={()=>navigation.navigate('Scan')}
                                 mt={7}
                                 backgroundColor={"#F58424"}
                                 py={3.5}

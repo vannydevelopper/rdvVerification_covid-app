@@ -5,57 +5,81 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Portal } from "react-native-portalize";
 import { Ionicons } from '@expo/vector-icons';
 
-export default function ScanQrCodeScreen(){
-        const navigation = useNavigation()
-        const [hasPermission, setHasPermission] = useState(null);
-        const [scanned, setScanned] = useState(false);
+export default function ScanQrCodeScreen() {
+       const navigation = useNavigation()
+       const [hasPermission, setHasPermission] = useState(null);
+       const [scanned, setScanned] = useState(false);
 
-        const askCameraPermission = async () => {
-                const { status } = await BarCodeScanner.requestPermissionsAsync();
-                setHasPermission(status === "granted");
-         }
+       const askCameraPermission = async () => {
+              const { status } = await BarCodeScanner.requestPermissionsAsync();
+              setHasPermission(status === "granted");
+       }
 
-         useEffect(() => {
-                askCameraPermission()
-         }, []);
+       useEffect(() => {
+              askCameraPermission()
+       }, []);
 
-         const handleBarCodeScanned = async ({ type, data }) =>{
-                setScanned(true);
-          alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-         console.log(type)
-         if(type == 256){
-                navigation.navigate("Information")
-         }
-         
-          
-          setScanned(true);
-          clearTimeout(timer) // j'ai mis un timer pour que ça ne vibre pas tout le temps
-         }
+       const handleBarCodeScanned = async ({ type, data }) => {
+              setScanned(true);
+              //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+              //console.log(type)
+              if (type == 256) {
+                     var url = data
+                     // var divise = url.split("/")
+                     // var idPrindipal = divise[divise.length - 1]
+                     // console.log(idPrindipal)
+                     try {
+                            // const fetchScan = await fetchApi("/scan/qrecode", {
+                            //        method: 'POST',
+                            //        body: JSON.stringify({
+                            //               PATH: data,
+                            //               EVENEMENT_ID: idPrindipal
+                            //        }),
+                            //        headers: { "Content-Type": "application/json" },
+                            // })
+                            // console.log(fetchScan)
+                            navigation.goBack()
+                            navigation.navigate('Photo', { donnees: url })
+                     }
+                     catch (error) {
+                            console.log(error)
+                     }
+              }
+              else {
+                     var timer = setTimeout(() => {
+                            setScanned(false)
+                     }, 2000)
+              }
 
-         if (hasPermission === false) {
-                return <View style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                    <Text>Pas d'accès à la caméra</Text>
-                    <TouchableNativeFeedback
-                        background={TouchableNativeFeedback.Ripple('#fff')}
-                        useForeground={true}
-                        onPress={() => askCameraPermission()}
-                    >
-                        <View style={{ backgroundColor: '#ddd', borderRadius: 10, padding: 10, marginTop: 50 }}>
-                            <Text>Autoriser l'accès</Text>
-                        </View>
-                    </TouchableNativeFeedback>
-                </View>
-         }
-        return(
-                <Portal>
-                <View style={styles.container}>
-                        <BarCodeScanner
+
+              setScanned(true);
+              clearTimeout(timer) // j'ai mis un timer pour que ça ne vibre pas tout le temps
+       }
+
+       if (hasPermission === false) {
+              return <View style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                     <Text>Pas d'accès à la caméra</Text>
+                     <TouchableNativeFeedback
+                            background={TouchableNativeFeedback.Ripple('#fff')}
+                            useForeground={true}
+                            onPress={() => askCameraPermission()}
+                     >
+                            <View style={{ backgroundColor: '#ddd', borderRadius: 10, padding: 10, marginTop: 50 }}>
+                                   <Text>Autoriser l'accès</Text>
+                            </View>
+                     </TouchableNativeFeedback>
+              </View>
+       }
+       return (
+              <Portal>
+                     <View style={styles.container}>
+                            <BarCodeScanner
                                    onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
                                    style={StyleSheet.absoluteFillObject}
                                    barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
                             />
-                        
-                        <View style={styles.mask}>
+
+                            <View style={styles.mask}>
                                    <Text style={styles.scanTitle}>
                                           Scanner de Qre code
                                    </Text>
@@ -73,52 +97,52 @@ export default function ScanQrCodeScreen(){
                                           </TouchableNativeFeedback>
                                    </View>
                             </View>
-                </View>
-                </Portal>
-        )
+                     </View>
+              </Portal>
+       )
 }
 
 const styles = StyleSheet.create({
-        container:{
-                flex: 1,
+       container: {
+              flex: 1,
               paddingVertical: 30,
               borderStartColor: '#fff',
               backgroundColor: "#E6E3EA"
-        },
-        mask: {
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'space-around'
-         },
-         scanTitle: {
-                color: '#fff',
-                backgroundColor: '#F58424',
-                fontSize: 16,
-                padding: 15,
-                borderRadius: 10
-         },
-         scanActions: {
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                alignContent: 'center',
-                alignItems: 'center',
-                width: '100%'
-         },
-         maskScan: {
-                width: '70%',
-                height: 250,
-                borderColor: '#fff',
-                borderRadius: 20,
-                borderWidth: 2,
-                backgroundColor: 'transparent'
-         },
-         actionBtn: {
-                backgroundColor: '#F58424',
-                padding: 10,
-                borderRadius: 100,
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-                overflow: 'hidden'
-         }
+       },
+       mask: {
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'space-around'
+       },
+       scanTitle: {
+              color: '#fff',
+              backgroundColor: '#F58424',
+              fontSize: 16,
+              padding: 15,
+              borderRadius: 10
+       },
+       scanActions: {
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignContent: 'center',
+              alignItems: 'center',
+              width: '100%'
+       },
+       maskScan: {
+              width: '70%',
+              height: 250,
+              borderColor: '#fff',
+              borderRadius: 20,
+              borderWidth: 2,
+              backgroundColor: 'transparent'
+       },
+       actionBtn: {
+              backgroundColor: '#F58424',
+              padding: 10,
+              borderRadius: 100,
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              overflow: 'hidden'
+       }
 })
