@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, useWindowDimensions, TouchableOpacity, ScrollVi
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialIcons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { Button, Icon, Input, FormControl, WarningOutlineIcon } from 'native-base'
+import { useNavigation } from '@react-navigation/native';
 
 export default function PhotoScreen() {
         const [imagepassport, setImagepassport] = useState(null)
         const [imagebordereaux, setImagebordereaux] = useState(null)
         const photoTypeSelectRef = useRef(null)
+        const navigation = useNavigation()
 
         const onTakePictureSelect = async () => {
                 photoTypeSelectRef.current?.close()
@@ -56,7 +58,7 @@ export default function PhotoScreen() {
                                         Details pour les prises de rendez vous
                                 </Text>
                         </View>
-                        <ScrollView>
+                        <ScrollView keyboardShouldPersistTaps={"handled"}>
 
                                 <View style={styles.cardPrincipal}>
                                         <View style={styles.titleDetails}>
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
         cardImage: {
                 width: 40,
                 height: 40,
-                backgroundColor: "#777",
+                backgroundColor: "#DCE4F7",
                 borderRadius: 40,
                 alignItems: "center",
                 justifyContent: "center"

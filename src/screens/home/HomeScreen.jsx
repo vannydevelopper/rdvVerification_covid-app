@@ -8,7 +8,7 @@ export default function HomeScreen() {
         const { height } = useWindowDimensions()
         const navigation = useNavigation()
         return (
-                <View style={{ flex: 1, backgroundColor: "#E6E3EA" }}>
+                <View style={{ flex: 1 }}>
                         <StatusBar backgroundColor="#fff" barStyle="dark-content" />
                         <View style={styles.header}>
                                 {/* <Image source={require('../../../assets/images/home.png')} style={{ ...styles.image, resizeMode: "center", height: (20 * height - StatusBar.currentHeight) / 100 }}/> */}

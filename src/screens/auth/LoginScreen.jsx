@@ -18,7 +18,7 @@ export default function LoginScreen() {
         }
 
         return (
-                <View style={{ flex: 1, backgroundColor: "#E6E3EA" }}>
+                <View style={{ flex: 1}}>
                         {/* <ImageBackground imageStyle={{ flex: 1, resizeMode: "contain", opacity: 0.5, transform: [{ scale: 2 }], alignSelf: "center", height: "100%" }} source={require('../../../assets/images/home3.png')}> */}
                         <ScrollView keyboardShouldPersistTaps="handled">
                                 <View style={styles.container}>
