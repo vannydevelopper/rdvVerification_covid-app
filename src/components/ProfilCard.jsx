@@ -2,15 +2,19 @@ import React from "react";
 import { Text, View, StyleSheet, Image, TouchableNativeFeedback } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useNavigation } from "@react-navigation/native";
-
-
-
+import { userSelector } from "../store/selectors/userSelector";
+import { unsetUserAction } from "../store/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function ProfilCard(){
        const navigation = useNavigation()
-
+       const dispatch=useDispatch()
+       //const user = useSelector(userSelector)
+       const user =useSelector(userSelector)
+       
        const onLogOut = async () => {
-        //       await AsyncStorage.removeItem('user')
-        //       dispatch(unsetUserAction())
+             await AsyncStorage.removeItem('user')
+             dispatch(unsetUserAction())
        }
 
        return(
@@ -18,14 +22,14 @@ export default function ProfilCard(){
                      <View style={styles.cardUser}>
                             <Image source={require('../../assets/images/user.png')} style={styles.userImage}/>
                             <View style={styles.userNames}>
-                                   <Text style={styles.username}>wabenga alponse</Text>
-                                   <Text style={styles.userDesc}>wabenga@mediabox.bi</Text>
+                                   <Text style={styles.username}>{user.user.USER_FNAME} {user.user.USER_LNAME}</Text>
+                                   <Text style={styles.userDesc}> {user.user.USERNAME}</Text>
                             </View>
                      </View>
                      <View style={styles.cardActions}>
                             <View style={styles.actionPv}>
                                    <Text style={styles.actionTitle}>Téléphone</Text>
-                                   <Text style={styles.actionValue}>72727272</Text>
+                                   <Text style={styles.actionValue}>{user.user.TEL}</Text>
                             </View>
                             <View style={styles.actionPv}>
                                    <Text style={styles.actionTitle}>Date d'insertion</Text>

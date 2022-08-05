@@ -4,21 +4,95 @@ import { Button, Icon, Input, FormControl, WarningOutlineIcon } from 'native-bas
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { primaryColor } from '../../styles';
 import { useNavigation } from '@react-navigation/native';
+import * as Location from 'expo-location'
+import fetchApi from '../../helpers/fetchApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { setUserAction } from '../../store/actions/userActions';
 
 export default function LoginScreen() {
         const { height } = useWindowDimensions()
         const passwordInputRef = useRef(null)
-        const [email, setEmail] = useState("");
-        const [password, setPassword] = useState("");
+        const [USERNAME, setEmail] = useState("");
+        const dispatch=useDispatch()
+        const [USER_PASSWORD, setPassword] = useState("");
+        const [location, setLocation] = useState(null)
+        const [loading, setLoading] = useState(false);
         const [showPassword, setShowPassword] = useState(false)
+        const [errors, setErrors] = useState(null);
         const navigation = useNavigation()
 
         const handleLogin = async () => {
-                navigation.navigate("Root")
+                 setLoading(true);
+                if (!location) {
+                        let { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
+                        if (locationStatus !== 'granted') {
+                                return setLoading(false)
+                        }
+                        var loc = await Location.getCurrentPositionAsync({});
+                        setLocation(loc)
+                }
+                const user = {
+                        USERNAME,
+                        USER_PASSWORD,
+                        lat: location?.coords?.latitude,
+                        long: location?.coords?.longitude,
+                };
+                console.log(user)
+                setErrors(null)
+                try {
+                        const userData = await fetchApi ("/users/login", {
+                                  method: "POST",
+                                  body: JSON.stringify(user),
+                                  headers: { "Content-Type": "application/json" },
+                        });
+                        await AsyncStorage.setItem("user", JSON.stringify(userData));
+                        dispatch(setUserAction(userData));
+              }
+               catch (error) {
+                        console.log(error)
+                        setErrors(error.errors)
+              }
+              setLoading(false);
+        }
+        const askLocationPermission = async () => {
+                let { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
+                if (locationStatus !== 'granted') {
+                        console.log('Permission to access location was denied');
+                        setLocation(false)
+                        return;
+                }
+                var location = await Location.getCurrentPositionAsync({});
+                setLocation(location)
+        }
+        useEffect(() => {
+                askLocationPermission()
+        }, [])
+        if (location === false) {
+                return <View style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, opacity: 0.8 }}>
+                                Pas d'accès à la localisation
+                        </Text>
+                        <Text style={{ textAlign: 'center', color: '#777', marginTop: 10, paddingHorizontal: 10 }}>
+                                L'application a besoin de votre localisation pour fonctionner
+                        </Text>
+                        <TouchableNativeFeedback
+                                background={TouchableNativeFeedback.Ripple('#ddd')}
+                                useForeground={true}
+                                onPress={() => askLocationPermission()}
+                        >
+                                <View style={{ backgroundColor: '#fff', borderRadius: 10, padding: 10, marginTop: 20 }}>
+                                        <Text>
+                                                Autoriser l'accès
+                                        </Text>
+                                </View>
+                        </TouchableNativeFeedback>
+                </View>
+
         }
 
         return (
-                <View style={{ flex: 1}}>
+                <View style={{ flex: 1 }}>
                         {/* <ImageBackground imageStyle={{ flex: 1, resizeMode: "contain", opacity: 0.5, transform: [{ scale: 2 }], alignSelf: "center", height: "100%" }} source={require('../../../assets/images/home3.png')}> */}
                         <ScrollView keyboardShouldPersistTaps="handled">
                                 <View style={styles.container}>
@@ -39,7 +113,7 @@ export default function LoginScreen() {
                                                 borderBottomWidth={1}
                                                 borderBottomColor={'#F58424'}
                                                 onChangeText={(em) => setEmail(em)}
-                                                value={email}
+                                                value={USERNAME}
                                                 _focus={{
                                                         borderBottomColor: primaryColor
                                                 }}
@@ -50,7 +124,10 @@ export default function LoginScreen() {
                                                 }}
                                                 autoCompleteType='off'
                                         />
-
+                                        <View>
+                                        {errors&&<Text style={styles.textcolor}>{errors.main}</Text>}
+                                        </View>
+                                        <FormControl isInvalid={errors && errors.password}>
                                         <Input
                                                 placeholder='Mot de passe'
                                                 InputLeftElement={
@@ -70,7 +147,7 @@ export default function LoginScreen() {
                                                         />}
                                                 secureTextEntry={!showPassword}
                                                 onChangeText={(em) => setPassword(em)}
-                                                value={password}
+                                                value={USER_PASSWORD}
                                                 py={2}
                                                 borderWidth={0}
                                                 borderBottomWidth={1}
@@ -82,13 +159,17 @@ export default function LoginScreen() {
                                                 mt={3}
                                                 ref={passwordInputRef}
                                         />
+                                        {errors && errors.password &&<FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                                                {errors.password}
+                                        </FormControl.ErrorMessage>}
+                                        </FormControl>
                                         <TouchableOpacity>
                                                 <Text style={styles.forgetPass}>Mot de passe oublié</Text>
                                         </TouchableOpacity>
 
                                         <Button
                                                 borderRadius={15}
-                                                // isDisabled={email == "" || password == ""}
+                                                 isDisabled={USERNAME == "" || USER_PASSWORD == ""}
                                                 onPress={handleLogin}
                                                 mt={5}
                                                 backgroundColor={"#F58424"}
@@ -146,4 +227,7 @@ const styles = StyleSheet.create({
                 textAlign: 'right',
                 marginTop: 10
         },
+        textcolor:{
+                color:"red"
+        }
 })

@@ -2,8 +2,12 @@ import React from "react";
 import { ImageBackground, Text, View, StyleSheet, TouchableNativeFeedback, ScrollView } from "react-native";
 import { FontAwesome5, EvilIcons, AntDesign, Feather, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import ProfilCard from "../../components/ProfilCard";
+import { useDispatch, useSelector } from "react-redux";
+import { userSelector } from "../../store/selectors/userSelector";
 
 const Profil = () =>{
+       //const dispatch=useDispatch()
+       const user=useSelector(userSelector)
        return(
               <View style={styles.bottomContainer}>
                      <ProfilCard/>
@@ -14,7 +18,7 @@ const Profil = () =>{
                                    </View>
                                    <View style={styles.names}>
                                           <Text style={styles.itemTitle}>Nom</Text>
-                                          <Text style={styles.itemValue}>KIBWA</Text>
+                                          <Text style={styles.itemValue}>{user.user.USER_FNAME}</Text>
                                    </View>
                             </View>
                             <View style={styles.cardImage}>
@@ -23,16 +27,16 @@ const Profil = () =>{
                                    </View>
                                    <View style={styles.names}>
                                           <Text style={styles.itemTitle}>Prenom</Text>
-                                          <Text style={styles.itemValue}>Franck</Text>
+                                          <Text style={styles.itemValue}>{user.user.USER_LNAME}</Text>
                                    </View>
                             </View>
                             <View style={styles.cardImage}>
                                    <View style={styles.imagecard}>
                                           <EvilIcons name="location" size={35} color="#F58424" />
-                                   </View>
+                                                                           </View>
                                    <View style={styles.names}>
-                                          <Text style={styles.itemTitle}>Residance</Text>
-                                          <Text style={styles.itemValue}>KIVUMU</Text>
+                                          <Text style={styles.itemTitle}>Email</Text>
+                                          <Text style={styles.itemValue}>{user.user.USER_EMAIL}</Text>
                                    </View>
                             </View>
                      </View>
@@ -41,6 +45,9 @@ const Profil = () =>{
 }
 
 export default function ProfilScreen(){
+       //const dispatch=useDispatch()
+       const user=useSelector(userSelector)
+       console.log(user)
        return(
                 <View style={{ flex: 1, marginVertical: 30 }}>
                      <ScrollView keyboardShouldPersistTaps="handled">
