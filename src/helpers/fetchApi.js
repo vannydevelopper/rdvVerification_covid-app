@@ -1,0 +1,30 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+const API_URL = false
+  ? "http://app.mediabox.bi:2522"
+  : "http://192.168.43.195:8000";
+/**
+ * consomer une api avec les options par défaut
+ * @param {string} url - le lien à appeler
+ * @param {object} options - autres options comme les headers et le body
+ * @returns {Promise}
+ */
+export default async function fetchApi(url, options = {}) {
+  // const user = JSON.parse(localStorage.getItem('user'))
+  const userF = await AsyncStorage.getItem("user");
+  const user = JSON.parse(userF);
+  // await wait(200)
+  if (user)
+    options = {
+      ...options,
+      headers: { ...options.headers, authorization: `bearer ${user.TOKEN}` },
+    };
+  const response = await fetch(API_URL + url, {
+    ...options,
+  });
+  if (response.ok) {
+    return response.json();
+  } else {
+    console.log(response);
+    throw await response.json();
+  }
+}
