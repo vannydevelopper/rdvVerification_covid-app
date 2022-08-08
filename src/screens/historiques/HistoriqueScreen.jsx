@@ -56,8 +56,10 @@ export default function HistoriqueScreen() {
                                                                                            <Text style={styles.itemTitle} numberOfLines={2}>{historique.NOM}  {historique.PRENOM}</Text>
                                                                                     </View>  
                                                                              </View>
-                                                                             {historique.PHOTO_BRD != null && <Image source={{ uri: historique.PHOTO_BRD }} style={styles.DetaImage} />}
-                                                                             {historique.PHOTO_PRS != null && <Image source={{ uri: historique.PHOTO_PRS }} style={styles.DetaImage} />}
+                                                                             <Text style={styles.itemDescription}>{historique.EMAIL}</Text>
+                                                                             <Text style={styles.itemDescription1}>{historique.TELEPHONE}</Text>
+                                                                             {/* {historique.PHOTO_BRD != null && <Image source={{ uri: historique.PHOTO_BRD }} style={styles.DetaImage} />}
+                                                                             {historique.PHOTO_PRS != null && <Image source={{ uri: historique.PHOTO_PRS }} style={styles.DetaImage} />} */}
                                                                       </View>
                                                                </View>
                                                                <View style={styles.ligne}></View>
@@ -158,7 +160,8 @@ const styles = StyleSheet.create({
               marginTop: 8
        },
        DetaImage: {
-              height: 40,
+              height: 70,
+              borderRadius:90
 
           },
 

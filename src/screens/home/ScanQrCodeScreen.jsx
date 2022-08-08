@@ -32,8 +32,7 @@ export default function ScanQrCodeScreen() {
                      if(!idPrindipal){
                             setErrors("Qr code invalide")
                             //const message = "Qr code invalide"
-                            Alert.alert(errors)
-                            
+                            Alert.alert(errors)   
                      }
                     
                      try {
@@ -50,6 +49,8 @@ export default function ScanQrCodeScreen() {
                             setErrors("Qr code invalide")
                             const message = error.message || "Qr code invalide"
                             Alert.alert(message)
+                            navigation.goBack()
+                            navigation.navigate("Not")
                      }
               }
               else {
