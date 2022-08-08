@@ -38,7 +38,7 @@ export default function LoginScreen() {
                         lat: location?.coords?.latitude,
                         long: location?.coords?.longitude,
                 };
-                console.log(user)
+                // console.log(user)
                 setErrors(null)
                 try {
                         const userData = await fetchApi ("/users/login", {

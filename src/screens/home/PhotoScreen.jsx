@@ -1,9 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, StyleSheet, useWindowDimensions, TouchableOpacity, ScrollView, ImageBackground, TouchableNativeFeedback, Image, TouchableWithoutFeedback, ActivityIndicator, BackHandler } from 'react-native'
 import * as ImagePicker from 'expo-image-picker';
-import { MaterialIcons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons, FontAwesome5, AntDesign, FontAwesome, Entypo, Foundation } from '@expo/vector-icons';
 import { Button, Icon, Input, FormControl, WarningOutlineIcon } from 'native-base'
 import { useNavigation, useRoute } from '@react-navigation/native';
+import moment from 'moment'
+moment.updateLocale('fr', {
+        calendar: {
+                sameDay: "[Aujourd'hui]",
+                lastDay: '[Hier]',
+                nextDay: 'DD-M-YYYY',
+                lastWeek: 'DD-M-YYYY',
+                sameElse: 'DD-M-YYYY',
+        },
+})
 
 export default function PhotoScreen() {
         const [imagepassport, setImagepassport] = useState(null)
@@ -12,7 +22,9 @@ export default function PhotoScreen() {
         const navigation = useNavigation()
         const route = useRoute()
 
-        const {donnees} = route.params
+        const { donnees, ID_RDV } = route.params
+        console.log(donnees, ID_RDV)
+
 
         const onTakePictureSelect = async () => {
                 photoTypeSelectRef.current?.close()
@@ -63,6 +75,80 @@ export default function PhotoScreen() {
                         </View>
                         <ScrollView keyboardShouldPersistTaps={"handled"}>
 
+                                { donnees.payement && <View style={styles.cardPrincipal}>
+                                        <View style={styles.titleDetails}>
+                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}>{donnees.message}</Text>
+                                        </View>
+                                        <View style={styles.ligne}></View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Adresse Email</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.payement.EMAIL_PAYE}</Text>
+                                                </View>
+
+                                        </View>
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <FontAwesome name="cc-visa" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Carte de Crédit</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.payement.CARTE_TYPE}</Text>
+                                                </View>
+
+                                        </View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <Entypo name="mail" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Adresse de Payement</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.payement.COMPTE_SIBLE}</Text>
+                                                </View>
+
+                                        </View>
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <Foundation name="dollar-bill" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Montant</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.payement.MONTANT} {donnees.payement.DEVISE}</Text>
+                                                </View>
+
+                                        </View>
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Date de payement</Text>
+                                                        <Text style={styles.titleResponse}>
+                                                                {moment(donnees.payement.DATE_INSERT_PAYEMENT).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                {moment(donnees.payement.DATE_INSERT_PAYEMENT).format('  HH:mm')}
+                                                        </Text>
+                                                </View>
+
+                                        </View>
+                                </View>}
+
                                 <View style={styles.cardPrincipal}>
                                         <View style={styles.titleDetails}>
                                                 <Text style={{ fontSize: 15, fontWeight: "bold" }}>Details de l'utilisateur</Text>
@@ -74,30 +160,70 @@ export default function PhotoScreen() {
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Nom</Text>
-                                                        <Text style={styles.titleResponse}>AZOSENGA</Text>
+                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.NOM}  {donnees.requerantRDV.PRENOM}</Text>
+                                                </View>
+                                        </View>
+
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Date de Naissance</Text>
+                                                        <Text style={styles.titleResponse}>
+                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).format('  HH:mm')}
+                                                        </Text>
                                                 </View>
                                         </View>
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+                                                <FontAwesome5 name="user" size={24} color="#F58424" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Prenom</Text>
-                                                        <Text style={styles.titleResponse}>AZOSENGA</Text>
+                                                        <Text style={styles.titleNom}>Adresse Email</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.EMAIL}</Text>
                                                 </View>
                                         </View>
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+                                                        <AntDesign name="phone" size={24} color="#F58424" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Date</Text>
-                                                        <Text style={styles.titleResponse}>17/7/2022</Text>
+                                                        <Text style={styles.titleNom}>Numero de Téléphone</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.TELEPHONE}</Text>
+                                                </View>
+                                        </View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Date de Rendez vous</Text>
+                                                        <Text style={styles.titleResponse}>
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}
+                                                        </Text>
                                                 </View>
                                         </View>
                                 </View>
@@ -122,7 +248,8 @@ export default function PhotoScreen() {
 
                                                 </View>
                                         </View>
-                                        <View>
+                                        
+                                       { ! donnees.payement && <View>
                                                 <Text style={{ paddingHorizontal: 50, color: '#777', fontWeight: 'bold', marginTop: 10 }}>
                                                         Bordereaux
                                                 </Text>
@@ -141,7 +268,7 @@ export default function PhotoScreen() {
 
 
                                                 </View>
-                                        </View>
+                                        </View>}
                                 </View>
                         </ScrollView>
                         <Button
@@ -238,7 +365,7 @@ const styles = StyleSheet.create({
                 color: '#F58424',
                 fontSize: 12,
                 marginHorizontal: 10
-         },
+        },
 
 
 })

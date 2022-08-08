@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, TouchableNativeFeedback } from "react-native";
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Portal } from "react-native-portalize";
 import { Ionicons } from '@expo/vector-icons';
+import fetchApi from "../../helpers/fetchApi";
 
 export default function ScanQrCodeScreen() {
        const navigation = useNavigation()
@@ -21,25 +22,26 @@ export default function ScanQrCodeScreen() {
 
        const handleBarCodeScanned = async ({ type, data }) => {
               setScanned(true);
-              //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-              //console.log(type)
+              // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+              // console.log(type)
               if (type == 256) {
                      var url = data
-                     // var divise = url.split("/")
-                     // var idPrindipal = divise[divise.length - 1]
-                     // console.log(idPrindipal)
+                     var divise = url.split("/")
+                     var idPrindipal = divise[divise.length - 1]
+                     //console.log(idPrindipal)
+                     //console.log("/payement?cq_id="+idPrindipal)
                      try {
-                            // const fetchScan = await fetchApi("/scan/qrecode", {
-                            //        method: 'POST',
-                            //        body: JSON.stringify({
-                            //               PATH: data,
-                            //               EVENEMENT_ID: idPrindipal
-                            //        }),
-                            //        headers: { "Content-Type": "application/json" },
-                            // })
-                            // console.log(fetchScan)
+                            const fetchScan = await fetchApi("/payement?cq_id="+idPrindipal, {
+                                   method: 'GET',
+                                   // body: JSON.stringify({
+                                   //        PATH: data,S
+                                   //        EVENEMENT_ID: idPrindipal
+                                   // }),
+                                   headers: { "Content-Type": "application/json" },
+                            })
+                            //console.log(fetchScan)
                             navigation.goBack()
-                            navigation.navigate('Photo', { donnees: url })
+                            navigation.navigate('Photo', { donnees: fetchScan,ID_RDV: idPrindipal})
                      }
                      catch (error) {
                             console.log(error)
