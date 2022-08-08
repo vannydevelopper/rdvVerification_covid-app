@@ -3,7 +3,7 @@ import { View, Text, TouchableNativeFeedback, Image, StyleSheet} from 'react-nat
 import NotFound from "../../components/NotFound";
 import {Ionicons} from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
-
+``
 export default function NotFoundScreen(){
         const navigation = useNavigation()
         return(
