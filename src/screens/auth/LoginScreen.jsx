@@ -48,6 +48,7 @@ export default function LoginScreen() {
                         });
                         await AsyncStorage.setItem("user", JSON.stringify(userData));
                         dispatch(setUserAction(userData));
+                        setLoading(false);
               }
                catch (error) {
                         console.log(error)
@@ -169,7 +170,8 @@ export default function LoginScreen() {
 
                                         <Button
                                                 borderRadius={15}
-                                                 isDisabled={USERNAME == "" || USER_PASSWORD == ""}
+                                                isDisabled={USERNAME == "" || USER_PASSWORD == ""}
+                                                isLoading={loading}
                                                 onPress={handleLogin}
                                                 mt={5}
                                                 backgroundColor={"#F58424"}

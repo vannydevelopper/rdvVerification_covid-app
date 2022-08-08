@@ -47,7 +47,7 @@ const Profil = () =>{
 export default function ProfilScreen(){
        //const dispatch=useDispatch()
        const user=useSelector(userSelector)
-       console.log(user)
+       //console.log(user)
        return(
                 <View style={{ flex: 1, marginVertical: 30 }}>
                      <ScrollView keyboardShouldPersistTaps="handled">

@@ -151,6 +151,7 @@ export default function PhotoScreen() {
                                 body: form
 
                         })
+                        navigation.navigate("Home")
                         setIsLoading(false)
                         toast.show({
                                 title: "L'enregistrement est faite avec succes",
@@ -428,7 +429,7 @@ export default function PhotoScreen() {
                         </ScrollView>
                         <Button
                                 borderRadius={15}
-                                // isDisabled={email == "" || password == ""}
+                                isDisabled={imagepassport == null}
                                 isLoading={isLoading}
                                 onPress={sendData}
                                 marginHorizontal={20}

@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableNativeFeedback } from "react-native";
+import { Text, View, StyleSheet, TouchableNativeFeedback, Alert } from "react-native";
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Portal } from "react-native-portalize";
 import { Ionicons } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ export default function ScanQrCodeScreen() {
        const navigation = useNavigation()
        const [hasPermission, setHasPermission] = useState(null);
        const [scanned, setScanned] = useState(false);
+       const [errors, setErrors] = useState(null);
 
        const askCameraPermission = async () => {
               const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -28,23 +29,27 @@ export default function ScanQrCodeScreen() {
                      var url = data
                      var divise = url.split("/")
                      var idPrindipal = divise[divise.length - 1]
-                     //console.log(idPrindipal)
-                     //console.log("/payement?cq_id="+idPrindipal)
+                     if(!idPrindipal){
+                            setErrors("Qr code invalide")
+                            //const message = "Qr code invalide"
+                            Alert.alert(errors)
+                            
+                     }
+                    
                      try {
                             const fetchScan = await fetchApi("/payement?cq_id="+idPrindipal, {
                                    method: 'GET',
-                                   // body: JSON.stringify({
-                                   //        PATH: data,S
-                                   //        EVENEMENT_ID: idPrindipal
-                                   // }),
                                    headers: { "Content-Type": "application/json" },
                             })
-                            //console.log(fetchScan)
+                            console.log(fetchScan)
                             navigation.goBack()
                             navigation.navigate('Photo', { donnees: fetchScan,ID_RDV: idPrindipal})
                      }
                      catch (error) {
                             console.log(error)
+                            setErrors("Qr code invalide")
+                            const message = error.message || "Qr code invalide"
+                            Alert.alert(message)
                      }
               }
               else {

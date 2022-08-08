@@ -1,42 +1,85 @@
-import React, { useCallback, useState } from "react";
-import { ImageBackground, ScrollView, StyleSheet, Text, TouchableNativeFeedback, View } from "react-native";
-import { MaterialIcons,Entypo  } from '@expo/vector-icons';
+import React, { useCallback, useEffect, useState } from "react";
+import { ImageBackground, ScrollView, StyleSheet,Image, Text, TouchableNativeFeedback, View } from "react-native";
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import fetchApi from "../../helpers/fetchApi";
+import moment from 'moment'
+moment.updateLocale('fr', {
+       calendar: {
+              sameDay: "[Aujourd'hui]",
+              lastDay: '[Hier]',
+              nextDay: 'DD-M-YYYY',
+              lastWeek: 'DD-M-YYYY',
+              sameElse: 'DD-M-YYYY',
+       },
+})
 
 
-export default function HistoriqueScreen(){
+export default function HistoriqueScreen() {
        const navigation = useNavigation()
+       const [historiques, setHistoriques] = useState([])
 
-       return(
+       const fetchHistoriques = async () => {
+              try {
+                     const histo = await fetchApi("/historique/afficher", {
+                            method: "GET",
+                            headers: { "Content-Type": "application/json" }
+                     })
+                     setHistoriques(histo)
+                     console.log(histo)
+              }
+
+              catch (error) {
+                     console.log(error)
+              }
+       }
+
+       useFocusEffect(useCallback(() => {
+              fetchHistoriques()
+       }, []))
+
+       return (
               <View>
                      <ScrollView keyboardShouldPersistTaps="handled">
-                            <View style={{marginBottom:10}}>
-                                          <TouchableNativeFeedback>
-                                                 <View style={styles.cardPrincipal}>
-                                                        <View style={styles.cardPosition}>
-                                                               <View style={styles.cardImage}>
-                                                                      <MaterialIcons name="qr-code-scanner" size={24} color="#F58424" />
-                                                               </View>
-                                                               <View style={styles.cardDescripetion}>
-                                                                      <View style={styles.CardItems}>
-                                                                             <View style={{flexDirection:"row"}}>
-                                                                                    <Text style={styles.itemTitle} numberOfLines={2}>jjjjjjjj</Text>
+                            <View style={{ marginBottom: 10 }}>
+                                   {historiques.map((historique, index) => {
+                                          return (
+                                                 <TouchableNativeFeedback key={index}>
+                                                        <View style={styles.cardPrincipal}>
+                                                               <View style={styles.cardPosition}>
+                                                                      <View style={styles.cardImage}>
+                                                                             <MaterialIcons name="qr-code-scanner" size={24} color="#F58424" />
+                                                                      </View>
+                                                                      <View style={styles.cardDescripetion}>
+                                                                             <View style={styles.CardItems}>
+                                                                                    <View style={{ flexDirection: "row" }}>
+                                                                                           <Text style={styles.itemTitle} numberOfLines={2}>{historique.NOM}  {historique.PRENOM}</Text>
+                                                                                    </View>  
                                                                              </View>
-                                                                             <Text style={styles.itemDescription}>jjjjjjjjssss</Text>
-                                                                             <Text style={styles.itemDescription1}>Debut </Text>
-                                                                             <Text style={styles.itemDescription1}>Fin </Text>
+                                                                             {historique.PHOTO_BRD != null && <Image source={{ uri: historique.PHOTO_BRD }} style={styles.DetaImage} />}
+                                                                             {historique.PHOTO_PRS != null && <Image source={{ uri: historique.PHOTO_PRS }} style={styles.DetaImage} />}
+                                                                      </View>
+                                                               </View>
+                                                               <View style={styles.ligne}></View>
+                                                               <View style={{ flexDirection: "row", justifyContent: "flex-end", marginTop: 5 }}>
+                                                                      <View ></View>
+                                                                      <View style={styles.dateCard}>
+                                                                             <Text style={styles.itemDebut}>
+                                                                                    {moment(historique.DATE).calendar(null, {
+                                                                                           sameDay: `[Aujourd'hui]`,
+                                                                                           lastDay: `[Hier]`,
+                                                                                           nextDay: 'DD-M-YYYY',
+                                                                                           lastWeek: 'DD-M-YYYY',
+                                                                                           sameElse: 'DD-M-YYYY',
+                                                                                    })}
+                                                                                    {moment(historique.DATE).format('  HH:mm')}
+                                                                             </Text>
                                                                       </View>
                                                                </View>
                                                         </View>
-                                                        <View style={styles.ligne}></View>
-                                                        <View style={{flexDirection:"row", justifyContent:"flex-end", marginTop:5}}>
-                                                               <View ></View>
-                                                                      <View style={styles.dateCard}>
-                                                                             <Text style={styles.itemDebut}>12/12/1212</Text>
-                                                                      </View>   
-                                                        </View>
-                                                 </View>
-                                          </TouchableNativeFeedback>
+                                                 </TouchableNativeFeedback>
+                                          )
+                                   })}
                             </View>
                      </ScrollView>
               </View>
@@ -44,76 +87,80 @@ export default function HistoriqueScreen(){
 }
 
 const styles = StyleSheet.create({
-       container:{
-              flex:1
+       container: {
+              flex: 1
        },
-       title:{
+       title: {
               marginHorizontal: 20
        },
-       histoTitle:{
+       histoTitle: {
               fontSize: 20,
-              color:"#777",
-              fontWeight:"bold"
+              color: "#777",
+              fontWeight: "bold"
        },
-       cardPrincipal:{
+       cardPrincipal: {
               marginHorizontal: 20,
               padding: 10,
-              backgroundColor:"#fff",
-              borderRadius:10,
-              elevation:8,
-              borderWidth:2,
-              borderColor:"#fff",
-              marginTop:10,
-              marginBottom:10
+              backgroundColor: "#fff",
+              borderRadius: 10,
+              elevation: 8,
+              borderWidth: 2,
+              borderColor: "#fff",
+              marginTop: 10,
+              marginBottom: 10
        },
-       cardImage:{
-              width:50,
-              height:50,
-              backgroundColor:"#777",
-              borderRadius:50,
-              alignItems:"center",
-              justifyContent:"center"
+       cardImage: {
+              width: 50,
+              height: 50,
+              backgroundColor: "#777",
+              borderRadius: 50,
+              alignItems: "center",
+              justifyContent: "center"
        },
-       cardDescripetion:{
+       cardDescripetion: {
               marginLeft: 10
        },
-       itemTitle:{
+       itemTitle: {
               fontSize: 12,
-              fontWeight:"bold",
+              fontWeight: "bold",
        },
-       itemDescription:{
+       itemDescription: {
               fontSize: 12,
-              color:"#777",
-              fontWeight:"bold"
+              color: "#777",
+              fontWeight: "bold"
        },
-       itemDescription1:{
+       itemDescription1: {
               fontSize: 12,
-              color:"#777",
+              color: "#777",
        },
-       cardPosition:{
-              flexDirection:"row",
-              alignItems:"center",
-              alignContent:"center"
+       cardPosition: {
+              flexDirection: "row",
+              alignItems: "center",
+              alignContent: "center"
        },
-       ligne:{
-              borderTopWidth:1,
+       ligne: {
+              borderTopWidth: 1,
               marginTop: 10,
-              borderTopColor:"#F58424"
+              borderTopColor: "#F58424"
        },
-       itemDebut:{
+       itemDebut: {
               fontSize: 12,
-              color:"#fff",
+              color: "#fff",
               // fontWeight:"bold",
        },
-       dateCard:{
+       dateCard: {
               // fontSize:12,
-              backgroundColor:"#777",
-              minWidth:"45%",
-              borderRadius:10,
-              justifyContent:"center",
-              alignItems:"center",
+              backgroundColor: "#777",
+              minWidth: "45%",
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
               marginTop: 8
        },
+       DetaImage: {
+              height: 40,
+
+          },
 
 
 })
