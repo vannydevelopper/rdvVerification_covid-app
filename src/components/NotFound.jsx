@@ -6,7 +6,7 @@ export default function NotFound(){
                 <View style={styles.notfoundContainer}>
                         <Image source={require('../../assets/images/not-found.png')} style={styles.notfoundImage}/>
                         <Text style={styles.notfoundText}> 
-                            pas de rendez vous
+                            Rendez vous invalide
                      </Text>  
                 </View>
         )

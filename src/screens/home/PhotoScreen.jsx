@@ -226,7 +226,7 @@ export default function PhotoScreen() {
                                         </View>
                                 </TouchableNativeFeedback>
                                 <Text style={styles.titleHistorique}>
-                                        Details pour les prises de rendez vous
+                                Rendez vous
                                 </Text>
                         </View>
                         <ScrollView keyboardShouldPersistTaps={"handled"}>
@@ -307,7 +307,7 @@ export default function PhotoScreen() {
 
                                 <View style={styles.cardPrincipal}>
                                         <View style={styles.titleDetails}>
-                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}>Details de l'utilisateur</Text>
+                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}>Utilisateur</Text>
                                         </View>
                                         <View style={styles.ligne}></View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>

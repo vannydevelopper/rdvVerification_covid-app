@@ -44,7 +44,7 @@ export default function HistoriqueScreen() {
                             <View style={{ marginBottom: 10 }}>
                                    {historiques.map((historique, index) => {
                                           return (
-                                                 <TouchableNativeFeedback key={index}>
+                                                 <TouchableNativeFeedback key={index} onPress={()=>navigation.navigate("Details", {donnees:historique})}>
                                                         <View style={styles.cardPrincipal}>
                                                                <View style={styles.cardPosition}>
                                                                       <View style={styles.cardImage}>
