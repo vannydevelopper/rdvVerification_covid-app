@@ -20,6 +20,7 @@ export default function HistoriqueScreen() {
        const navigation = useNavigation()
        const [historiques, setHistoriques] = useState([])
        const [loading, setLoading] = useState(false)
+       const [seach, setSearch] = useState('')
 
        const fetchHistoriques = async () => {
               setLoading(true)
@@ -54,6 +55,8 @@ export default function HistoriqueScreen() {
                                    size='md'
                                    borderRadius={10}
                                    backgroundColor={"#fff"}
+                                   onChangeText={t => setSearch(t)}
+                                   value={seach}
                                    InputLeftElement={
                                           <Icon
                                                  as={<EvilIcons name="search" size={20} color="black" />}
