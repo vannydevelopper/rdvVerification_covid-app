@@ -307,7 +307,7 @@ export default function PhotoScreen() {
 
                                 <View style={styles.cardPrincipal}>
                                         <View style={styles.titleDetails}>
-                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}>Utilisateur</Text>
+                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}>Voyageur</Text>
                                         </View>
                                         <View style={styles.ligne}></View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
@@ -385,8 +385,8 @@ export default function PhotoScreen() {
                                 </View>
                                 <View style={{ flexDirection: "row" }}>
                                         <View>
-                                                <Text style={{ paddingHorizontal: 60, color: '#777', fontWeight: 'bold', marginTop: 10 }}>
-                                                        Passport
+                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign:"center" }}>
+                                                        Photo du voyageur
                                                 </Text>
                                                 <View style={styles.addImageContainer}>
                                                         {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
@@ -406,8 +406,8 @@ export default function PhotoScreen() {
                                         </View>
 
                                         {!donnees.payement && <View>
-                                                <Text style={{ paddingHorizontal: 50, color: '#777', fontWeight: 'bold', marginTop: 10 }}>
-                                                        Bordereaux
+                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign:"center" }}>
+                                                        Photo Bordereau
                                                 </Text>
                                                 <View style={styles.addImageContainer}>
                                                         {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>

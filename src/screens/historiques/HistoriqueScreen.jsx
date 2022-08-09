@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ImageBackground, ScrollView, ActivityIndicator, StyleSheet, Image, Text, TouchableNativeFeedback, View } from "react-native";
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { MaterialIcons, Entypo, EvilIcons } from '@expo/vector-icons';
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import fetchApi from "../../helpers/fetchApi";
 import moment from 'moment'
+import { Input, Icon } from "native-base";
 moment.updateLocale('fr', {
        calendar: {
               sameDay: "[Aujourd'hui]",
@@ -46,6 +47,23 @@ export default function HistoriqueScreen() {
                      <ActivityIndicator animating={true} size="large" color={"black"} />
               </View> :
               <View>
+                     <View style={styles.rechercheCard}>
+                            <Text style={{fontSize:18, fontWeight:"bold", marginTop: 3, color:"#F58424"}}>Historique</Text>
+                            <Input
+                                   placeholder="recherche"
+                                   size='md'
+                                   borderRadius={10}
+                                   backgroundColor={"#fff"}
+                                   InputLeftElement={
+                                          <Icon
+                                                 as={<EvilIcons name="search" size={20} color="black" />}
+                                                 size={8}
+                                                 ml="2"
+                                                 color="muted.400"
+                                          />
+                                   }
+                            />
+                     </View>
                      <ScrollView keyboardShouldPersistTaps="handled">
                             <View style={{ marginBottom: 10 }}>
                                    {historiques.map((historique, index) => {
@@ -159,8 +177,9 @@ const styles = StyleSheet.create({
        dateCard: {
               // fontSize:12,
               backgroundColor: "#777",
-              minWidth: "45%",
-              borderRadius: 10,
+              //minWidth: "45%",
+              padding: 5,
+              borderRadius: 5,
               justifyContent: "center",
               alignItems: "center",
               marginTop: 8
@@ -170,6 +189,9 @@ const styles = StyleSheet.create({
               borderRadius: 90
 
        },
+       rechercheCard:{
+              marginHorizontal:20
+       }
 
 
 })
