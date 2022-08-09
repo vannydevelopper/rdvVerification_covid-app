@@ -18,7 +18,7 @@ export default function HomeScreen() {
                         </View>
 
                         <View style={styles.footer}>
-                                <Text style={styles.textQrcode}>Scaner le Qr Code du Certidicat</Text>
+                                <Text style={styles.textQrcode}>Scaner le Qr Code du Certificat</Text>
                         </View>
                         <Button
                                 borderRadius={15}

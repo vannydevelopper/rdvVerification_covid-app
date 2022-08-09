@@ -226,7 +226,7 @@ export default function PhotoScreen() {
                                         </View>
                                 </TouchableNativeFeedback>
                                 <Text style={styles.titleHistorique}>
-                                Rendez vous
+                                        Rendez vous
                                 </Text>
                         </View>
                         <ScrollView keyboardShouldPersistTaps={"handled"}>
@@ -386,7 +386,7 @@ export default function PhotoScreen() {
                                 <View style={{ flexDirection: "row" }}>
                                         <View>
                                                 <Text style={{ paddingHorizontal: 60, color: '#777', fontWeight: 'bold', marginTop: 10 }}>
-                                                        images
+                                                        Passport
                                                 </Text>
                                                 <View style={styles.addImageContainer}>
                                                         {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>

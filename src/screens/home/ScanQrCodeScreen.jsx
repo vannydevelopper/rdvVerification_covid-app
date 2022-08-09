@@ -23,7 +23,7 @@ export default function ScanQrCodeScreen() {
 
        const handleBarCodeScanned = async ({ type, data }) => {
               setScanned(true);
-              // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+              //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
               // console.log(type)
               if (type == 256) {
                      var url = data

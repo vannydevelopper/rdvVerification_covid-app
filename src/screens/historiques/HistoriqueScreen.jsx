@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ImageBackground, ScrollView, StyleSheet,Image, Text, TouchableNativeFeedback, View } from "react-native";
+import { ImageBackground, ScrollView, ActivityIndicator, StyleSheet, Image, Text, TouchableNativeFeedback, View } from "react-native";
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import fetchApi from "../../helpers/fetchApi";
@@ -18,33 +18,39 @@ moment.updateLocale('fr', {
 export default function HistoriqueScreen() {
        const navigation = useNavigation()
        const [historiques, setHistoriques] = useState([])
+       const [loading, setLoading] = useState(false)
 
        const fetchHistoriques = async () => {
+              setLoading(true)
               try {
                      const histo = await fetchApi("/historique/afficher", {
                             method: "GET",
                             headers: { "Content-Type": "application/json" }
                      })
                      setHistoriques(histo)
-                     console.log(histo)
+                     // console.log(histo)
               }
 
               catch (error) {
                      console.log(error)
               }
+              setLoading(false)
        }
 
        useFocusEffect(useCallback(() => {
               fetchHistoriques()
        }, []))
 
-       return (
+       return (loading ?
+              <View style={{ flex: 1, justifyContent: 'center' }}>
+                     <ActivityIndicator animating={true} size="large" color={"black"} />
+              </View> :
               <View>
                      <ScrollView keyboardShouldPersistTaps="handled">
                             <View style={{ marginBottom: 10 }}>
                                    {historiques.map((historique, index) => {
                                           return (
-                                                 <TouchableNativeFeedback key={index} onPress={()=>navigation.navigate("Details", {donnees:historique})}>
+                                                 <TouchableNativeFeedback key={index} onPress={() => navigation.navigate("Details", { donnees: historique })}>
                                                         <View style={styles.cardPrincipal}>
                                                                <View style={styles.cardPosition}>
                                                                       <View style={styles.cardImage}>
@@ -54,7 +60,7 @@ export default function HistoriqueScreen() {
                                                                              <View style={styles.CardItems}>
                                                                                     <View style={{ flexDirection: "row" }}>
                                                                                            <Text style={styles.itemTitle} numberOfLines={2}>{historique.NOM}  {historique.PRENOM}</Text>
-                                                                                    </View>  
+                                                                                    </View>
                                                                              </View>
                                                                              <Text style={styles.itemDescription}>{historique.EMAIL}</Text>
                                                                              <Text style={styles.itemDescription1}>{historique.TELEPHONE}</Text>
@@ -161,9 +167,9 @@ const styles = StyleSheet.create({
        },
        DetaImage: {
               height: 70,
-              borderRadius:90
+              borderRadius: 90
 
-          },
+       },
 
 
 })

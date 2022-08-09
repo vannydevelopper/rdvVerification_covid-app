@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useCallback, useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Image, Text, View, Modal, TouchableNativeFeedback, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Image, Text, View, Modal, ActivityIndicator, TouchableNativeFeedback, TouchableOpacity } from "react-native";
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment'
@@ -20,12 +20,16 @@ export default function HistoriqueDetailSCreen() {
         const { donnees } = route.params
         const [showImageModal, setShowImageModal] = useState(false)
         const [imageIndex, setImageIndex] = useState(0)
-        console.log(donnees)
+        const [loading, setLoading] = useState(false)
+        // console.log(donnees)
 
         var imageUrls = []
         if (donnees.PHOTO_PRS) imageUrls.push(donnees.PHOTO_PRS)
         if (donnees.PHOTO_BRD) imageUrls.push(donnees.PHOTO_BRD)
-        return (
+        return (loading ?
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                              <ActivityIndicator animating={true} size="large" color={"black"} />
+                    </View> :
                 <>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>

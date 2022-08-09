@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUserAction } from "./store/actions/userActions";
 import { userSelector } from "./store/selectors/userSelector";
+import { ActivityIndicator, View } from "react-native";
 const Stack = createNativeStackNavigator()
 
 export default function AppContainer(){
@@ -22,7 +23,11 @@ export default function AppContainer(){
                 }) ()
          },[dispatch])
 
-        return(
+        return(userLoading ?
+                <View style={{ flex: 1, alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                                        <ActivityIndicator color="#007BFF" animating={userLoading} size='large' />
+                              </View> :
+                <>
                 <NavigationContainer>
                         <Stack.Navigator>
                                 { !user?
@@ -31,5 +36,6 @@ export default function AppContainer(){
                                 }
                         </Stack.Navigator>
                 </NavigationContainer>
+                </>
         )
 }
