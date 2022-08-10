@@ -8,7 +8,6 @@ export default function NotFoundScreen(){
         const navigation = useNavigation()
         const route = useRoute()
         const {donnees} = route.params
-        console.log(donnees)
         return(
                 <>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
