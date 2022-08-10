@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/mbx_logo.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.azosenga.rdvVerificationcovidapp"
     },
     "web": {
       "favicon": "./assets/mbx_logo.png"
