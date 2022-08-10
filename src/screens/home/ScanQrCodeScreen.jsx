@@ -23,19 +23,19 @@ export default function ScanQrCodeScreen() {
 
        const handleBarCodeScanned = async ({ type, data }) => {
               setScanned(true);
-              //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+              alert(`Bar code with type ${type} and data ${data} has been scanned!`);
               // console.log(type)
               if (type == 256) {
                      var url = data
                      var divise = url.split("/")
                      var idPrindipal = divise[divise.length - 1]
-                     //console.log(idPrindipal)
-                     if(!idPrindipal){
+                     console.log(idPrindipal)
+                     if(!idPrindipal || isNaN(idPrindipal)){
                             setErrors("Qr code invalide")
                             //const message = "Qr code invalide"
                             // Alert.alert(errors)  
                             navigation.goBack()
-                            navigation.navigate("Not") 
+                            return navigation.navigate("Not",{donnees: "Qr code invalide"}) 
                      }
                     
                      try {
@@ -43,7 +43,7 @@ export default function ScanQrCodeScreen() {
                                    method: 'GET',
                                    headers: { "Content-Type": "application/json" },
                             })
-                            //console.log(fetchScan)
+                            console.log(fetchScan)
                             navigation.goBack()
                             navigation.navigate('Photo', { donnees: fetchScan,ID_RDV: idPrindipal})
                      }

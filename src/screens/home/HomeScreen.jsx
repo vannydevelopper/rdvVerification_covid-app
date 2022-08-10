@@ -32,7 +32,7 @@ export default function HomeScreen() {
                                                 as={<Icon as={AntDesign} name="scan1" size={'sm'} color="#fff" />}
                                                 size={8}
                                                 ml="2"
-                                                color="#369c69"
+                                                color="#fff"
                                                 fontWeight={"bold"}
                                         />
                                 }
