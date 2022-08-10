@@ -20,7 +20,7 @@ export default function HistoriqueScreen() {
        const navigation = useNavigation()
        const [historiques, setHistoriques] = useState([])
        const [loading, setLoading] = useState(false)
-       const [seach, setSearch] = useState('')
+       const [q, setQn] = useState('')
 
        const fetchHistoriques = async () => {
               setLoading(true)
@@ -30,7 +30,7 @@ export default function HistoriqueScreen() {
                             headers: { "Content-Type": "application/json" }
                      })
                      setHistoriques(histo)
-                     // console.log(histo)
+                     //console.log(histo)
               }
 
               catch (error) {
@@ -39,24 +39,32 @@ export default function HistoriqueScreen() {
               setLoading(false)
        }
 
-       useFocusEffect(useCallback(() => {
-              fetchHistoriques()
-       }, []))
+       // useEffect(() => {
+             
+       // }, [q])
 
-       return (loading ?
-              <View style={{ flex: 1, justifyContent: 'center' }}>
-                     <ActivityIndicator animating={true} size="large" color={"black"} />
-              </View> :
-              <View>
+       useFocusEffect(useCallback(() => {
+              (async () => {
+                     fetchHistoriques()
+                     if (q != '') {
+                            const histo = await fetchApi(`/historique/afficher?limit=20&q=${q}`)
+                            setHistoriques(histo)
+                     }
+                     setLoading(false)
+              })()
+       }, [q]))
+
+       return (
+              <>
                      <View style={styles.rechercheCard}>
-                            <Text style={{fontSize:18, fontWeight:"bold", marginTop: 3, color:"#F58424"}}>Historique</Text>
+                            <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 3, color: "#F58424" }}>Historique</Text>
                             <Input
                                    placeholder="recherche"
                                    size='md'
                                    borderRadius={10}
                                    backgroundColor={"#fff"}
-                                   onChangeText={t => setSearch(t)}
-                                   value={seach}
+                                   onChangeText={t => setQn(t)}
+                                   value={q}
                                    InputLeftElement={
                                           <Icon
                                                  as={<EvilIcons name="search" size={20} color="black" />}
@@ -67,51 +75,58 @@ export default function HistoriqueScreen() {
                                    }
                             />
                      </View>
-                     <ScrollView keyboardShouldPersistTaps="handled">
-                            <View style={{ marginBottom: 10 }}>
-                                   {historiques.map((historique, index) => {
-                                          return (
-                                                 <TouchableNativeFeedback key={index} onPress={() => navigation.navigate("Details", { donnees: historique })}>
-                                                        <View style={styles.cardPrincipal}>
-                                                               <View style={styles.cardPosition}>
-                                                                      <View style={styles.cardImage}>
-                                                                             <MaterialIcons name="qr-code-scanner" size={24} color="#F58424" />
-                                                                      </View>
-                                                                      <View style={styles.cardDescripetion}>
-                                                                             <View style={styles.CardItems}>
-                                                                                    <View style={{ flexDirection: "row" }}>
-                                                                                           <Text style={styles.itemTitle} numberOfLines={2}>{historique.NOM}  {historique.PRENOM}</Text>
+
+                     {loading ?
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                   <ActivityIndicator animating={true} size="large" color={"black"} />
+                            </View> :
+                            <View>
+                                   <ScrollView keyboardShouldPersistTaps="handled">
+                                          <View style={{marginBottom:80}}>
+                                                 {historiques.map((historique, index) => {
+                                                        return (
+                                                               <TouchableNativeFeedback key={index} onPress={() => navigation.navigate("Details", { donnees: historique })}>
+                                                                      <View style={styles.cardPrincipal}>
+                                                                             <View style={styles.cardPosition}>
+                                                                                    <View style={styles.cardImage}>
+                                                                                           <MaterialIcons name="qr-code-scanner" size={24} color="#F58424" />
+                                                                                    </View>
+                                                                                    <View style={styles.cardDescripetion}>
+                                                                                           <View style={styles.CardItems}>
+                                                                                                  <View style={{ flexDirection: "row" }}>
+                                                                                                         <Text style={styles.itemTitle} numberOfLines={2}>{historique.NOM}  {historique.PRENOM}</Text>
+                                                                                                  </View>
+                                                                                           </View>
+                                                                                           <Text style={styles.itemDescription}>{historique.EMAIL}</Text>
+                                                                                           <Text style={styles.itemDescription1}>{historique.TELEPHONE}</Text>
+                                                                                           {/* {historique.PHOTO_BRD != null && <Image source={{ uri: historique.PHOTO_BRD }} style={styles.DetaImage} />}
+                                                                             {historique.PHOTO_PRS != null && <Image source={{ uri: historique.PHOTO_PRS }} style={styles.DetaImage} />} */}
                                                                                     </View>
                                                                              </View>
-                                                                             <Text style={styles.itemDescription}>{historique.EMAIL}</Text>
-                                                                             <Text style={styles.itemDescription1}>{historique.TELEPHONE}</Text>
-                                                                             {/* {historique.PHOTO_BRD != null && <Image source={{ uri: historique.PHOTO_BRD }} style={styles.DetaImage} />}
-                                                                             {historique.PHOTO_PRS != null && <Image source={{ uri: historique.PHOTO_PRS }} style={styles.DetaImage} />} */}
+                                                                             <View style={styles.ligne}></View>
+                                                                             <View style={{ flexDirection: "row", justifyContent: "flex-end", marginTop: 5 }}>
+                                                                                    <View ></View>
+                                                                                    <View style={styles.dateCard}>
+                                                                                           <Text style={styles.itemDebut}>
+                                                                                                  {moment(historique.DATE).calendar(null, {
+                                                                                                         sameDay: `[Aujourd'hui]`,
+                                                                                                         lastDay: `[Hier]`,
+                                                                                                         nextDay: 'DD-M-YYYY',
+                                                                                                         lastWeek: 'DD-M-YYYY',
+                                                                                                         sameElse: 'DD-M-YYYY',
+                                                                                                  })}
+                                                                                                  {moment(historique.DATE).format('  HH:mm')}
+                                                                                           </Text>
+                                                                                    </View>
+                                                                             </View>
                                                                       </View>
-                                                               </View>
-                                                               <View style={styles.ligne}></View>
-                                                               <View style={{ flexDirection: "row", justifyContent: "flex-end", marginTop: 5 }}>
-                                                                      <View ></View>
-                                                                      <View style={styles.dateCard}>
-                                                                             <Text style={styles.itemDebut}>
-                                                                                    {moment(historique.DATE).calendar(null, {
-                                                                                           sameDay: `[Aujourd'hui]`,
-                                                                                           lastDay: `[Hier]`,
-                                                                                           nextDay: 'DD-M-YYYY',
-                                                                                           lastWeek: 'DD-M-YYYY',
-                                                                                           sameElse: 'DD-M-YYYY',
-                                                                                    })}
-                                                                                    {moment(historique.DATE).format('  HH:mm')}
-                                                                             </Text>
-                                                                      </View>
-                                                               </View>
-                                                        </View>
-                                                 </TouchableNativeFeedback>
-                                          )
-                                   })}
-                            </View>
-                     </ScrollView>
-              </View>
+                                                               </TouchableNativeFeedback>
+                                                        )
+                                                 })}
+                                          </View>
+                                   </ScrollView>
+                            </View>}
+              </>
        )
 }
 
@@ -135,8 +150,8 @@ const styles = StyleSheet.create({
               elevation: 8,
               borderWidth: 2,
               borderColor: "#fff",
-              marginTop: 10,
-              marginBottom: 10
+              marginTop: 5,
+              //marginBottom: 20
        },
        cardImage: {
               width: 50,
@@ -192,8 +207,8 @@ const styles = StyleSheet.create({
               borderRadius: 90
 
        },
-       rechercheCard:{
-              marginHorizontal:20
+       rechercheCard: {
+              marginHorizontal: 20
        }
 
 
