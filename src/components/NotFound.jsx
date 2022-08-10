@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet, Text, Image, View } from "react-native";
 
 export default function NotFound(){
-        return(
+        return(<>
                 <View style={styles.notfoundContainer}>
                         <Image source={require('../../assets/images/not-found.png')} style={styles.notfoundImage}/>
-                        <Text style={styles.notfoundText}> 
-                            Rendez vous invalide
-                     </Text>  
+                        
                 </View>
+                <Text style={styles.textNotfound}>Pas d'historiques</Text>
+                </>
         )
 }
 
@@ -17,19 +17,21 @@ const styles = StyleSheet.create({
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginBottom: 95
+                //marginBottom: 95
+                marginVertical:180
          },
          notfoundImage: {
-                width: "40%",
-                height: "40%",
+                width: 170,
+                height: 170,
                 opacity: 0.6
          },
-         notfoundText: {
-                marginTop: 20,
+         textNotfound:{
+                marginTop: -70,
                 fontWeight: 'bold',
                 opacity: 0.6,
                 fontSize: 16,
                 textAlign: 'center',
-                paddingHorizontal: 20
+                paddingHorizontal: 20   
          }
+       
 })

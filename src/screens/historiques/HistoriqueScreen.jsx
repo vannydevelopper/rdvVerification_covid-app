@@ -5,6 +5,8 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import fetchApi from "../../helpers/fetchApi";
 import moment from 'moment'
 import { Input, Icon } from "native-base";
+import NotHistory from "../../components/NotHistory";
+import NotFound from "../../components/NotFound";
 moment.updateLocale('fr', {
        calendar: {
               sameDay: "[Aujourd'hui]",
@@ -74,6 +76,7 @@ export default function HistoriqueScreen() {
                                    <ActivityIndicator animating={true} size="large" color={"black"} />
                             </View> :
                             <View>
+                                  {historiques.length == 0 ? <NotFound style={{marginTop:10}}/> :
                                    <ScrollView keyboardShouldPersistTaps="handled">
                                           <View style={{marginBottom:80}}>
                                                  {historiques.map((historique, index) => {
@@ -117,7 +120,7 @@ export default function HistoriqueScreen() {
                                                         )
                                                  })}
                                           </View>
-                                   </ScrollView>
+                                   </ScrollView>}
                             </View>}
               </>
        )

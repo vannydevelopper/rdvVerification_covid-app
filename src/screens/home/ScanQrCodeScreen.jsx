@@ -29,7 +29,7 @@ export default function ScanQrCodeScreen() {
                      var url = data
                      var divise = url.split("/")
                      var idPrindipal = divise[divise.length - 1]
-                     console.log(idPrindipal)
+                     //console.log(idPrindipal)
                      if(!idPrindipal || isNaN(idPrindipal)){
                             setErrors("Qr code invalide")
                             //const message = "Qr code invalide"
@@ -43,7 +43,7 @@ export default function ScanQrCodeScreen() {
                                    method: 'GET',
                                    headers: { "Content-Type": "application/json" },
                             })
-                            console.log(fetchScan)
+                            //console.log(fetchScan)
                             navigation.goBack()
                             navigation.navigate('Photo', { donnees: fetchScan,ID_RDV: idPrindipal})
                      }
