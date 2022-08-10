@@ -49,11 +49,12 @@ export default function ScanQrCodeScreen() {
                      }
                      catch (error) {
                             console.log(error)
-                            setErrors("Qr code invalide")
-                            const message = error.message || "Qr code invalide"
-                            // Alert.alert(message)
-                            navigation.goBack()
-                            navigation.navigate("Not")
+                            //setErrors("Qr code invalide")
+                            //Alert.alert(error.type)
+                            if(error.message){
+                                   navigation.goBack()
+                                   navigation.navigate("Not", {donnees: error.message})
+                            }    
                      }
               }
               else {

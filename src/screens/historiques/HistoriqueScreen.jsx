@@ -25,7 +25,11 @@ export default function HistoriqueScreen() {
        const fetchHistoriques = async () => {
               setLoading(true)
               try {
-                     const histo = await fetchApi("/historique/afficher", {
+                     var url = "/historique/afficher?limit=20"
+                     if (q != '') {
+                            url = `/historique/afficher?limit=20&q=${q}`
+                     }
+                     const histo = await fetchApi(url, {
                             method: "GET",
                             headers: { "Content-Type": "application/json" }
                      })
@@ -39,19 +43,8 @@ export default function HistoriqueScreen() {
               setLoading(false)
        }
 
-       // useEffect(() => {
-             
-       // }, [q])
-
        useFocusEffect(useCallback(() => {
-              (async () => {
                      fetchHistoriques()
-                     if (q != '') {
-                            const histo = await fetchApi(`/historique/afficher?limit=20&q=${q}`)
-                            setHistoriques(histo)
-                     }
-                     setLoading(false)
-              })()
        }, [q]))
 
        return (
