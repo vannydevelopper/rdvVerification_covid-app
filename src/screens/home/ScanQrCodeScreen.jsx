@@ -30,7 +30,14 @@ export default function ScanQrCodeScreen() {
                      var divise = url.split("/")
                      var idPrindipal = divise[divise.length - 1]
                      //console.log(idPrindipal)
-                     if(!idPrindipal || isNaN(idPrindipal)){
+                     // if(!idPrindipal || isNaN(idPrindipal)){
+                     //        setErrors("Qr code invalide")
+                     //        //const message = "Qr code invalide"
+                     //        // Alert.alert(errors)  
+                     //        navigation.goBack()
+                     //        return navigation.navigate("Not",{donnees: "Qr code invalide"}) 
+                     // }
+                     if(!idPrindipal){
                             setErrors("Qr code invalide")
                             //const message = "Qr code invalide"
                             // Alert.alert(errors)  
