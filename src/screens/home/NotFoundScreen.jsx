@@ -17,7 +17,7 @@ export default function NotFoundScreen(){
                                         </View>
                                 </TouchableNativeFeedback>
                                 <Text style={styles.titleHistorique}>
-                                        Pas de rendez vous
+                                        Rendez vous
                                 </Text>
                         </View>
                 <View style={styles.notfoundContainer}>
