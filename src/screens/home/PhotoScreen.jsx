@@ -111,9 +111,9 @@ export default function PhotoScreen() {
                         const manipResult = await manipulateAsync(
                                 imagebordereaux.uri,
                                 [
-                                        // { resize: { width: 300 } }
+                                        { resize: { width: 300 } }
                                 ],
-                                { compress: 0.7, format: SaveFormat.JPEG }
+                                { compress: 0.3, format: SaveFormat.JPEG }
                         );
                         let localUri = manipResult.uri;
                         let filename = localUri.split('/').pop();
@@ -129,9 +129,9 @@ export default function PhotoScreen() {
                         const manipResult = await manipulateAsync(
                                 imagepassport.uri,
                                 [
-                                        // { resize: { width: 300 } }
+                                        { resize: { width: 300 } }
                                 ],
-                                { compress: 0.7, format: SaveFormat.JPEG }
+                                { compress: 0.3, format: SaveFormat.JPEG }
                         );
                         let localUri = manipResult.uri;
                         let filename = localUri.split('/').pop();

@@ -184,16 +184,16 @@ const styles = StyleSheet.create({
               borderTopColor: "#F58424"
        },
        itemDebut: {
-              fontSize: 12,
-              color: "#fff",
+              fontSize: 9,
+              color: "#000",
               // fontWeight:"bold",
        },
        dateCard: {
               // fontSize:12,
-              backgroundColor: "#777",
+              backgroundColor: "#ddd",
               //minWidth: "45%",
-              padding: 5,
-              borderRadius: 5,
+              padding: 3,
+              borderRadius: 3,
               justifyContent: "center",
               alignItems: "center",
               marginTop: 8
