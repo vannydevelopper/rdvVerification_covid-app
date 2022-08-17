@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, StyleSheet, useWindowDimensions, TouchableOpacity, ScrollView, ImageBackground, TouchableNativeFeedback, Image, TouchableWithoutFeedback, ActivityIndicator, BackHandler } from 'react-native'
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialIcons, Ionicons, FontAwesome5, AntDesign, FontAwesome, Entypo, Foundation } from '@expo/vector-icons';
-import { Button, Icon, Input, useToast } from 'native-base';
+import { Button, Center, Icon, Input, useToast } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Location from 'expo-location'
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
@@ -391,7 +391,9 @@ export default function PhotoScreen() {
                                                 </View>
                                         </View>
                                 </View>
-                                <View style={{ flexDirection: "row" }}>
+
+                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days'))?
+                                        <View style={{ flexDirection: "row" }}>
                                         <View>
                                                 <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
                                                         Photo du voyageur
@@ -433,9 +435,15 @@ export default function PhotoScreen() {
 
                                                 </View>
                                         </View>}
+                                </View>:
+                                <View >
+                                   <Text style={{color:"red", textAlign: "center"}}>La date du rendez vous ne corresponde pas{'\n'}  à  la date de demande 
+                                   du rendez vous Veillez{'\n'} Verifier la date exacte de demmande du rendez vous</Text>
                                 </View>
+                                }
                         </ScrollView>
-                        <Button
+                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days'))&&
+                                <Button
                                 borderRadius={15}
                                 isDisabled={imagepassport == null}
                                 isLoading={isLoading}
@@ -447,7 +455,7 @@ export default function PhotoScreen() {
                                 _text={{ color: '#fff', fontWeight: 'bold' }}
                         >
                                 Enregistrer
-                        </Button>
+                        </Button>}
                 </>
         )
 }
