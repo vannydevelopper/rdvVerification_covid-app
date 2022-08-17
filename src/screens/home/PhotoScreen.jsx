@@ -36,6 +36,10 @@ export default function PhotoScreen() {
         const user = useSelector(userSelector)
         //console.log(user)
 
+        let today = new Date();
+        let datenow = moment(today).calendar(null, {})
+        let date1 = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+
         const askLocationPermission = async () => {
                 let {
                         status: locationStatus,
@@ -230,7 +234,7 @@ export default function PhotoScreen() {
                                                 <Ionicons name="arrow-back-outline" size={24} color="#000" />
                                         </View>
                                 </TouchableNativeFeedback>
-                                <View style={{justifyContent:"center"}}>
+                                <View style={{ justifyContent: "center" }}>
                                         <Text style={styles.titleHistorique}>
                                                 Rendez vous
                                         </Text>
@@ -392,70 +396,89 @@ export default function PhotoScreen() {
                                         </View>
                                 </View>
 
-                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days'))?
+                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) ?
                                         <View style={{ flexDirection: "row" }}>
-                                        <View>
-                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
-                                                        Photo du voyageur
-                                                </Text>
-                                                <View style={styles.addImageContainer}>
-                                                        {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
-                                                                <View style={{ ...styles.addImage }}>
-                                                                        <Image source={require('../../../assets/images/picture.png')} style={{ width: '50%', height: '50%' }} />
-                                                                </View>
-                                                        </TouchableWithoutFeedback> :
-
-                                                                <TouchableWithoutFeedback onPress={onTakePictureSelect}>
-                                                                        <View style={{ ...styles.addImage, borderWidth: 0 }} >
-                                                                                <Image source={{ uri: imagepassport.uri }} style={{ width: '100%', height: '100%', borderRadius: 5 }} />
+                                                <View>
+                                                        <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
+                                                                Photo du voyageur
+                                                        </Text>
+                                                        <View style={styles.addImageContainer}>
+                                                                {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
+                                                                        <View style={{ ...styles.addImage }}>
+                                                                                <Image source={require('../../../assets/images/picture.png')} style={{ width: '50%', height: '50%' }} />
                                                                         </View>
-                                                                </TouchableWithoutFeedback>}
+                                                                </TouchableWithoutFeedback> :
+
+                                                                        <TouchableWithoutFeedback onPress={onTakePictureSelect}>
+                                                                                <View style={{ ...styles.addImage, borderWidth: 0 }} >
+                                                                                        <Image source={{ uri: imagepassport.uri }} style={{ width: '100%', height: '100%', borderRadius: 5 }} />
+                                                                                </View>
+                                                                        </TouchableWithoutFeedback>}
 
 
+                                                        </View>
+                                                </View>
+
+                                                {!donnees.payement && <View>
+                                                        <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
+                                                                Photo Bordereau
+                                                        </Text>
+                                                        <View style={styles.addImageContainer}>
+                                                                {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
+                                                                        <View style={{ ...styles.addImage }}>
+                                                                                <Image source={require('../../../assets/images/picture.png')} style={{ width: '50%', height: '50%' }} />
+                                                                        </View>
+                                                                </TouchableWithoutFeedback> :
+
+                                                                        <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
+                                                                                <View style={{ ...styles.addImage, borderWidth: 0 }} >
+                                                                                        <Image source={{ uri: imagebordereaux.uri }} style={{ width: '100%', height: '100%', borderRadius: 5 }} />
+                                                                                </View>
+                                                                        </TouchableWithoutFeedback>}
+
+
+                                                        </View>
+                                                </View>}
+                                        </View> :
+                                        <View style={styles.errorCard}>
+                                                <View style={{ flexDirection: "row", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
+                                                        <View style={{ ...styles.addImage2 }}>
+                                                                <Image source={require('../../../assets/images/errorImages.png')} style={{ width: '70%', height: '70%' }} />
+                                                        </View>
+                                                        <View style={{ marginLeft: 10 }}>
+                                                                <Text style={{
+                                                                        color: 'red', fontSize: 15,
+                                                                        fontWeight: 'bold', textAlign: 'center'
+                                                                }}>ATTENTION!!!!</Text>
+                                                                <Text style={{ color: 'red' }}> Votre date de demamde de {"\n"} rendez-vous ({moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                        {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}) {"\n"}
+                                                                        ne correspond  pas à la date {"\n"} d'{datenow} le {date1}
+                                                                </Text>
+                                                        </View>
                                                 </View>
                                         </View>
-
-                                        {!donnees.payement && <View>
-                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
-                                                        Photo Bordereau
-                                                </Text>
-                                                <View style={styles.addImageContainer}>
-                                                        {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
-                                                                <View style={{ ...styles.addImage }}>
-                                                                        <Image source={require('../../../assets/images/picture.png')} style={{ width: '50%', height: '50%' }} />
-                                                                </View>
-                                                        </TouchableWithoutFeedback> :
-
-                                                                <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
-                                                                        <View style={{ ...styles.addImage, borderWidth: 0 }} >
-                                                                                <Image source={{ uri: imagebordereaux.uri }} style={{ width: '100%', height: '100%', borderRadius: 5 }} />
-                                                                        </View>
-                                                                </TouchableWithoutFeedback>}
-
-
-                                                </View>
-                                        </View>}
-                                </View>:
-                                <View >
-                                   <Text style={{color:"red", textAlign: "center"}}>La date du rendez vous ne corresponde pas{'\n'}  à  la date de demande 
-                                   du rendez vous Veillez{'\n'} Verifier la date exacte de demmande du rendez vous</Text>
-                                </View>
                                 }
                         </ScrollView>
-                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days'))&&
+                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) &&
                                 <Button
-                                borderRadius={15}
-                                isDisabled={imagepassport == null}
-                                isLoading={isLoading}
-                                onPress={sendData}
-                                marginHorizontal={20}
-                                mt={5}
-                                backgroundColor={"#F58424"}
-                                py={3.5}
-                                _text={{ color: '#fff', fontWeight: 'bold' }}
-                        >
-                                Enregistrer
-                        </Button>}
+                                        borderRadius={15}
+                                        isDisabled={imagepassport == null}
+                                        isLoading={isLoading}
+                                        onPress={sendData}
+                                        marginHorizontal={20}
+                                        mt={5}
+                                        backgroundColor={"#F58424"}
+                                        py={3.5}
+                                        _text={{ color: '#fff', fontWeight: 'bold' }}
+                                >
+                                        Enregistrer
+                                </Button>}
                 </>
         )
 }
@@ -539,6 +562,26 @@ const styles = StyleSheet.create({
                 fontSize: 12,
                 marginHorizontal: 10
         },
+        errorCard: {
+                marginHorizontal: 20,
+                padding: 10,
+                backgroundColor: "#fff",
+                borderRadius: 10,
+                elevation: 8,
+                borderWidth: 2,
+                borderColor: "#fff",
+                marginTop: 10,
+                marginBottom: 10
+        },
+        addImage2: {
+                width: 60,
+                height: 60,
+                borderRadius: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderColor: '#777',
+                borderWidth: 1
+        }
 
 
 })
