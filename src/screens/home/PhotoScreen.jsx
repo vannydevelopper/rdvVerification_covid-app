@@ -11,6 +11,8 @@ import moment from 'moment'
 import { userSelector } from '../../store/selectors/userSelector';
 import { useDispatch, useSelector } from "react-redux";
 import * as Device from 'expo-device';
+import { Fontisto } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 moment.updateLocale('fr', {
         calendar: {
                 sameDay: "[Aujourd'hui]",
@@ -232,7 +234,7 @@ export default function PhotoScreen() {
 
         return (
                 <>
-                        <View style={{ flexDirection: "row", paddingHorizontal: 20, }}>
+                        <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
                                         <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#F58424' }}>
                                                 <Ionicons name="arrow-back-outline" size={24} color="#000" />
@@ -263,7 +265,50 @@ export default function PhotoScreen() {
                                                         <Text style={styles.titleResponse}>{donnees.requerantRDV.NOM}  {donnees.requerantRDV.PRENOM}</Text>
                                                 </View>
                                         </View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                <MaterialCommunityIcons name="ski-cross-country" size={24} color="#F58424" />
 
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Nationalite</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.CommonName}</Text>
+                                                </View>
+                                        </View>
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <Fontisto name="passport-alt" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Document</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.DOCUMENT_DESCR}</Text>
+                                                </View>
+                                        </View>
+
+                                        
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <AntDesign name="phone" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Téléphone</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.TELEPHONE}</Text>
+                                                </View>
+                                        </View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <Entypo name="mail" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Adresse Email</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.EMAIL}</Text>
+                                                </View>
+                                
+                                        </View>
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
@@ -285,27 +330,8 @@ export default function PhotoScreen() {
                                                 </View>
                                         </View>
 
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <Entypo name="mail" size={24} color="#F58424" />
+                                       
 
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Adresse Email</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.EMAIL}</Text>
-                                                </View>
-                                        </View>
-
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <AntDesign name="phone" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Numero de Téléphone</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.TELEPHONE}</Text>
-                                                </View>
-                                        </View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
                                                         <AntDesign name="calendar" size={24} color="#F58424" />
@@ -355,17 +381,7 @@ export default function PhotoScreen() {
                                                 </View>
 
                                         </View>
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <Entypo name="mail" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Adresse de Payement</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.payement.COMPTE_SIBLE}</Text>
-                                                </View>
-
-                                        </View>
+       
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
@@ -447,24 +463,18 @@ export default function PhotoScreen() {
                                                 </View>}
                                         </View> :
                                         <View style={styles.errorCard}>
-                                                <View style={{ flexDirection: "row", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
+                                                <View style={{ flexDirection: "row", alignItems: "center" }}>
                                                         <View style={{ ...styles.addImage2 }}>
-                                                                <Image source={require('../../../assets/images/errorImages.png')} style={{ width: '70%', height: '70%' }} />
+                                                                <Image source={require('../../../assets/images/errors.png')} style={{ width: '70%', height: '70%' }} />
                                                         </View>
-                                                        <View style={{ marginLeft: 10 }}>
+                                                        <View style={{ flex: 1 }}>
                                                                 <Text style={{
                                                                         color: 'red', fontSize: 15,
-                                                                        fontWeight: 'bold', textAlign: 'center'
+                                                                        fontWeight: 'bold', textAlign:'center'
                                                                 }}>ATTENTION!!!!</Text>
-                                                                <Text style={{ color: 'red' }}> Votre date de demamde de {"\n"} rendez-vous ({moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                        {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}) {"\n"}
-                                                                        ne correspond  pas à la date {"\n"} d'{datenow} le {date1}
+                                                                <Text style={{ color: 'red',textAlign:"center" }}>
+                                                                        Votre date de demamde de  rendez-vous ({moment(donnees.requerantRDV.DATE_RENDEVOUS).format('DD-M-YYYY')})
+                                                                        ne correspond  pas à la date d'aujourd'hui({moment().format('DD-M-YYYY')})
                                                                 </Text>
                                                         </View>
                                                 </View>
@@ -538,7 +548,8 @@ const styles = StyleSheet.create({
         },
         ligne: {
                 borderTopWidth: 1,
-                marginTop: 2,
+                
+                marginVertical:10,
                 borderTopColor: "#F58424"
         },
         titleDetails: {
@@ -565,7 +576,7 @@ const styles = StyleSheet.create({
         titleHistorique: {
                 fontWeight: "bold",
                 color: '#F58424',
-                fontSize: 12,
+                fontSize:20,
                 marginHorizontal: 10,
                 marginHorizontal: 70
         },
