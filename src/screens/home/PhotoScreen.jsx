@@ -228,20 +228,100 @@ export default function PhotoScreen() {
 
         return (
                 <>
-                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
+                        <View style={{ flexDirection: "row", paddingHorizontal: 20, }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
                                         <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#F58424' }}>
                                                 <Ionicons name="arrow-back-outline" size={24} color="#000" />
                                         </View>
                                 </TouchableNativeFeedback>
-                                <View style={{ justifyContent: "center" }}>
+                                <View style={{ justifyContent: "center", alignItems: "center", alignSelf: "center" }}>
                                         <Text style={styles.titleHistorique}>
-                                                Rendez vous
+                                                {user.user.USER_FNAME} {user.user.USER_LNAME}
                                         </Text>
                                 </View>
 
                         </View>
                         <ScrollView keyboardShouldPersistTaps={"handled"}>
+
+
+                                <View style={styles.cardPrincipal}>
+                                        <View style={styles.titleDetails}>
+                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}> Informations du voyageur</Text>
+                                        </View>
+                                        <View style={styles.ligne}></View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.NOM}  {donnees.requerantRDV.PRENOM}</Text>
+                                                </View>
+                                        </View>
+
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Date de Naissance</Text>
+                                                        <Text style={styles.titleResponse}>
+                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).format('  HH:mm')}
+                                                        </Text>
+                                                </View>
+                                        </View>
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <Entypo name="mail" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Adresse Email</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.EMAIL}</Text>
+                                                </View>
+                                        </View>
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <AntDesign name="phone" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Numero de Téléphone</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.TELEPHONE}</Text>
+                                                </View>
+                                        </View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Date de Rendez vous</Text>
+                                                        <Text style={styles.titleResponse}>
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}
+                                                        </Text>
+                                                </View>
+                                        </View>
+                                </View>
 
                                 {donnees.payement && <View style={styles.cardPrincipal}>
                                         <View style={styles.titleDetails}>
@@ -250,7 +330,7 @@ export default function PhotoScreen() {
                                         <View style={styles.ligne}></View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+                                                        <Entypo name="mail" size={24} color="#F58424" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -317,84 +397,6 @@ export default function PhotoScreen() {
                                         </View>
                                 </View>}
 
-                                <View style={styles.cardPrincipal}>
-                                        <View style={styles.titleDetails}>
-                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}>Voyageur</Text>
-                                        </View>
-                                        <View style={styles.ligne}></View>
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.NOM}  {donnees.requerantRDV.PRENOM}</Text>
-                                                </View>
-                                        </View>
-
-
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Date de Naissance</Text>
-                                                        <Text style={styles.titleResponse}>
-                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).format('  HH:mm')}
-                                                        </Text>
-                                                </View>
-                                        </View>
-
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Adresse Email</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.EMAIL}</Text>
-                                                </View>
-                                        </View>
-
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <AntDesign name="phone" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Numero de Téléphone</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.TELEPHONE}</Text>
-                                                </View>
-                                        </View>
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Date de Rendez vous</Text>
-                                                        <Text style={styles.titleResponse}>
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}
-                                                        </Text>
-                                                </View>
-                                        </View>
-                                </View>
 
                                 {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) ?
                                         <View style={{ flexDirection: "row" }}>
@@ -405,7 +407,7 @@ export default function PhotoScreen() {
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
                                                                         <View style={{ ...styles.addImage }}>
-                                                                                <Image source={require('../../../assets/images/picture.png')} style={{ width: '50%', height: '50%' }} />
+                                                                                <Image source={require('../../../assets/images/passportIcon.png')} style={{ width: '60%', height: '60%' }} />
                                                                         </View>
                                                                 </TouchableWithoutFeedback> :
 
@@ -426,7 +428,7 @@ export default function PhotoScreen() {
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
                                                                         <View style={{ ...styles.addImage }}>
-                                                                                <Image source={require('../../../assets/images/picture.png')} style={{ width: '50%', height: '50%' }} />
+                                                                                <Image source={require('../../../assets/images/documentIcon1.png')} style={{ width: '60%', height: '60%' }} />
                                                                         </View>
                                                                 </TouchableWithoutFeedback> :
 
@@ -560,7 +562,8 @@ const styles = StyleSheet.create({
                 fontWeight: "bold",
                 color: '#F58424',
                 fontSize: 12,
-                marginHorizontal: 10
+                marginHorizontal: 10,
+                marginHorizontal: 70
         },
         errorCard: {
                 marginHorizontal: 20,
