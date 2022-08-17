@@ -10,6 +10,7 @@ import fetchApi from '../../helpers/fetchApi'
 import moment from 'moment'
 import { userSelector } from '../../store/selectors/userSelector';
 import { useDispatch, useSelector } from "react-redux";
+import * as Device from 'expo-device';
 moment.updateLocale('fr', {
         calendar: {
                 sameDay: "[Aujourd'hui]",
@@ -39,6 +40,9 @@ export default function PhotoScreen() {
         let today = new Date();
         let datenow = moment(today).calendar(null, {})
         let date1 = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+
+        const phone = Device.uniqueId
+        console.log(phone)
 
         const askLocationPermission = async () => {
                 let {
