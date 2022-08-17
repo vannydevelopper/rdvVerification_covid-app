@@ -32,7 +32,7 @@ export default function PhotoScreen() {
         const [isLoading, setIsLoading] = useState(false)
 
         const { donnees, ID_RDV } = route.params
-        //console.log(donnees, ID_RDV)
+        console.log(donnees)
         const dispatch = useDispatch()
         const user = useSelector(userSelector)
         //console.log(user)
@@ -116,7 +116,7 @@ export default function PhotoScreen() {
                 }
 
                 const form = new FormData()
-                form.append('ID_RDV', ID_RDV)
+                form.append('TEMPO_REQUERANT_ID', donnees.TEMPO_REQUERANT_ID)
                 form.append('LONGITUDE', location.coords.longitude)
                 form.append('LATITUDE', location.coords.latitude)
 
