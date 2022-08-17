@@ -40,7 +40,7 @@ export default function PhotoScreen() {
                 let {
                         status: locationStatus,
                 } = await Location.requestForegroundPermissionsAsync()
-                if (locationStatus !== 'granted') {
+                if (locationStatus !=='granted') {
                         console.log('Permission to access location was denied')
                         setLocation(false)
                         return
