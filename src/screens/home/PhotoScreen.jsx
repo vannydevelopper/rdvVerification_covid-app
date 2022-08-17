@@ -8,6 +8,8 @@ import * as Location from 'expo-location'
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 import fetchApi from '../../helpers/fetchApi'
 import moment from 'moment'
+import { userSelector } from '../../store/selectors/userSelector';
+import { useDispatch, useSelector } from "react-redux";
 moment.updateLocale('fr', {
         calendar: {
                 sameDay: "[Aujourd'hui]",
@@ -30,6 +32,9 @@ export default function PhotoScreen() {
 
         const { donnees, ID_RDV } = route.params
         //console.log(donnees, ID_RDV)
+        const dispatch = useDispatch()
+        const user = useSelector(userSelector)
+        //console.log(user)
 
         const askLocationPermission = async () => {
                 let {
@@ -219,15 +224,18 @@ export default function PhotoScreen() {
 
         return (
                 <>
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
+                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
                                         <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#F58424' }}>
                                                 <Ionicons name="arrow-back-outline" size={24} color="#000" />
                                         </View>
                                 </TouchableNativeFeedback>
-                                <Text style={styles.titleHistorique}>
-                                        Rendez vous
-                                </Text>
+                                <View style={{justifyContent:"center"}}>
+                                        <Text style={styles.titleHistorique}>
+                                                Rendez vous
+                                        </Text>
+                                </View>
+
                         </View>
                         <ScrollView keyboardShouldPersistTaps={"handled"}>
 
@@ -385,7 +393,7 @@ export default function PhotoScreen() {
                                 </View>
                                 <View style={{ flexDirection: "row" }}>
                                         <View>
-                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign:"center" }}>
+                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
                                                         Photo du voyageur
                                                 </Text>
                                                 <View style={styles.addImageContainer}>
@@ -406,7 +414,7 @@ export default function PhotoScreen() {
                                         </View>
 
                                         {!donnees.payement && <View>
-                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign:"center" }}>
+                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
                                                         Photo Bordereau
                                                 </Text>
                                                 <View style={styles.addImageContainer}>

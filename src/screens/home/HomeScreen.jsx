@@ -15,6 +15,7 @@ export default function HomeScreen() {
                                 <Text style={styles.titlePrincipal}>Bienvenue sur l'application  </Text>
                                 <Text style={styles.titleSecondaire}>de verification de </Text>
                                 <Text style={styles.titleAccessoire}> demande de rendez-vous </Text>
+                                <Text style={styles.titleAccessoire}> Test covid </Text>
                         </View>
 
                         <View style={styles.footer}>
