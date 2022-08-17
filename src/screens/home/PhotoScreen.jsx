@@ -10,6 +10,7 @@ import fetchApi from '../../helpers/fetchApi'
 import moment from 'moment'
 import { userSelector } from '../../store/selectors/userSelector';
 import { useDispatch, useSelector } from "react-redux";
+import * as Device from 'expo-device';
 moment.updateLocale('fr', {
         calendar: {
                 sameDay: "[Aujourd'hui]",
@@ -31,10 +32,17 @@ export default function PhotoScreen() {
         const [isLoading, setIsLoading] = useState(false)
 
         const { donnees, ID_RDV } = route.params
-        //console.log(donnees, ID_RDV)
+        console.log(donnees)
         const dispatch = useDispatch()
         const user = useSelector(userSelector)
         //console.log(user)
+
+        let today = new Date();
+        let datenow = moment(today).calendar(null, {})
+        let date1 = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+
+        const phone = Device.uniqueId
+        console.log(phone)
 
         const askLocationPermission = async () => {
                 let {
@@ -108,7 +116,7 @@ export default function PhotoScreen() {
                 }
 
                 const form = new FormData()
-                form.append('ID_RDV', ID_RDV)
+                form.append('TEMPO_REQUERANT_ID', donnees.TEMPO_REQUERANT_ID)
                 form.append('LONGITUDE', location.coords.longitude)
                 form.append('LATITUDE', location.coords.latitude)
 
@@ -224,20 +232,100 @@ export default function PhotoScreen() {
 
         return (
                 <>
-                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
+                        <View style={{ flexDirection: "row", paddingHorizontal: 20, }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
                                         <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#F58424' }}>
                                                 <Ionicons name="arrow-back-outline" size={24} color="#000" />
                                         </View>
                                 </TouchableNativeFeedback>
-                                <View style={{justifyContent:"center"}}>
+                                <View style={{ justifyContent: "center", alignItems: "center", alignSelf: "center" }}>
                                         <Text style={styles.titleHistorique}>
-                                                Rendez vous
+                                                {user.user.USER_FNAME} {user.user.USER_LNAME}
                                         </Text>
                                 </View>
 
                         </View>
                         <ScrollView keyboardShouldPersistTaps={"handled"}>
+
+
+                                <View style={styles.cardPrincipal}>
+                                        <View style={styles.titleDetails}>
+                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}> Informations du voyageur</Text>
+                                        </View>
+                                        <View style={styles.ligne}></View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.NOM}  {donnees.requerantRDV.PRENOM}</Text>
+                                                </View>
+                                        </View>
+
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Date de Naissance</Text>
+                                                        <Text style={styles.titleResponse}>
+                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).format('  HH:mm')}
+                                                        </Text>
+                                                </View>
+                                        </View>
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <Entypo name="mail" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Adresse Email</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.EMAIL}</Text>
+                                                </View>
+                                        </View>
+
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <AntDesign name="phone" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Numero de Téléphone</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.TELEPHONE}</Text>
+                                                </View>
+                                        </View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Date de Rendez vous</Text>
+                                                        <Text style={styles.titleResponse}>
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}
+                                                        </Text>
+                                                </View>
+                                        </View>
+                                </View>
 
                                 {donnees.payement && <View style={styles.cardPrincipal}>
                                         <View style={styles.titleDetails}>
@@ -246,7 +334,7 @@ export default function PhotoScreen() {
                                         <View style={styles.ligne}></View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+                                                        <Entypo name="mail" size={24} color="#F58424" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -313,149 +401,90 @@ export default function PhotoScreen() {
                                         </View>
                                 </View>}
 
-                                <View style={styles.cardPrincipal}>
-                                        <View style={styles.titleDetails}>
-                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}>Voyageur</Text>
-                                        </View>
-                                        <View style={styles.ligne}></View>
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
 
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.NOM}  {donnees.requerantRDV.PRENOM}</Text>
-                                                </View>
-                                        </View>
-
-
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Date de Naissance</Text>
-                                                        <Text style={styles.titleResponse}>
-                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).format('  HH:mm')}
-                                                        </Text>
-                                                </View>
-                                        </View>
-
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Adresse Email</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.EMAIL}</Text>
-                                                </View>
-                                        </View>
-
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <AntDesign name="phone" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Numero de Téléphone</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.TELEPHONE}</Text>
-                                                </View>
-                                        </View>
-                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Date de Rendez vous</Text>
-                                                        <Text style={styles.titleResponse}>
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}
-                                                        </Text>
-                                                </View>
-                                        </View>
-                                </View>
-
-                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days'))?
+                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) ?
                                         <View style={{ flexDirection: "row" }}>
-                                        <View>
-                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
-                                                        Photo du voyageur
-                                                </Text>
-                                                <View style={styles.addImageContainer}>
-                                                        {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
-                                                                <View style={{ ...styles.addImage }}>
-                                                                        <Image source={require('../../../assets/images/picture.png')} style={{ width: '50%', height: '50%' }} />
-                                                                </View>
-                                                        </TouchableWithoutFeedback> :
-
-                                                                <TouchableWithoutFeedback onPress={onTakePictureSelect}>
-                                                                        <View style={{ ...styles.addImage, borderWidth: 0 }} >
-                                                                                <Image source={{ uri: imagepassport.uri }} style={{ width: '100%', height: '100%', borderRadius: 5 }} />
+                                                <View>
+                                                        <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
+                                                                Photo du voyageur
+                                                        </Text>
+                                                        <View style={styles.addImageContainer}>
+                                                                {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
+                                                                        <View style={{ ...styles.addImage }}>
+                                                                                <Image source={require('../../../assets/images/passportIcon.png')} style={{ width: '60%', height: '60%' }} />
                                                                         </View>
-                                                                </TouchableWithoutFeedback>}
+                                                                </TouchableWithoutFeedback> :
+
+                                                                        <TouchableWithoutFeedback onPress={onTakePictureSelect}>
+                                                                                <View style={{ ...styles.addImage, borderWidth: 0 }} >
+                                                                                        <Image source={{ uri: imagepassport.uri }} style={{ width: '100%', height: '100%', borderRadius: 5 }} />
+                                                                                </View>
+                                                                        </TouchableWithoutFeedback>}
 
 
+                                                        </View>
+                                                </View>
+
+                                                {!donnees.payement && <View>
+                                                        <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
+                                                                Photo Bordereau
+                                                        </Text>
+                                                        <View style={styles.addImageContainer}>
+                                                                {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
+                                                                        <View style={{ ...styles.addImage }}>
+                                                                                <Image source={require('../../../assets/images/documentIcon1.png')} style={{ width: '60%', height: '60%' }} />
+                                                                        </View>
+                                                                </TouchableWithoutFeedback> :
+
+                                                                        <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
+                                                                                <View style={{ ...styles.addImage, borderWidth: 0 }} >
+                                                                                        <Image source={{ uri: imagebordereaux.uri }} style={{ width: '100%', height: '100%', borderRadius: 5 }} />
+                                                                                </View>
+                                                                        </TouchableWithoutFeedback>}
+
+
+                                                        </View>
+                                                </View>}
+                                        </View> :
+                                        <View style={styles.errorCard}>
+                                                <View style={{ flexDirection: "row", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
+                                                        <View style={{ ...styles.addImage2 }}>
+                                                                <Image source={require('../../../assets/images/errorImages.png')} style={{ width: '70%', height: '70%' }} />
+                                                        </View>
+                                                        <View style={{ marginLeft: 10 }}>
+                                                                <Text style={{
+                                                                        color: 'red', fontSize: 15,
+                                                                        fontWeight: 'bold', textAlign: 'center'
+                                                                }}>ATTENTION!!!!</Text>
+                                                                <Text style={{ color: 'red' }}> Votre date de demamde de {"\n"} rendez-vous ({moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
+                                                                        sameDay: `[Aujourd'hui]`,
+                                                                        lastDay: `[Hier]`,
+                                                                        nextDay: 'DD-M-YYYY',
+                                                                        lastWeek: 'DD-M-YYYY',
+                                                                        sameElse: 'DD-M-YYYY',
+                                                                })}
+                                                                        {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}) {"\n"}
+                                                                        ne correspond  pas à la date {"\n"} d'{datenow} le {date1}
+                                                                </Text>
+                                                        </View>
                                                 </View>
                                         </View>
-
-                                        {!donnees.payement && <View>
-                                                <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
-                                                        Photo Bordereau
-                                                </Text>
-                                                <View style={styles.addImageContainer}>
-                                                        {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
-                                                                <View style={{ ...styles.addImage }}>
-                                                                        <Image source={require('../../../assets/images/picture.png')} style={{ width: '50%', height: '50%' }} />
-                                                                </View>
-                                                        </TouchableWithoutFeedback> :
-
-                                                                <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
-                                                                        <View style={{ ...styles.addImage, borderWidth: 0 }} >
-                                                                                <Image source={{ uri: imagebordereaux.uri }} style={{ width: '100%', height: '100%', borderRadius: 5 }} />
-                                                                        </View>
-                                                                </TouchableWithoutFeedback>}
-
-
-                                                </View>
-                                        </View>}
-                                </View>:
-                                <View >
-                                   <Text style={{color:"red", textAlign: "center"}}>La date du rendez vous ne corresponde pas{'\n'}  à  la date de demande 
-                                   du rendez vous Veillez{'\n'} Verifier la date exacte de demmande du rendez vous</Text>
-                                </View>
                                 }
                         </ScrollView>
-                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days'))&&
+                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) &&
                                 <Button
-                                borderRadius={15}
-                                isDisabled={imagepassport == null}
-                                isLoading={isLoading}
-                                onPress={sendData}
-                                marginHorizontal={20}
-                                mt={5}
-                                backgroundColor={"#F58424"}
-                                py={3.5}
-                                _text={{ color: '#fff', fontWeight: 'bold' }}
-                        >
-                                Enregistrer
-                        </Button>}
+                                        borderRadius={15}
+                                        isDisabled={imagepassport == null}
+                                        isLoading={isLoading}
+                                        onPress={sendData}
+                                        marginHorizontal={20}
+                                        mt={5}
+                                        backgroundColor={"#F58424"}
+                                        py={3.5}
+                                        _text={{ color: '#fff', fontWeight: 'bold' }}
+                                >
+                                        Enregistrer
+                                </Button>}
                 </>
         )
 }
@@ -537,8 +566,29 @@ const styles = StyleSheet.create({
                 fontWeight: "bold",
                 color: '#F58424',
                 fontSize: 12,
-                marginHorizontal: 10
+                marginHorizontal: 10,
+                marginHorizontal: 70
         },
+        errorCard: {
+                marginHorizontal: 20,
+                padding: 10,
+                backgroundColor: "#fff",
+                borderRadius: 10,
+                elevation: 8,
+                borderWidth: 2,
+                borderColor: "#fff",
+                marginTop: 10,
+                marginBottom: 10
+        },
+        addImage2: {
+                width: 60,
+                height: 60,
+                borderRadius: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderColor: '#777',
+                borderWidth: 1
+        }
 
 
 })

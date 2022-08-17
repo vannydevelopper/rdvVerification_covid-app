@@ -21,7 +21,7 @@ export default function NotFoundScreen(){
                                 </Text>
                         </View>
                 <View style={styles.notfoundContainer}>
-                        <Image source={require('../../../assets/images/not-found.png')}  style={styles.notfoundImage}/>
+                        <Image source={require('../../../assets/images/errors.png')}  style={styles.notfoundImage}/>
                         <Text style={styles.notfoundText}>
                                 {donnees}
                         </Text>
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
                 marginBottom: 95
          },
          notfoundImage: {
-                width: "40%",
-                height: "40%",
+                width: "35%",
+                height: "35%",
                 opacity: 0.6
          },
          notfoundText: {
