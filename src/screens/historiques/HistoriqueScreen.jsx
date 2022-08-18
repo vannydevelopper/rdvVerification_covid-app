@@ -36,7 +36,7 @@ export default function HistoriqueScreen() {
                             headers: { "Content-Type": "application/json" }
                      })
                      setHistoriques(histo)
-                     //console.log(histo)
+                     console.log(histo)
               }
 
               catch (error) {
@@ -90,7 +90,7 @@ export default function HistoriqueScreen() {
                                                                                     <View style={styles.cardDescripetion}>
                                                                                            <View style={styles.CardItems}>
                                                                                                   <View style={{ flexDirection: "row" }}>
-                                                                                                         <Text style={styles.itemTitle} numberOfLines={2}>{historique.NOM}  {historique.PRENOM}</Text>
+                                                                                                         <Text style={styles.itemTitle} numberOfLines={2}>{historique.REQUERANT_NOM}  {historique.REQUERANT_PRENOM}</Text>
                                                                                                   </View>
                                                                                            </View>
                                                                                            <Text style={styles.itemDescription}>{historique.EMAIL}</Text>

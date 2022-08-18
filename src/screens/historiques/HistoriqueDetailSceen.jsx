@@ -46,29 +46,19 @@ export default function HistoriqueDetailSCreen() {
                                         <View style={styles.DetailCard}>
                                                 <View style={styles.detailItem}>
                                                         <Text style={styles.username}>Nom</Text>
-                                                        <Text style={styles.itemValue}>{donnees.NOM}</Text>
+                                                        <Text style={styles.itemValue}>{donnees.REQUERANT_NOM}</Text>
                                                 </View>
                                                 <View style={styles.detailItem}>
                                                         <Text style={styles.username}>Prenom</Text>
-                                                        <Text style={styles.itemValue}>{donnees.PRENOM}</Text>
+                                                        <Text style={styles.itemValue}>{donnees.REQUERANT_PRENOM}</Text>
                                                 </View>
                                                 <View style={styles.detailItem}>
                                                         <Text style={styles.username}>Email</Text>
                                                         <Text style={styles.itemValue}>{donnees.EMAIL}</Text>
                                                 </View>
                                                 <View style={styles.detailItem}>
-                                                        <Text style={styles.username}>Date de naissance</Text>
-                                                        <Text style={styles.itemValue}>
-                                                                {moment(donnees.DATE_NAISSANCE).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                {moment(donnees.DATE_NAISSANCE).format('  HH:mm')}
-
-                                                        </Text>
+                                                        <Text style={styles.username}>Age</Text>
+                                                        <Text style={styles.itemValue}>{donnees.AGE}</Text>
                                                 </View>
                                                 <View style={styles.detailItem}>
                                                         <Text style={styles.username}>Date de rendez vous</Text>
@@ -89,17 +79,17 @@ export default function HistoriqueDetailSCreen() {
                                                 </View>
                                         </View>
                                         <View style={styles.imagePrincipal}>
-                                                {donnees.PHOTO_PRS != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                                                {donnees.PATH_PASSEPORT != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                                         setImageIndex(0)
                                                         setShowImageModal(true)
                                                 }}>
-                                                        <Image source={{ uri: donnees.PHOTO_PRS }} style={styles.DetaImage} />
+                                                        <Image source={{ uri: donnees.PATH_PASSEPORT }} style={styles.DetaImage} />
                                                 </TouchableOpacity>}
-                                                {donnees.PHOTO_BRD != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                                                {donnees.PATH_BORDEREAU != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                                         setImageIndex(1)
                                                         setShowImageModal(true)
                                                 }}>
-                                                        <Image source={{ uri: donnees.PHOTO_BRD }} style={styles.DetaImage} />
+                                                        <Image source={{ uri: donnees.PATH_BORDEREAU }} style={styles.DetaImage} />
                                                 </TouchableOpacity>}
                                         </View>
                                 </View>

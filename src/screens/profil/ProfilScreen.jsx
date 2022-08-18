@@ -4,7 +4,7 @@ import { FontAwesome5, EvilIcons, AntDesign, Feather, MaterialCommunityIcons, Fo
 import ProfilCard from "../../components/ProfilCard";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../store/selectors/userSelector";
-
+import { Entypo } from '@expo/vector-icons';
 const Profil = () =>{
        //const dispatch=useDispatch()
        const user=useSelector(userSelector)
@@ -32,8 +32,8 @@ const Profil = () =>{
                             </View>
                             <View style={styles.cardImage}>
                                    <View style={styles.imagecard}>
-                                          <EvilIcons name="location" size={35} color="#F58424" />
-                                                                           </View>
+                                   <Entypo name="mail" size={24} color="#F58424" />
+                                   </View>
                                    <View style={styles.names}>
                                           <Text style={styles.itemTitle}>Email</Text>
                                           <Text style={styles.itemValue}>{user.user.USER_EMAIL}</Text>
