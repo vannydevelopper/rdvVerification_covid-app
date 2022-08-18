@@ -33,8 +33,9 @@ export default function PhotoScreen() {
         const toast = useToast()
         const [isLoading, setIsLoading] = useState(false)
 
-        const { donnees, ID_RDV } = route.params
-        console.log(donnees)
+        const { donnees} = route.params
+        // console.log(donnees)
+        //console.log(donnees.requerantRDV.TEMPO_REQUERANT_ID)
         const dispatch = useDispatch()
         const user = useSelector(userSelector)
         //console.log(user)
@@ -118,7 +119,7 @@ export default function PhotoScreen() {
                 }
 
                 const form = new FormData()
-                form.append('TEMPO_REQUERANT_ID', donnees.TEMPO_REQUERANT_ID)
+                form.append('TEMPO_REQUERANT_ID', donnees.requerantRDV.TEMPO_REQUERANT_ID)
                 form.append('LONGITUDE', location.coords.longitude)
                 form.append('LATITUDE', location.coords.latitude)
 
@@ -158,7 +159,7 @@ export default function PhotoScreen() {
 
                 }
 
-                //console.log(form)
+                console.log(form)
 
                 try {
                         const data = await fetchApi("/historique/ajouter", {
@@ -576,9 +577,9 @@ const styles = StyleSheet.create({
         titleHistorique: {
                 fontWeight: "bold",
                 color: '#F58424',
-                fontSize:20,
-                marginHorizontal: 10,
-                marginHorizontal: 70
+                fontSize:15,
+                marginHorizontal: 20,
+                //marginHorizontal: 70
         },
         errorCard: {
                 marginHorizontal: 20,
