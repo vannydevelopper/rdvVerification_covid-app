@@ -3,10 +3,12 @@ import { View, Text, TouchableNativeFeedback, Image, StyleSheet} from 'react-nat
 import NotFound from "../../components/NotFound";
 import {Ionicons} from '@expo/vector-icons';
 import { useNavigation, useRoute } from "@react-navigation/native";
-
+import { userSelector } from '../../store/selectors/userSelector';
+import {useSelector } from "react-redux";
 export default function NotFoundScreen(){
         const navigation = useNavigation()
         const route = useRoute()
+        const user = useSelector(userSelector)
         const {donnees} = route.params
         return(
                 <>
@@ -16,9 +18,11 @@ export default function NotFoundScreen(){
                                                 <Ionicons name="arrow-back-outline" size={24} color="#000" />
                                         </View>
                                 </TouchableNativeFeedback>
-                                <Text style={styles.titleHistorique}>
-                                        Rendez vous
-                                </Text>
+                                <View style={{ justifyContent: "center", alignItems: "center", alignSelf: "center" }}>
+                                        <Text style={styles.titleHistorique}>
+                                                {user.user.USER_FNAME} {user.user.USER_LNAME}
+                                        </Text>
+                                </View>
                         </View>
                 <View style={styles.notfoundContainer}>
                         <Image source={require('../../../assets/images/errors.png')}  style={styles.notfoundImage}/>
@@ -35,7 +39,8 @@ const styles = StyleSheet.create({
                 fontWeight: "bold",
                 color: '#F58424',
                 fontSize: 12,
-                marginHorizontal: 10
+                marginHorizontal:10,
+                textAlign:"center"
         },
         notfoundContainer: {
                 flex: 1,
