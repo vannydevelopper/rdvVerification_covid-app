@@ -340,7 +340,7 @@ export default function PhotoScreen() {
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Date de Rendez vous</Text>
                                                         <Text style={styles.titleResponse}>
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null,{
                                                                         sameDay: `[Aujourd'hui]`,
                                                                         lastDay: `[Hier]`,
                                                                         nextDay: 'DD-M-YYYY',
@@ -421,8 +421,8 @@ export default function PhotoScreen() {
                                 {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) ?
                                         <View style={{ flexDirection: "row" }}>
                                                 <View>
-                                                        <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
-                                                                Photo du voyageur
+                                                        <Text style={{ color: 'red', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
+                                                                Photo du voyageur *
                                                         </Text>
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
@@ -442,8 +442,8 @@ export default function PhotoScreen() {
                                                 </View>
 
                                                 {!donnees.payement && <View>
-                                                        <Text style={{ color: '#777', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
-                                                                Photo Bordereau
+                                                        <Text style={{ color: 'red', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
+                                                                Photo Bordereau *
                                                         </Text>
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
