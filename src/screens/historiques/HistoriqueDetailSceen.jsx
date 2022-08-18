@@ -79,20 +79,23 @@ export default function HistoriqueDetailSCreen() {
                                                 </View>
                                         </View>
                                         <View style={styles.imagePrincipal}>
-                                                <Text style={styles.titleImages}>Image Passport</Text>
+                                                <Text style={styles.titleImages}>Image du passport</Text>
                                                 {donnees.PATH_PASSEPORT != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                                         setImageIndex(0)
                                                         setShowImageModal(true)
                                                 }}>
                                                         <Image source={{ uri: donnees.PATH_PASSEPORT }} style={styles.DetaImage} />
                                                 </TouchableOpacity>}
-                                                <Text style={styles.titleImages}>Image Borderau</Text>
-                                                {donnees.PATH_BORDEREAU != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                                                {donnees.PATH_BORDEREAU != null && 
+                                                <>
+                                                <Text style={styles.titleImages}>Image du bordereau</Text>
+                                                <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                                         setImageIndex(1)
                                                         setShowImageModal(true)
                                                 }}>
                                                         <Image source={{ uri: donnees.PATH_BORDEREAU }} style={styles.DetaImage} />
-                                                </TouchableOpacity>}
+                                                </TouchableOpacity>
+                                                </>}
                                         </View>
                                 </View>
                         </ScrollView>
@@ -166,6 +169,8 @@ const styles = StyleSheet.create({
         },
         titleImages:{
                 fontSize: 15,
-                fontWeight:"bold"
+                fontWeight:"bold",
+                marginBottom: 10,
+                textAlign: 'center'
         }
 })
