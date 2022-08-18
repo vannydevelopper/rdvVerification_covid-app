@@ -24,8 +24,8 @@ export default function HistoriqueDetailSCreen() {
         // console.log(donnees)
 
         var imageUrls = []
-        if (donnees.PHOTO_PRS) imageUrls.push(donnees.PHOTO_PRS)
-        if (donnees.PHOTO_BRD) imageUrls.push(donnees.PHOTO_BRD)
+        if (donnees.PATH_PASSEPORT) imageUrls.push(donnees.PATH_PASSEPORT)
+        if (donnees.PATH_BORDEREAU) imageUrls.push(donnees.PATH_BORDEREAU)
         return (loading ?
                 <View style={{ flex: 1, justifyContent: 'center' }}>
                               <ActivityIndicator animating={true} size="large" color={"black"} />
@@ -79,12 +79,14 @@ export default function HistoriqueDetailSCreen() {
                                                 </View>
                                         </View>
                                         <View style={styles.imagePrincipal}>
+                                                <Text style={styles.titleImages}>Image Passport</Text>
                                                 {donnees.PATH_PASSEPORT != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                                         setImageIndex(0)
                                                         setShowImageModal(true)
                                                 }}>
                                                         <Image source={{ uri: donnees.PATH_PASSEPORT }} style={styles.DetaImage} />
                                                 </TouchableOpacity>}
+                                                <Text style={styles.titleImages}>Image Borderau</Text>
                                                 {donnees.PATH_BORDEREAU != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                                         setImageIndex(1)
                                                         setShowImageModal(true)
@@ -161,5 +163,9 @@ const styles = StyleSheet.create({
         },
         titleHistorique:{
                 color:"#F58424"
+        },
+        titleImages:{
+                fontSize: 15,
+                fontWeight:"bold"
         }
 })
