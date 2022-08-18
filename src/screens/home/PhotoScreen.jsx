@@ -428,7 +428,7 @@ export default function PhotoScreen() {
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
                                                                         <View style={{ ...styles.addImage }}>
-                                                                                <Image source={require('../../../assets/images/passportIcon.png')} style={{ width: '60%', height: '60%' }} />
+                                                                                <Image source={require('../../../assets/images/man.png')} style={{ width: '60%', height: '60%' }} />
                                                                         </View>
                                                                 </TouchableWithoutFeedback> :
 
