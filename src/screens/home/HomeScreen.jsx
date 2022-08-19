@@ -19,7 +19,7 @@ export default function HomeScreen() {
                         </View>
 
                         <View style={styles.footer}>
-                                <Text style={styles.textQrcode}>Scaner le QR Code du Certificat</Text>
+                                <Text style={styles.textQrcode}>Scanner le QR Code du Certificat</Text>
                         </View>
                         <Button
                                 borderRadius={15}
@@ -39,7 +39,7 @@ export default function HomeScreen() {
                                 }
                                 _text={{ color: '#fff', fontWeight: 'bold', fontSize: 20 }}
                         >
-                                Scanne
+                                Scanner
                         </Button>
 
                 </View>

@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableNativeFeedback, Alert } from "react-native";
+import { Text, View, StyleSheet, TouchableNativeFeedback, Alert, ActivityIndicator } from "react-native";
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Portal } from "react-native-portalize";
 import { Ionicons } from '@expo/vector-icons';
@@ -11,6 +11,7 @@ export default function ScanQrCodeScreen() {
        const [hasPermission, setHasPermission] = useState(null);
        const [scanned, setScanned] = useState(false);
        const [errors, setErrors] = useState(null);
+       const [loading, setLoading] = useState(false)
 
        const askCameraPermission = async () => {
               const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -23,12 +24,18 @@ export default function ScanQrCodeScreen() {
 
        const handleBarCodeScanned = async ({ type, data }) => {
               setScanned(true);
-             // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-              // console.log(type)
+       //       alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+       //         console.log(type)
               if (type == 256) {
                      var url = data
                      var divise = url.split("/")
                      var idPrindipal = divise[divise.length - 1]
+                     //var rdv=divise[divise.length -2=]
+                     //if (!rdv){
+                       
+
+
+                     // }
                      //console.log(idPrindipal)
                      // if(!idPrindipal || isNaN(idPrindipal)){
                      //        setErrors("Qr code invalide")
@@ -44,6 +51,7 @@ export default function ScanQrCodeScreen() {
                             navigation.goBack()
                             return navigation.navigate("Not",{donnees: "Qr code invalide"}) 
                      }
+                     setLoading(true)
                     
                      try {
                             const fetchScan = await fetchApi("/payement?cq_id="+idPrindipal, {
@@ -62,6 +70,8 @@ export default function ScanQrCodeScreen() {
                                    navigation.goBack()
                                    navigation.navigate("Not", {donnees: error.message})
                             }    
+                     } finally {
+                            setLoading(false)
                      }
               }
               else {
@@ -90,7 +100,7 @@ export default function ScanQrCodeScreen() {
               </View>
        }
        return (
-              <Portal>
+              <Portal> 
                      <View style={styles.container}>
                             <BarCodeScanner
                                    onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -116,6 +126,16 @@ export default function ScanQrCodeScreen() {
                                           </TouchableNativeFeedback>
                                    </View>
                             </View>
+                            {loading && <View style={{
+                                   position: 'absolute',
+                                   width: '100%',
+                                   height: '100%',
+                                   justifyContent: 'center',
+                                   alignItems: 'center',
+                                   backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                                   }}>
+                                   <ActivityIndicator animating size={'large'} />
+                            </View>}
                      </View>
               </Portal>
        )
