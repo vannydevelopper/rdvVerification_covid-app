@@ -28,8 +28,8 @@ export default function HistoriqueDetailSCreen() {
         if (donnees.PATH_BORDEREAU) imageUrls.push(donnees.PATH_BORDEREAU)
         return (loading ?
                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                              <ActivityIndicator animating={true} size="large" color={"black"} />
-                    </View> :
+                        <ActivityIndicator animating={true} size="large" color={"black"} />
+                </View> :
                 <>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
@@ -51,6 +51,11 @@ export default function HistoriqueDetailSCreen() {
                                                 <View style={styles.detailItem}>
                                                         <Text style={styles.username}>Prenom</Text>
                                                         <Text style={styles.itemValue}>{donnees.REQUERANT_PRENOM}</Text>
+                                                </View>
+
+                                                <View style={styles.detailItem}>
+                                                        <Text style={styles.username}>Numero du document</Text>
+                                                        <Text style={styles.itemValue}>{donnees.CNI_PASSPORT_CPGL}</Text>
                                                 </View>
                                                 <View style={styles.detailItem}>
                                                         <Text style={styles.username}>Email</Text>
@@ -86,16 +91,16 @@ export default function HistoriqueDetailSCreen() {
                                                 }}>
                                                         <Image source={{ uri: donnees.PATH_PASSEPORT }} style={styles.DetaImage} />
                                                 </TouchableOpacity>}
-                                                {donnees.PATH_BORDEREAU != null && 
-                                                <>
-                                                <Text style={styles.titleImages}>Image du bordereau</Text>
-                                                <TouchableOpacity activeOpacity={0.8} onPress={() => {
-                                                        setImageIndex(1)
-                                                        setShowImageModal(true)
-                                                }}>
-                                                        <Image source={{ uri: donnees.PATH_BORDEREAU }} style={styles.DetaImage} />
-                                                </TouchableOpacity>
-                                                </>}
+                                                {donnees.PATH_BORDEREAU != null &&
+                                                        <>
+                                                                <Text style={styles.titleImages}>Image du bordereau</Text>
+                                                                <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                                                                        setImageIndex(1)
+                                                                        setShowImageModal(true)
+                                                                }}>
+                                                                        <Image source={{ uri: donnees.PATH_BORDEREAU }} style={styles.DetaImage} />
+                                                                </TouchableOpacity>
+                                                        </>}
                                         </View>
                                 </View>
                         </ScrollView>
@@ -152,7 +157,7 @@ const styles = StyleSheet.create({
         itemValue: {
                 //opacity: 0.8,
                 fontWeight: 'bold',
-                color:"#777"
+                color: "#777"
         },
         imagePrincipal: {
                 paddingHorizontal: 10,
@@ -164,12 +169,12 @@ const styles = StyleSheet.create({
                 marginBottom: 20,
                 borderRadius: 5
         },
-        titleHistorique:{
-                color:"#F58424"
+        titleHistorique: {
+                color: "#F58424"
         },
-        titleImages:{
+        titleImages: {
                 fontSize: 15,
-                fontWeight:"bold",
+                fontWeight: "bold",
                 marginBottom: 10,
                 textAlign: 'center'
         }

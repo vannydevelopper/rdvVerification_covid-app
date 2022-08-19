@@ -34,8 +34,7 @@ export default function PhotoScreen() {
         const [isLoading, setIsLoading] = useState(false)
 
         const { donnees} = route.params
-        // console.log(donnees)
-        //console.log(donnees.requerantRDV.TEMPO_REQUERANT_ID)
+        
         const dispatch = useDispatch()
         const user = useSelector(userSelector)
         //console.log(user)
@@ -195,10 +194,7 @@ export default function PhotoScreen() {
 
         }
 
-
-
-
-        const onTakePictureSelect = async () => {
+       const onTakePictureSelect = async () =>{
                 photoTypeSelectRef.current?.close()
                 const photo = await ImagePicker.launchCameraAsync({
                         mediaTypes: ImagePicker.MediaTypeOptions.Images,

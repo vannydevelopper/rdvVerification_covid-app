@@ -8,22 +8,22 @@ export default function HomeScreen() {
         const { height } = useWindowDimensions()
         const navigation = useNavigation()
         return (
-                <View style={{ flex: 1 }}>
-                        <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+                <View style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
+                        <StatusBar backgroundColor="#ddd" barStyle="dark-content" />
                         <View style={styles.header}>
-                                {/* <Image source={require('../../../assets/images/home.png')} style={{ ...styles.image, resizeMode: "center", height: (20 * height - StatusBar.currentHeight) / 100 }}/> */}
-                                <Text style={styles.titlePrincipal}>Bienvenue sur l'application  </Text>
-                                <Text style={styles.titleSecondaire}>de verification de </Text>
-                                <Text style={styles.titleAccessoire}> demande de rendez-vous </Text>
-                                <Text style={styles.titleAccessoire}> Test covid </Text>
+                                <Text style={{ fontSize: 17, fontWeight: 'bold', opacity: 0.6,marginBottom:10 }}>Rendez-vous Test covid</Text>
+                                <View style={styles.imageContainer}>
+                                        <Image source={require('../../../assets/qr.png')} style={{ ...styles.image, }} />
+                                </View>
+
                         </View>
 
                         <View style={styles.footer}>
-                                <Text style={styles.textQrcode}>Scaner le Qr Code du Certificat</Text>
+                                <Text style={styles.textQrcode}>Scaner le QR Code du Certificat</Text>
                         </View>
                         <Button
                                 borderRadius={15}
-                                onPress={()=>navigation.navigate('Scan')}
+                                onPress={() => navigation.navigate('Scan')}
                                 mt={7}
                                 backgroundColor={"#F58424"}
                                 py={3.5}
@@ -39,7 +39,7 @@ export default function HomeScreen() {
                                 }
                                 _text={{ color: '#fff', fontWeight: 'bold', fontSize: 20 }}
                         >
-                                Scan
+                                Scanne
                         </Button>
 
                 </View>
@@ -48,15 +48,14 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
         header: {
-                height: "45%",
-                marginTop: 20,
+                marginTop: 50,
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "#ddd",
+                // backgroundColor: "#ddd",
                 marginHorizontal: 10,
-                borderRadius: 20,
-                borderWidth: 3,
-                borderColor: "#F58424"
+                // borderRadius: 20,
+                // borderWidth: 3,
+                // borderColor: "#F58424"
         },
         footer: {
                 marginHorizontal: 10,
@@ -65,10 +64,20 @@ const styles = StyleSheet.create({
                 alignItems: "center",
 
         },
-        image: {
-                Width: '100%',
+        imageContainer: {
+                backgroundColor: '#fff',
+                padding: 10,
+                width: '75%',
                 alignSelf: 'center',
-                marginTop: 30
+                height: 250,
+                marginTop: 20,
+                borderRadius: 10,
+                justifyContent: 'center',
+                alignItems: 'center'
+        },
+        image: {
+                width: '80%',
+                height: '80%',
         },
         titlePrincipal: {
                 fontSize: 25,

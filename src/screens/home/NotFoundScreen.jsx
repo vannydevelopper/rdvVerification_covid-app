@@ -19,13 +19,13 @@ export default function NotFoundScreen(){
                                         </View>
                                 </TouchableNativeFeedback>
                                 <View style={{ justifyContent: "center", alignItems: "center", alignSelf: "center" }}>
-                                        <Text style={styles.titleHistorique}>
+                                <Text style={styles.titleHistorique}>
                                                 {user.user.USER_FNAME} {user.user.USER_LNAME}
-                                        </Text>
+                                </Text>
                                 </View>
                         </View>
                 <View style={styles.notfoundContainer}>
-                        <Image source={require('../../../assets/images/errors.png')}  style={styles.notfoundImage}/>
+                        <Image source={require('../../../assets/errors-removebg-preview.png')}  style={styles.notfoundImage}/>
                         <Text style={styles.notfoundText}>
                                 {donnees}
                         </Text>
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
         titleHistorique: {
                 fontWeight: "bold",
                 color: '#F58424',
-                fontSize: 12,
-                marginHorizontal:10,
-                textAlign:"center"
+                fontSize:15,
+                marginHorizontal: 20,
+                //marginHorizontal: 70
         },
         notfoundContainer: {
                 flex: 1,

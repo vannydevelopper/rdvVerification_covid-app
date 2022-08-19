@@ -97,7 +97,7 @@ export default function LoginScreen() {
                         {/* <ImageBackground imageStyle={{ flex: 1, resizeMode: "contain", opacity: 0.5, transform: [{ scale: 2 }], alignSelf: "center", height: "100%" }} source={require('../../../assets/images/home3.png')}> */}
                         <ScrollView keyboardShouldPersistTaps="handled">
                                 <View style={styles.container}>
-                                        <Image source={require('../../../assets/cousp-removebg-preview.png')} style={{ ...styles.image, resizeMode: "center", height: (30 * height - StatusBar.currentHeight) / 100 }} />
+                                        <Image source={require('../../../assets/cousp1.png')} style={{ ...styles.image, resizeMode: "center", height: (30 * height - StatusBar.currentHeight) / 100 }} />
                                         <Text style={styles.title}>Connexion</Text>
                                         <Input
                                                 placeholder='Email ou numéro de téléphone'

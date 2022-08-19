@@ -51,7 +51,7 @@ export default function HistoriqueScreen() {
 
        return (
               <>
-                     <View style={styles.rechercheCard}>
+                     {historiques.length != 0 &&<View style={styles.rechercheCard}>
                             <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 3, color: "#F58424" }}>Historique</Text>
                             <Input
                                    placeholder="recherche"
@@ -69,7 +69,7 @@ export default function HistoriqueScreen() {
                                           />
                                    }
                             />
-                     </View>
+                     </View>}
 
                      {loading ?
                             <View style={{ flex: 1, justifyContent: 'center' }}>
