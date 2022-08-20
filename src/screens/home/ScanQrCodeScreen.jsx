@@ -29,7 +29,7 @@ export default function ScanQrCodeScreen() {
               if (type == 256) {
                      var url = data
                      var divise = url.split("/")
-                     var idPrindipal = divise[divise.length - 1]
+                     var idPrindipal =divise[divise.length - 1]
                      //var rdv=divise[divise.length -2=]
                      //if (!rdv){
                        
@@ -62,7 +62,7 @@ export default function ScanQrCodeScreen() {
                             navigation.goBack()
                             navigation.navigate('Photo', { donnees: fetchScan})
                      }
-                     catch (error) {
+                     catch (error){
                             console.log(error)
                             //setErrors("Qr code invalide")
                             //Alert.alert(error.type)
