@@ -2,7 +2,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useCallback, useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Image, Text, View, Modal, ActivityIndicator, TouchableNativeFeedback, TouchableOpacity } from "react-native";
 import ImageViewer from 'react-native-image-zoom-viewer';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons, FontAwesome5, AntDesign, Fontisto, FontAwesome, Entypo, Foundation } from '@expo/vector-icons';
+import { SimpleLineIcons } from '@expo/vector-icons';
 import moment from 'moment'
 moment.updateLocale('fr', {
         calendar: {
@@ -38,49 +39,82 @@ export default function HistoriqueDetailSCreen() {
                                         </View>
                                 </TouchableNativeFeedback>
                                 <Text style={styles.titleHistorique}>
-                                        Details
+                                        Détails
                                 </Text>
                         </View>
                         <ScrollView keyboardShouldPersistTaps="handled">
                                 <View style={{ paddingHorizontal: 10 }}>
                                         <View style={styles.DetailCard}>
-                                                <View style={styles.detailItem}>
-                                                        <Text style={styles.username}>Nom</Text>
-                                                        <Text style={styles.itemValue}>{donnees.REQUERANT_NOM}</Text>
-                                                </View>
-                                                <View style={styles.detailItem}>
-                                                        <Text style={styles.username}>Prenom</Text>
-                                                        <Text style={styles.itemValue}>{donnees.REQUERANT_PRENOM}</Text>
+                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                        <View style={styles.cardImage}>
+                                                                <FontAwesome5 name="user" size={24} color="#F58424" />
+
+                                                        </View>
+                                                        <View style={styles.detailItem}>
+                                                                <Text style={styles.username}>Nom et Prenom:</Text>
+                                                                <Text style={styles.itemValue}>{donnees.REQUERANT_NOM} {donnees.REQUERANT_PRENOM}</Text>
+                                                        </View>
                                                 </View>
 
-                                                <View style={styles.detailItem}>
-                                                        <Text style={styles.username}>Numero du document</Text>
-                                                        <Text style={styles.itemValue}>{donnees.CNI_PASSPORT_CPGL}</Text>
+                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                        <View style={styles.cardImage}>
+                                                                <Fontisto name="passport-alt" size={24} color="#F58424" />
+
+                                                        </View>
+                                                        <View style={styles.detailItem}>
+                                                                <Text style={styles.username}>Numero du document:</Text>
+                                                                <Text style={styles.itemValue}>{donnees.CNI_PASSPORT_CPGL}</Text>
+                                                        </View>
                                                 </View>
-                                                <View style={styles.detailItem}>
-                                                        <Text style={styles.username}>Email</Text>
-                                                        <Text style={styles.itemValue}>{donnees.EMAIL}</Text>
+                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                        <View style={styles.cardImage}>
+                                                                <Entypo name="mail" size={24} color="#F58424" />
+
+                                                        </View>
+                                                        <View style={styles.detailItem}>
+                                                                <Text style={styles.username}>Email:</Text>
+                                                                <Text style={styles.itemValue}>{donnees.EMAIL}</Text>
+                                                        </View>
                                                 </View>
-                                                <View style={styles.detailItem}>
-                                                        <Text style={styles.username}>Age</Text>
-                                                        <Text style={styles.itemValue}>{donnees.AGE}</Text>
+                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }} >
+
+                                                        <View style={styles.detailItem}>
+                                                                <View style={styles.cardImage}>
+                                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                                </View>
+                                                                <Text style={styles.username}>Age:</Text>
+                                                                <Text style={styles.itemValue}>{donnees.AGE}</Text>
+                                                        </View>
                                                 </View>
-                                                <View style={styles.detailItem}>
-                                                        <Text style={styles.username}>Date de rendez vous</Text>
-                                                        <Text style={styles.itemValue}>
-                                                                {moment(donnees.DATE_RENDEVOUS).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                {moment(donnees.DATE_RENDEVOUS).format('  HH:mm')}
-                                                        </Text>
+                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                        <View style={styles.detailItem}>
+                                                                <View style={styles.cardImage}>
+                                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+
+                                                                </View>
+                                                                <Text style={styles.username}>Date de rendez vous:</Text>
+                                                                <Text style={styles.itemValue}>
+                                                                        {moment(donnees.DATE_RENDEVOUS).calendar(null, {
+                                                                                sameDay: `[Aujourd'hui]`,
+                                                                                lastDay: `[Hier]`,
+                                                                                nextDay: 'DD-M-YYYY',
+                                                                                lastWeek: 'DD-M-YYYY',
+                                                                                sameElse: 'DD-M-YYYY',
+                                                                        })}
+                                                                        {moment(donnees.DATE_RENDEVOUS).format('  HH:mm')}
+                                                                </Text>
+                                                        </View>
                                                 </View>
-                                                <View style={styles.detailItem}>
-                                                        <Text style={styles.username}>Telephone</Text>
-                                                        <Text style={styles.itemValue}>{donnees.TELEPHONE}</Text>
+                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                        <View style={styles.cardImage}>
+                                                                <AntDesign name="phone" size={24} color="#F58424" />
+
+                                                        </View>
+                                                        <View style={styles.detailItem}>
+                                                                <Text style={styles.username}>Telephone:</Text>
+                                                                <Text style={styles.itemValue}>{donnees.TELEPHONE}</Text>
+                                                        </View>
                                                 </View>
                                         </View>
                                         <View style={styles.imagePrincipal}>
@@ -137,10 +171,11 @@ export default function HistoriqueDetailSCreen() {
 const styles = StyleSheet.create({
         DetailCard: {
                 backgroundColor: '#fff',
-                paddingHorizontal: 20,
-                borderRadius: 15,
-                marginTop: 10,
+                paddingHorizontal: 30,
+                borderRadius: 10,
+                marginTop: 15,
                 elevation: 10,
+                marginLeft: 0,
                 shadowColor: '#c4c4c4',
         },
         detailItem: {
@@ -149,6 +184,7 @@ const styles = StyleSheet.create({
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 paddingVertical: 15,
+
         },
         username: {
                 fontWeight: 'bold',
@@ -177,5 +213,13 @@ const styles = StyleSheet.create({
                 fontWeight: "bold",
                 marginBottom: 10,
                 textAlign: 'center'
-        }
+        },
+        cardImage: {
+                width: 40,
+                height: 40,
+                backgroundColor: "#DCE4F7",
+                borderRadius: 40,
+                alignItems: "center",
+                justifyContent: "center"
+        },
 })
