@@ -5,6 +5,9 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import { MaterialIcons, Ionicons, FontAwesome5, AntDesign, Fontisto, FontAwesome, Entypo, Foundation } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import moment from 'moment'
+import { Button } from "native-base";
+import ResultScreen from "./ResultScreen";
+
 moment.updateLocale('fr', {
         calendar: {
                 sameDay: "[Aujourd'hui]",
@@ -137,6 +140,11 @@ export default function HistoriqueDetailSCreen() {
                                                         </>}
                                         </View>
                                 </View>
+                                <View style={styles.button}>
+                                  
+                                  <Button onPress={ResultScreen}   borderRadius={15}>Prelevement </Button>
+                                  
+                                </View>
                         </ScrollView>
                         <Modal visible={showImageModal} transparent={true} onRequestClose={() => setShowImageModal(false)}>
                                 <ImageViewer
@@ -222,4 +230,8 @@ const styles = StyleSheet.create({
                 alignItems: "center",
                 justifyContent: "center"
         },
+        button:{
+                borderRadius:10,
+                
+        }
 })

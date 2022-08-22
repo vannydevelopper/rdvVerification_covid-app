@@ -103,7 +103,7 @@ export default function ScanQrCodeScreen() {
               <Portal> 
                      <View style={styles.container}>
                             <BarCodeScanner
-                                   onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+                                   onBarCodeScanned={scanned ?undefined : handleBarCodeScanned}
                                    style={StyleSheet.absoluteFillObject}
                                    barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
                             />

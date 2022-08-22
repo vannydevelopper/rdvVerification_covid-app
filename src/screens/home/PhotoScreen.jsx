@@ -161,7 +161,7 @@ export default function PhotoScreen() {
                 console.log(form)
 
                 try {
-                        const data = await fetchApi("/historique/ajouter", {
+                        const data = await fetchApi("/historique/ajouter",{
                                 method: "POST",
                                 body: form
 

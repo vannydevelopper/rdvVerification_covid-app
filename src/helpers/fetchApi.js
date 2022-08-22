@@ -14,7 +14,7 @@ export default async function fetchApi(url, options = {}) {
   const user = JSON.parse(userF);
   // await wait(200)
   if (user)
-    options = {
+    options ={
       ...options,
       headers: { ...options.headers, authorization: `bearer ${user.token}` },
     };
