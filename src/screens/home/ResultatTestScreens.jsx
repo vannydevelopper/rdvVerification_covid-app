@@ -52,13 +52,14 @@ export default function ResultatTestSCreens() {
         const [selectedTests, setselectedTests] = useState(null)
         const [selectedResultat, setSelectedResultat] = useState(null)
         const [selectedEchantillion, setSelectedEchantillion] = useState(null)
+        const [selectedMethode, setSelectedMethode] = useState(null)
 
 
         const [loading, typeTests] = useFetch("/type/afficher")
         const [loading2, typeResultats] = useFetch("/resultat/afficher")
         const [loading3, typeEchantillions] = useFetch("/echantillon/afficher")
         const [loading4, methodeTests] = useFetch("/test/afficher")
-        console.log(methodeTests)
+        // console.log(methodeTests)
         //type de test
         const onTestSelect = (test) => {
                 setselectedTests(test)
@@ -75,6 +76,11 @@ export default function ResultatTestSCreens() {
         const onEchantillionSelect = (echantillion) => {
                 setSelectedEchantillion(echantillion)
                 typeRef.current.close()
+        }
+
+        //check methode
+        const onCheckSelect = (methode) => {
+                setSelectedMethode(methode)
         }
 
         const TypesModalize = () => {
@@ -148,9 +154,9 @@ export default function ResultatTestSCreens() {
                                                         return (
                                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} key={index}>
                                                                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                                                                <TouchableWithoutFeedback onPress={() => setSexe(0)}>
+                                                                                <TouchableWithoutFeedback onPress={() => onCheckSelect(methode)}>
                                                                                         <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 15 }} >
-                                                                                                {sexe == 0 ? <MaterialCommunityIcons name="radiobox-marked" size={20} color="#007bff" style={{ marginLeft: -7 }} /> :
+                                                                                                 { selectedMethode?.METHODE_TEST_ID == methode.METHODE_TEST_ID ? <MaterialCommunityIcons name="radiobox-marked" size={20} color="#007bff" style={{ marginLeft: -7 }} /> :
                                                                                                         <MaterialCommunityIcons name="radiobox-blank" size={20} color="#777" style={{ marginLeft: -7 }} />}
                                                                                                 <Text style={{ ...styles.title, color: "#777" }}>{methode.DESCRIPTION}</Text>
                                                                                         </View>
@@ -213,7 +219,7 @@ export default function ResultatTestSCreens() {
                                                                 </Text>
                                                         </View>
                                                         <View style={styles.rightDate}>
-                                                                <Text>{(mydate.getFullYear() + '-' + mydate.getMonth() + '-' + mydate.getDate())}</Text>
+                                                                <Text>{(myNewdate.getFullYear() + '-' + myNewdate.getMonth() + '-' + myNewdate.getDate())}</Text>
                                                         </View>
                                                 </TouchableOpacity>
                                                 {isDisplayDateNew && <DateTimePicker
