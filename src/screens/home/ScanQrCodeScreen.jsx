@@ -24,15 +24,15 @@ export default function ScanQrCodeScreen() {
 
        const handleBarCodeScanned = async ({ type, data }) => {
               setScanned(true);
-       //       alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-       //         console.log(type)
+              //       alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+              //         console.log(type)
               if (type == 256) {
                      var url = data
                      var divise = url.split("/")
-                     var idPrindipal =divise[divise.length - 1]
+                     var idPrindipal = divise[divise.length - 1]
                      //var rdv=divise[divise.length -2=]
                      //if (!rdv){
-                       
+
 
 
                      // }
@@ -44,32 +44,45 @@ export default function ScanQrCodeScreen() {
                      //        navigation.goBack()
                      //        return navigation.navigate("Not",{donnees: "Qr code invalide"}) 
                      // }
-                     if(!idPrindipal){
+                     if (!idPrindipal) {
                             setErrors("Qr code invalide")
                             //const message = "Qr code invalide"
                             // Alert.alert(errors)  
                             navigation.goBack()
-                            return navigation.navigate("Not",{donnees: "Qr code invalide"}) 
+                            return navigation.navigate("Not", { donnees: "Qr code invalide" })
                      }
                      setLoading(true)
-                    
+
                      try {
-                            const fetchScan = await fetchApi("/payement?cq_id="+idPrindipal, {
+                            const fetchScan = await fetchApi("/payement?cq_id=" + idPrindipal, {
                                    method: 'GET',
                                    headers: { "Content-Type": "application/json" },
                             })
+                            if (fetchScan.messageResultat) {
+                                   navigation.goBack()
+                                   navigation.navigate('Resultat')
+                            }
+                            else if(fetchScan.messageTraite0)
+                            {
+                                   navigation.goBack()
+                                   navigation.navigate("Photo",{ donnees: fetchScan })
+                            }
+                            else
+                            {
+                                   navigation.goBack()
+                                   navigation.navigate("Not", { donnees: fetchScan.message })
+                            }
                             //console.log(fetchScan)
-                            navigation.goBack()
-                            navigation.navigate('Photo', { donnees: fetchScan})
+                            
                      }
-                     catch (error){
+                     catch (error) {
                             console.log(error)
                             //setErrors("Qr code invalide")
                             //Alert.alert(error.type)
-                            if(error.message){
+                            if (error.message) {
                                    navigation.goBack()
-                                   navigation.navigate("Not", {donnees: error.message})
-                            }    
+                                   navigation.navigate("Not", { donnees: error.message })
+                            }
                      } finally {
                             setLoading(false)
                      }
@@ -100,10 +113,10 @@ export default function ScanQrCodeScreen() {
               </View>
        }
        return (
-              <Portal> 
+              <Portal>
                      <View style={styles.container}>
                             <BarCodeScanner
-                                   onBarCodeScanned={scanned ?undefined : handleBarCodeScanned}
+                                   onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
                                    style={StyleSheet.absoluteFillObject}
                                    barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
                             />
@@ -133,7 +146,7 @@ export default function ScanQrCodeScreen() {
                                    justifyContent: 'center',
                                    alignItems: 'center',
                                    backgroundColor: 'rgba(0, 0, 0, 0.5)'
-                                   }}>
+                            }}>
                                    <ActivityIndicator animating size={'large'} />
                             </View>}
                      </View>
