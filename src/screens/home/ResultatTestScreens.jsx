@@ -79,11 +79,11 @@ export default function ResultatTestSCreens() {
         }
 
         //check methode
-        const onCheckSelect = (methode) => {
+        const onCheckSelect = (methode) =>{
                 setSelectedMethode(methode)
         }
 
-        const TypesModalize = () => {
+        const TypesModalize = () =>{
                 return (
                         <View style={styles.modalContent}>
                                 <View style={styles.modalList}>
@@ -156,7 +156,7 @@ export default function ResultatTestSCreens() {
                                                                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                                                                 <TouchableWithoutFeedback onPress={() => onCheckSelect(methode)}>
                                                                                         <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 15 }} >
-                                                                                                 { selectedMethode?.METHODE_TEST_ID == methode.METHODE_TEST_ID ? <MaterialCommunityIcons name="radiobox-marked" size={20} color="#007bff" style={{ marginLeft: -7 }} /> :
+                                                                                                {selectedMethode?.METHODE_TEST_ID == methode.METHODE_TEST_ID ? <MaterialCommunityIcons name="radiobox-marked" size={20} color="#007bff" style={{ marginLeft: -7 }} /> :
                                                                                                         <MaterialCommunityIcons name="radiobox-blank" size={20} color="#777" style={{ marginLeft: -7 }} />}
                                                                                                 <Text style={{ ...styles.title, color: "#777" }}>{methode.DESCRIPTION}</Text>
                                                                                         </View>

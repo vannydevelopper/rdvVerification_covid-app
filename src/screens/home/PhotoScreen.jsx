@@ -58,7 +58,7 @@ export default function PhotoScreen() {
                 var location = await Location.getCurrentPositionAsync({})
                 setLocation(location)
         }
-
+     
         useEffect(() => {
                 askLocationPermission()
         }, [])
@@ -413,9 +413,9 @@ export default function PhotoScreen() {
 
                                         </View>
                                 </View>}
+       
 
-
-                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) ?
+                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS),'days')) ?
                                         <View style={{ flexDirection: "row" }}>
                                                 <View>
                                                         <Text style={{ color: 'red', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
@@ -478,7 +478,7 @@ export default function PhotoScreen() {
                                         </View>
                                 }
                         </ScrollView>
-                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) &&
+                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS ), 'days')) &&
                                 <Button
                                         borderRadius={15}
                                         isDisabled={imagepassport == null}
