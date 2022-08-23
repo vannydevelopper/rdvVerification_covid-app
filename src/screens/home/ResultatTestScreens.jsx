@@ -11,7 +11,7 @@ export default function ResultatTestSCreens() {
         const typeRef = useRef(null)
         const resultatRef = useRef(null)
         const testRef = useRef(null)
-        const [sexe, setSexe] = useState(null)
+        const [resultat, setResultat] = useState(null)
         //recuperation des dates
         const [mydate, setDate] = useState(new Date());
         const [displaymode, setMode] = useState('date');
@@ -55,11 +55,11 @@ export default function ResultatTestSCreens() {
         const [selectedMethode, setSelectedMethode] = useState(null)
 
 
-        const [loading, typeTests] = useFetch("/type/afficher")
-        const [loading2, typeResultats] = useFetch("/resultat/afficher")
-        const [loading3, typeEchantillions] = useFetch("/echantillon/afficher")
+        const [loading, typeTests] = useFetch(`/type/afficher/${selectedMethode?.METHODE_TEST_ID}`)
+        //const [loading2, typeResultats] = useFetch("/resultat/afficher")
+        const [loading3, typeEchantillions] = useFetch(`/echantillon/afficher/${selectedMethode?.METHODE_TEST_ID}`)
         const [loading4, methodeTests] = useFetch("/test/afficher")
-        // console.log(methodeTests)
+        console.log(typeTests)
         //type de test
         const onTestSelect = (test) => {
                 setselectedTests(test)
@@ -79,11 +79,11 @@ export default function ResultatTestSCreens() {
         }
 
         //check methode
-        const onCheckSelect = (methode) =>{
+        const onCheckSelect = (methode) => {
                 setSelectedMethode(methode)
         }
 
-        const TypesModalize = () =>{
+        const TypesModalize = () => {
                 return (
                         <View style={styles.modalContent}>
                                 <View style={styles.modalList}>
@@ -109,22 +109,36 @@ export default function ResultatTestSCreens() {
                 return (
                         <View style={styles.modalContent}>
                                 <View style={styles.modalList}>
-                                        {typeResultats.map((resultat, index) => {
-                                                return (
-                                                        <TouchableNativeFeedback key={index} onPress={() => onResultatSelect(resultat)}>
-                                                                <View style={styles.modalItem}>
-                                                                        {selectedResultat?.RESULTAT_ID == resultat.RESULTAT_ID ? <MaterialCommunityIcons name="radiobox-marked" size={24} color="#007bff" /> :
-                                                                                <MaterialCommunityIcons name="radiobox-blank" size={24} color="#777" />}
-                                                                        <Text numberOfLines={1} style={styles.modalText}>{resultat.DESCRIPTION}</Text>
-                                                                </View>
-                                                        </TouchableNativeFeedback>
-                                                )
-                                        })}
+
+                                        <TouchableNativeFeedback onPress={() => {
+                                                setResultat(5)
+                                                resultatRef.current.close()
+                                        }} >
+
+                                                <View style={styles.modalItem}>
+                                                        {resultat == 5 ? <MaterialCommunityIcons name="radiobox-marked" size={24} color="#007bff" /> :
+                                                                <MaterialCommunityIcons name="radiobox-blank" size={24} color="#777" />}
+                                                        <Text numberOfLines={1} style={styles.modalText}>Positif</Text>
+                                                </View>
+                                        </TouchableNativeFeedback>
+                                        <TouchableNativeFeedback onPress={() => {
+                                                setResultat(12)
+                                                resultatRef.current.close()
+                                        }}>
+                                                <View style={styles.modalItem}>
+                                                        {resultat == 12 ? <MaterialCommunityIcons name="radiobox-marked" size={24} color="#007bff" /> :
+                                                                <MaterialCommunityIcons name="radiobox-blank" size={24} color="#777" />}
+                                                        <Text numberOfLines={1} style={styles.modalText}>Negatif</Text>
+                                                </View>
+                                        </TouchableNativeFeedback>
+
+
                                 </View>
                         </View>
                 )
         }
 
+        console.log(resultat)
         const Test = () => {
                 return (
                         <View style={styles.modalContent}>
@@ -204,9 +218,15 @@ export default function ResultatTestSCreens() {
                                                                 Resultat de test
                                                         </Text>
                                                         <TouchableOpacity style={styles.openModalize} onPress={() => resultatRef.current.open()}>
-                                                                <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        {selectedResultat != null ? selectedResultat.DESCRIPTION : "--Select--"}
-                                                                </Text>
+                                                                {resultat == 5 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                        Positif
+                                                                </Text>}
+                                                                {resultat == 12 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                        Negatif
+                                                                </Text>}
+                                                                { resultat == null && <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                        --Select--
+                                                                </Text>}
                                                                 <AntDesign name="caretdown" size={16} color="#777" />
                                                         </TouchableOpacity>
                                                 </View>
