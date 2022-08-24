@@ -60,7 +60,7 @@ export default function ScanQrCodeScreen() {
                             })
                             if (fetchScan.messageResultat) {
                                    navigation.goBack()
-                                   navigation.navigate('Resultat')
+                                   navigation.navigate('Resultat',{ donnees: fetchScan })
                             }
                             else if(fetchScan.messageTraite0)
                             {

@@ -4,31 +4,50 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { Entypo, FontAwesome5, AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Host, Portal } from 'react-native-portalize';
 import { Modalize } from "react-native-modalize";
-import { Button, Icon, Input, useToast, FormControl, WarningOutlineIcon } from 'native-base'
+import { Button, Icon, Input, FormControl, WarningOutlineIcon, useToast } from 'native-base'
 import useFetch from "../../hooks/useFetch";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import fetchApi from "../../helpers/fetchApi";
+import moment from 'moment'
+moment.updateLocale('fr', {
+        calendar: {
+               
+                nextDay: 'DD-M-YYYY',
+                lastWeek: 'DD-M-YYYY',
+                sameElse: 'DD-M-YYYY',
+        },
+})
 
 export default function ResultatTestSCreens() {
+        const [commentaire,SetCommentaire]=useState("")
         const typeRef = useRef(null)
         const resultatRef = useRef(null)
         const testRef = useRef(null)
         const [resultat, setResultat] = useState(null)
+        const [isLoading, setIsLoading] = useState(false)
+        const toast = useToast()
+        const route = useRoute()
+        const navigation = useNavigation()
+        const { donnees } = route.params
+        //console.log(donnees.requerantRDV.DATE_PRELEVEMENT)
         //recuperation des dates
-        const [mydate, setDate] = useState(new Date());
-        const [displaymode, setMode] = useState('date');
-        const [isDisplayDate, setShow] = useState(false);
-        const changeSelectedDate = (event, selectedDate) => {
-                const currentDate = selectedDate || mydate;
-                setShow(Platform.OS === "ios");
-                setDate(currentDate);
+        // const [mydate, setDate] = useState(new Date());
+        // const [displaymode, setMode] = useState('date');
+        // const [isDisplayDate, setShow] = useState(false);
+        // const changeSelectedDate = (event, selectedDate) => {
+        //         const currentDate = selectedDate || mydate;
+        //         setShow(Platform.OS === "ios");
+        //         setDate(currentDate);
 
-        };
-        const showMode = (currentMode) => {
-                setShow(true);
-                setMode(currentMode);
-        };
-        const displayDatepicker = () => {
-                showMode('date');
-        };
+        // };
+        // const showMode = (currentMode) => {
+        //         setShow(true);
+        //         setMode(currentMode);
+        // };
+        // const displayDatepicker = () => {
+        //         showMode('date');
+        // };
+
 
         //recuperation des dates
         const [myNewdate, setmyNewdate] = useState(new Date());
@@ -59,8 +78,54 @@ export default function ResultatTestSCreens() {
         //const [loading2, typeResultats] = useFetch("/resultat/afficher")
         const [loading3, typeEchantillions] = useFetch(`/echantillon/afficher/${selectedMethode?.METHODE_TEST_ID}`)
         const [loading4, methodeTests] = useFetch("/test/afficher")
-        console.log(typeTests)
-        //type de test
+        
+        const CreateResultat = async () => {
+                setIsLoading(true)
+                try {
+                        const data = await fetchApi("/resultats",{
+                                method: "POST",
+                                body: JSON.stringify(
+                                        {
+                                                METHODE_ID:selectedMethode.METHODE_TEST_ID,
+                                                DATE_PRELEVEMENT:donnees.requerantRDV.DATE_PRELEVEMENT,
+                                                TYPE_ECHANTILLON_ID:selectedEchantillion.TYPE_ECHANTILLON_ID,
+                                                TYPE_TEST_ID:selectedTests.TYPE_TEST_ID,
+                                                TEMPO_REQUERANT_ID:donnees.requerantRDV.TEMPO_REQUERANT_ID,
+                                                COMMENT:commentaire,
+                                                REQUERANT_STATUT_ID:resultat      
+                                        }
+                                ),
+                                headers: { "Content-Type": "application/json" },
+                        });
+                        
+                        navigation.navigate("Home")
+                        setIsLoading(false)
+                        toast.show({
+                                title: "L'enregistrement est faite avec succes",
+                                placement: "bottom",
+                                status: 'success',
+                                duration: 2000,
+                                width: '90%',
+                                minWidth: 300
+                        })
+                       
+                }
+                
+                catch (error) {
+                        console.log(error)
+                        toast.show({
+                                title: "La connexion a echoue",
+                                placement: "bottom",
+                                status: 'success',
+                                duration: 2000,
+                                width: '90%',
+                                minWidth: 300
+                        })
+                }
+                setIsLoading(false)
+
+        }
+
         const onTestSelect = (test) => {
                 setselectedTests(test)
                 testRef.current.close()
@@ -83,6 +148,7 @@ export default function ResultatTestSCreens() {
                 setSelectedMethode(methode)
         }
 
+        
         const TypesModalize = () => {
                 return (
                         <View style={styles.modalContent}>
@@ -181,7 +247,7 @@ export default function ResultatTestSCreens() {
                                                 })}
                                                 <View style={styles.formGroup}>
                                                         <Text style={styles.title}>Date de prelevement des echantillons </Text>
-                                                        <TouchableOpacity style={styles.datePickerButton} onPress={displayDatepicker}>
+                                                        <TouchableOpacity style={styles.datePickerButton}>
                                                                 <View style={styles.iconDebutName}>
                                                                         <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
                                                                         <Text style={styles.debutName}>
@@ -189,18 +255,27 @@ export default function ResultatTestSCreens() {
                                                                         </Text>
                                                                 </View>
                                                                 <View style={styles.rightDate}>
-                                                                        <Text>{(mydate.getFullYear() + '-' + mydate.getMonth() + '-' + mydate.getDate())}</Text>
+                                                                        <Text>
+                                                                                {moment(donnees.requerantRDV.DATE_PRELEVEMENT).calendar(null, {
+                                                                                       
+                                                                                        nextDay: 'DD-M-YYYY',
+                                                                                        lastWeek: 'DD-M-YYYY',
+                                                                                        sameElse: 'DD-M-YYYY',
+                                                                                })}
+                                                                                {moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('  HH:mm')}
+                                                                        </Text>
+
                                                                 </View>
                                                         </TouchableOpacity>
                                                 </View>
-                                                {isDisplayDate && <DateTimePicker
+                                                {/* {isDisplayDate && <DateTimePicker
                                                         testID="dateTimePicker"
                                                         value={mydate}
                                                         mode={displaymode}
                                                         is24Hour={true}
                                                         display="default"
                                                         onChange={changeSelectedDate}
-                                                />}
+                                                />} */}
                                                 <View style={styles.formGroup}>
                                                         <Text style={styles.title}>
                                                                 Types d'echantillons
@@ -208,6 +283,18 @@ export default function ResultatTestSCreens() {
                                                         <TouchableOpacity style={styles.openModalize} onPress={() => typeRef.current.open()}>
                                                                 <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                         {selectedEchantillion != null ? selectedEchantillion.DESCRIPTION : "--Select--"}
+                                                                </Text>
+                                                                <AntDesign name="caretdown" size={16} color="#777" />
+                                                        </TouchableOpacity>
+                                                </View>
+
+                                                <View style={styles.formGroup}>
+                                                        <Text style={styles.title}>
+                                                                Type de test
+                                                        </Text>
+                                                        <TouchableOpacity style={styles.openModalize} onPress={() => testRef.current.open()}>
+                                                                <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                        {selectedTests != null ? selectedTests.DESCRIPTION : "--Select--"}
                                                                 </Text>
                                                                 <AntDesign name="caretdown" size={16} color="#777" />
                                                         </TouchableOpacity>
@@ -224,7 +311,7 @@ export default function ResultatTestSCreens() {
                                                                 {resultat == 12 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                         Negatif
                                                                 </Text>}
-                                                                { resultat == null && <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                {resultat == null && <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                         --Select--
                                                                 </Text>}
                                                                 <AntDesign name="caretdown" size={16} color="#777" />
@@ -251,20 +338,10 @@ export default function ResultatTestSCreens() {
                                                         onChange={changeSelectedDateNew}
                                                 />}
 
+                                               
                                                 <View style={styles.formGroup}>
                                                         <Text style={styles.title}>
-                                                                Type de test
-                                                        </Text>
-                                                        <TouchableOpacity style={styles.openModalize} onPress={() => testRef.current.open()}>
-                                                                <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        {selectedTests != null ? selectedTests.DESCRIPTION : "--Select--"}
-                                                                </Text>
-                                                                <AntDesign name="caretdown" size={16} color="#777" />
-                                                        </TouchableOpacity>
-                                                </View>
-                                                <View style={styles.formGroup}>
-                                                        <Text style={styles.title}>
-                                                                Conclusion
+                                                                Commentaire
                                                         </Text>
                                                         <Input
                                                                 placeholder="Conlusion"
@@ -272,8 +349,8 @@ export default function ResultatTestSCreens() {
                                                                 borderRadius={10}
                                                                 backgroundColor={"#dde1ed"}
                                                                 multiline={true}
-                                                        // onChangeText={t => setQn(t)}
-                                                        // value={q}
+                                                         onChangeText={(comm) =>SetCommentaire(comm)}
+                                                         value={commentaire}
                                                         />
                                                 </View>
 
@@ -281,7 +358,7 @@ export default function ResultatTestSCreens() {
                                 </View>
                                 <Button
                                         //onPress={() => onSubmit()}
-                                        //isLoading={loading}
+                                        isLoading={isLoading}
                                         //    isDisabled={nom == "" || prenom == "" || numero == "" || email == "" || adresse == "" || password == "" || confirmPassword == "" || sexe == null}
                                         borderRadius={30}
                                         marginHorizontal={20}
@@ -289,6 +366,7 @@ export default function ResultatTestSCreens() {
                                         py={2}
                                         // width={"100%"}
                                         marginTop={5}
+                                        onPress={CreateResultat}
                                         size="lg"
                                         backgroundColor={"#F58424"}
                                         marginBottom={15}
