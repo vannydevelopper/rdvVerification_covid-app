@@ -12,13 +12,13 @@ const Stack = createNativeStackNavigator()
 export default function HomeNavigator(){
         return(
                 <Stack.Navigator>
-                        <Stack.Screen name="Home" component={ResultatTestSCreens} options={{headerShown:false}}/>
-                        {/* <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/> */}
+                        {/* <Stack.Screen name="Home" component={ResultatTestSCreens} options={{headerShown:false}}/> */}
+                        <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Scan" component={ScanQrCodeScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Information" component={InformationScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Photo" component={PhotoScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Not" component={NotFoundScreen} options={{headerShown:false}}/>
-                        {/* <Stack.Screen name="Resultat" component={ResultatTestSCreens} options={{headerShown:false}}/> */}
+                        <Stack.Screen name="Resultat" component={ResultatTestSCreens} options={{headerShown:false}}/>
                 </Stack.Navigator>
         )
 }

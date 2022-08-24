@@ -140,11 +140,8 @@ export default function HistoriqueDetailSCreen() {
                                                         </>}
                                         </View>
                                 </View>
-                                <View style={styles.button}>
-                                  
-                                  <Button onPress={ResultScreen}   borderRadius={15}>Prelevement </Button>
-                                  
-                                </View>
+                                
+                                
                         </ScrollView>
                         <Modal visible={showImageModal} transparent={true} onRequestClose={() => setShowImageModal(false)}>
                                 <ImageViewer

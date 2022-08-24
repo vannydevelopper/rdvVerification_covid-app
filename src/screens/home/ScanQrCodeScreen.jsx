@@ -123,7 +123,7 @@ export default function ScanQrCodeScreen() {
 
                             <View style={styles.mask}>
                                    <Text style={styles.scanTitle}>
-                                          Scanner de Qre code
+                                          Scanner le QR code
                                    </Text>
                                    <View style={styles.maskScan} />
                                    <View style={styles.scanActions}>
