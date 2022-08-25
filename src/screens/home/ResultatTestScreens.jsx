@@ -123,7 +123,7 @@ export default function ResultatTestSCreens() {
                 catch (error) {
                         console.log(error)
                         toast.show({
-                                title: "La connexion a echoue",
+                                title: "L'enregistrement a echoue",
                                 placement: "bottom",
                                 status: 'success',
                                 duration: 2000,

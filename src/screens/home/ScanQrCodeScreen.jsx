@@ -70,9 +70,9 @@ export default function ScanQrCodeScreen() {
                             else
                             {
                                    navigation.goBack()
-                                   navigation.navigate("Not", { donnees: fetchScan.message })
+                                   navigation.navigate("Validation", { donnees: fetchScan })
                             }
-                            //console.log(fetchScan)
+                            // console.log(fetchScan)
                             
                      }
                      catch (error) {
