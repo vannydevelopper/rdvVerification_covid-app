@@ -6,6 +6,7 @@ import InformationScreen from "../screens/home/InformationScreen";
 import PhotoScreen from "../screens/home/PhotoScreen";
 import NotFoundScreen from "../screens/home/NotFoundScreen";
 import ResultatTestSCreens from "../screens/home/ResultatTestScreens";
+import ValidationScren from "../screens/home/ValidationScren";
 
 const Stack = createNativeStackNavigator()
 
@@ -13,12 +14,14 @@ export default function HomeNavigator(){
         return(
                 <Stack.Navigator>
                         {/* <Stack.Screen name="Home" component={ResultatTestSCreens} options={{headerShown:false}}/> */}
-                        <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
+                        <Stack.Screen name="Home" component={ValidationScren} options={{headerShown:false}}/>
+                        {/* <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/> */}
                         <Stack.Screen name="Scan" component={ScanQrCodeScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Information" component={InformationScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Photo" component={PhotoScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Not" component={NotFoundScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Resultat" component={ResultatTestSCreens} options={{headerShown:false}}/>
+                        {/* <Stack.Screen name="Validation" component={ValidationScren} options={{headerShown:false}}/> */}
                 </Stack.Navigator>
         )
 }
