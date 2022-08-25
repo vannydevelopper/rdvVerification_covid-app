@@ -261,7 +261,7 @@ export default function ResultatTestSCreens() {
                                                         )
                                                 })}
                                                 <View style={styles.formGroup}>
-                                                        <Text style={styles.title}>Date de prelevement des echantillons </Text>
+                                                        <Text style={styles.title}>Date de Prélèvement des échantillons </Text>
                                                         <TouchableOpacity style={styles.datePickerButton}>
                                                                 <View style={styles.iconDebutName}>
                                                                         <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
@@ -293,7 +293,7 @@ export default function ResultatTestSCreens() {
                                                 />} */}
                                                 <View style={styles.formGroup}>
                                                         <Text style={styles.title}>
-                                                                Types d'echantillons
+                                                                Types d'échantillons
                                                         </Text>
                                                         <TouchableOpacity style={styles.openModalize} onPress={() => typeRef.current.open()}>
                                                                 <Text style={styles.openModalizeLabel} numberOfLines={1}>
@@ -317,14 +317,14 @@ export default function ResultatTestSCreens() {
 
                                                 <View style={styles.formGroup}>
                                                         <Text style={styles.title}>
-                                                                Resultat de test
+                                                                Résultat de test
                                                         </Text>
                                                         <TouchableOpacity style={styles.openModalize} onPress={() => resultatRef.current.open()}>
                                                                 {resultat == 5 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                         Positif
                                                                 </Text>}
                                                                 {resultat == 12 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        Negatif
+                                                                        Négatif
                                                                 </Text>}
                                                                 {resultat == null && <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                         --Select--
@@ -332,7 +332,7 @@ export default function ResultatTestSCreens() {
                                                                 <AntDesign name="caretdown" size={16} color="#777" />
                                                         </TouchableOpacity>
                                                 </View>
-                                                <Text style={styles.title}>Date de reception des echantillons</Text>
+                                                <Text style={styles.title}>Date de réception des échantillons</Text>
                                                 <TouchableOpacity style={styles.datePickerButton} onPress={displayDatepickerNew}>
                                                         <View style={styles.iconDebutName}>
                                                                 <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
@@ -359,7 +359,7 @@ export default function ResultatTestSCreens() {
                                                                 Commentaire
                                                         </Text>
                                                         <Input
-                                                                placeholder="Conlusion"
+                                                                placeholder="Tapez votre commentaire"
                                                                 size='md'
                                                                 borderRadius={10}
                                                                 backgroundColor={"#dde1ed"}
