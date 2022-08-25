@@ -69,7 +69,7 @@ export default function ResultatTestSCreens() {
         };
 
         const [selectedTests, setselectedTests] = useState(null)
-        const [selectedResultat, setSelectedResultat] = useState(null)
+        const [selectedResultat,setSelectedResultat] = useState(null)
         const [selectedEchantillion, setSelectedEchantillion] = useState(null)
         const [selectedMethode, setSelectedMethode] = useState(null)
 
@@ -78,6 +78,15 @@ export default function ResultatTestSCreens() {
         //const [loading2, typeResultats] = useFetch("/resultat/afficher")
         const [loading3, typeEchantillions] = useFetch(`/echantillon/afficher/${selectedMethode?.METHODE_TEST_ID}`)
         const [loading4, methodeTests] = useFetch("/test/afficher")
+
+        useEffect(() => {
+                if(!loading4){
+                        const defautmethode= methodeTests.find(methode => methode.METHODE_TEST_ID==1)
+                        setSelectedMethode(defautmethode)
+                }
+                
+        },[methodeTests])
+         
         
         const CreateResultat = async () => {
                 setIsLoading(true)
@@ -144,8 +153,14 @@ export default function ResultatTestSCreens() {
         }
 
         //check methode
-        const onCheckSelect = (methode) => {
+        const onCheckSelect =(methode) => {
                 setSelectedMethode(methode)
+                setSelectedEchantillion(null)
+                setselectedTests(null)
+                setSelectedResultat(null)
+                
+
+
         }
 
         
