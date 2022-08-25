@@ -241,6 +241,7 @@ export default function ResultatTestSCreens() {
         }
 
         return (
+                
                 <View style={{ marginBottom: 20 }}>
                         <ScrollView>
                                 <View style={styles.container}>
