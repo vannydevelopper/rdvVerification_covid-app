@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, BackHandler, TouchableNativeFeedback, Animated, TouchableOpacity, TouchableWithoutFeedback, StatusBar, Text, View } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { Entypo, FontAwesome5, AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Entypo, FontAwesome5, AntDesign, MaterialCommunityIcons,FontAwesome,MaterialIcons } from '@expo/vector-icons';
 import { Host, Portal } from 'react-native-portalize';
+
 import { Modalize } from "react-native-modalize";
 import { Button, Icon, Input, FormControl, WarningOutlineIcon, useToast } from 'native-base'
 import useFetch from "../../hooks/useFetch";
@@ -78,8 +79,8 @@ export default function ResultatTestSCreens() {
         //const [loading2, typeResultats] = useFetch("/resultat/afficher")
         const [loading3, typeEchantillions] = useFetch(`/echantillon/afficher/${selectedMethode?.METHODE_TEST_ID}`)
         const [loading4, methodeTests] = useFetch("/test/afficher")
-
-        useEffect(() => {
+        //Selection du methode par defaut
+        useEffect(() =>{
                 if(!loading4){
                         const defautmethode= methodeTests.find(methode => methode.METHODE_TEST_ID==1)
                         setSelectedMethode(defautmethode)
@@ -244,6 +245,93 @@ export default function ResultatTestSCreens() {
                 
                 <View style={{ marginBottom: 20 }}>
                         <ScrollView>
+                        <>
+                        <View style={styles.requerant}>
+                                        <View
+                                                style={{
+                                                        flexDirection: 'row',
+                                                        alignContent: 'center',
+                                                        alignItems: 'center',
+                                                        marginTop: 5,
+                                                }}
+                                        >
+                                                <View style={styles.cardImage}>
+                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
+
+                                                        <Text style={styles.titleResponse}>
+
+                                                                {donnees.requerantRDV.NOM}{' '} {donnees.requerantRDV.PRENOM}
+                                                        </Text>
+                                                </View>
+                                        </View>
+                                        <View
+                                                style={{
+                                                        flexDirection: 'row',
+                                                        alignContent: 'center',
+                                                        alignItems: 'center',
+                                                        marginTop: 5,
+                                                }}
+                                        >
+
+
+                                                <View style={styles.cardImage}>
+                                                        <Entypo name="mail" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+
+                                                        <Text style={styles.titleNom}>Email</Text>
+
+                                                        <Text style={styles.titleResponse}>
+
+                                                                {donnees.requerantRDV.EMAIL}
+                                                        </Text>
+                                                </View>
+                                        </View>
+                                        <View
+                                                style={{
+                                                        flexDirection: 'row',
+                                                        alignContent: 'center',
+                                                        alignItems: 'center',
+                                                        marginTop: 5,
+                                                }}
+                                        >
+                                                <View style={styles.cardImage}>
+                                                        <FontAwesome name="phone" size={24} color="#F58424" />
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Telephone</Text>
+                                                        <Text style={styles.titleResponse}>
+
+                                                                {donnees.requerantRDV.TELEPHONE}
+                                                        </Text>
+                                                </View>
+                                        </View>
+                                        <View
+                                                style={{
+                                                        flexDirection: 'row',
+                                                        alignContent: 'center',
+                                                        alignItems: 'center',
+                                                        marginTop: 5,
+                                                }}
+                                        >
+                                                <View style={styles.cardImage}>
+                                                        <FontAwesome name="phone" size={24} color="#F58424" />
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Document</Text>
+                                                        <Text style={styles.titleResponse}>
+
+                                                                {donnees.requerantRDV.DOCUMENT_DESCR}
+                                                        </Text>
+                                                </View>
+                                        </View>
+                                </View>
+
                                 <View style={styles.container}>
                                         <View style={styles.cardPrincipal}>
                                                 {methodeTests.map((methode, index) => {
@@ -392,6 +480,7 @@ export default function ResultatTestSCreens() {
                                 >
                                         Enregistrer
                                 </Button>
+                                </>
                         </ScrollView>
 
 
@@ -419,7 +508,7 @@ export default function ResultatTestSCreens() {
 const styles = StyleSheet.create({
         container: {
                 flex: 1,
-                // backgroundColor:"red"
+                 backgroundColor:"#ffff"
 
         },
         datePickerButton: {
@@ -488,5 +577,22 @@ const styles = StyleSheet.create({
         },
         formGroup: {
                 marginBottom: 20
-        }
+        },
+        requerant:
+        {
+                backgroundColor: "#ffff",
+                width: "90%",
+                alignSelf: "center",
+                padding: 10,
+                borderRadius: 10,
+                marginTop: 20,
+
+
+
+
+        },
+        titleNom: {
+                fontSize: 15,
+                fontWeight: "bold"
+        },
 })
