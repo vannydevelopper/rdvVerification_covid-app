@@ -69,7 +69,7 @@ export default function ResultatTestSCreens() {
         };
 
         const [selectedTests, setselectedTests] = useState(null)
-        const [selectedResultat, setSelectedResultat] = useState(null)
+        const [selectedResultat,setSelectedResultat] = useState(null)
         const [selectedEchantillion, setSelectedEchantillion] = useState(null)
         const [selectedMethode, setSelectedMethode] = useState(null)
 
@@ -78,6 +78,15 @@ export default function ResultatTestSCreens() {
         //const [loading2, typeResultats] = useFetch("/resultat/afficher")
         const [loading3, typeEchantillions] = useFetch(`/echantillon/afficher/${selectedMethode?.METHODE_TEST_ID}`)
         const [loading4, methodeTests] = useFetch("/test/afficher")
+
+        useEffect(() => {
+                if(!loading4){
+                        const defautmethode= methodeTests.find(methode => methode.METHODE_TEST_ID==1)
+                        setSelectedMethode(defautmethode)
+                }
+                
+        },[methodeTests])
+         
         
         const CreateResultat = async () => {
                 setIsLoading(true)
@@ -144,8 +153,14 @@ export default function ResultatTestSCreens() {
         }
 
         //check methode
-        const onCheckSelect = (methode) => {
+        const onCheckSelect =(methode) => {
                 setSelectedMethode(methode)
+                setSelectedEchantillion(null)
+                setselectedTests(null)
+                setSelectedResultat(null)
+                
+
+
         }
 
         
@@ -246,7 +261,7 @@ export default function ResultatTestSCreens() {
                                                         )
                                                 })}
                                                 <View style={styles.formGroup}>
-                                                        <Text style={styles.title}>Date de prelevement des echantillons </Text>
+                                                        <Text style={styles.title}>Date de Prélèvement des échantillons </Text>
                                                         <TouchableOpacity style={styles.datePickerButton}>
                                                                 <View style={styles.iconDebutName}>
                                                                         <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
@@ -278,7 +293,7 @@ export default function ResultatTestSCreens() {
                                                 />} */}
                                                 <View style={styles.formGroup}>
                                                         <Text style={styles.title}>
-                                                                Types d'echantillons
+                                                                Types d'échantillons
                                                         </Text>
                                                         <TouchableOpacity style={styles.openModalize} onPress={() => typeRef.current.open()}>
                                                                 <Text style={styles.openModalizeLabel} numberOfLines={1}>
@@ -302,14 +317,14 @@ export default function ResultatTestSCreens() {
 
                                                 <View style={styles.formGroup}>
                                                         <Text style={styles.title}>
-                                                                Resultat de test
+                                                                Résultat de test
                                                         </Text>
                                                         <TouchableOpacity style={styles.openModalize} onPress={() => resultatRef.current.open()}>
                                                                 {resultat == 5 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                         Positif
                                                                 </Text>}
                                                                 {resultat == 12 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        Negatif
+                                                                        Négatif
                                                                 </Text>}
                                                                 {resultat == null && <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                         --Select--
@@ -317,7 +332,7 @@ export default function ResultatTestSCreens() {
                                                                 <AntDesign name="caretdown" size={16} color="#777" />
                                                         </TouchableOpacity>
                                                 </View>
-                                                <Text style={styles.title}>Date de reception des echantillons</Text>
+                                                <Text style={styles.title}>Date de réception des échantillons</Text>
                                                 <TouchableOpacity style={styles.datePickerButton} onPress={displayDatepickerNew}>
                                                         <View style={styles.iconDebutName}>
                                                                 <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
@@ -344,7 +359,7 @@ export default function ResultatTestSCreens() {
                                                                 Commentaire
                                                         </Text>
                                                         <Input
-                                                                placeholder="Conlusion"
+                                                                placeholder="Tapez votre commentaire"
                                                                 size='md'
                                                                 borderRadius={10}
                                                                 backgroundColor={"#dde1ed"}
