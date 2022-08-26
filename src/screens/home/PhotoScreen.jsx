@@ -280,7 +280,7 @@ export default function PhotoScreen() {
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Document</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.DOCUMENT_DESCR}</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.DOCUMENT_ID}</Text>
                                                 </View>
                                         </View>
 

@@ -74,7 +74,7 @@ export default function HistoriqueScreen() {
                      {loading ?
                             <View style={{ flex: 1, justifyContent: 'center' }}>
                                    <ActivityIndicator animating={true} size="large" color={"black"} />
-                            </View> :
+                            </View>:
                             <View>
                                   {historiques.length == 0 ? <NotFound style={{marginTop:10}}/> :
                                    <ScrollView keyboardShouldPersistTaps="handled">

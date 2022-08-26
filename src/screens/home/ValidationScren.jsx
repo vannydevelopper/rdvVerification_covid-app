@@ -1,34 +1,152 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from 'react'
 import { StyleSheet, Text, View, StatusBar, Image } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Button, Icon, Input, FormControl, WarningOutlineIcon } from 'native-base'
+import { Button, Icon, Input, FormControl, WarningOutlineIcon,useToast } from 'native-base'
 import fetchApi from "../../helpers/fetchApi";
-import { MaterialIcons, Ionicons, FontAwesome5, AntDesign, FontAwesome, Entypo, Foundation } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
+import * as Location from 'expo-location'
+import { useDispatch, useSelector } from "react-redux";
+import { MaterialIcons, Ionicons, FontAwesome5, AntDesign, Fontisto, FontAwesome, Entypo, Foundation } from '@expo/vector-icons';
+import { userSelector } from '../../store/selectors/userSelector';
 
 export default function ValidationScren() {
         const route = useRoute()
+        const [location, setLocation] = useState(null)
         const { donnees } = route.params
-        // console.log(donnees.requerant_Id.REQUERANT_ID)
+        const toast = useToast()
+        const user= useSelector(userSelector)
+        // console.log(user.user.USER_ID)
+        // console.log(donnees.requerant_Id)
+
+        // const CreateCertificat = async () => {
+        //         try {
+
+        //                 let result = await WebBrowser.openBrowserAsync('https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer/${donnees.requerant_Id.REQUERANT_ID}');
+        //                 setResult(result);
+        //               }
+            //          const generation = await response.json()
+             //          console.log(generation)
+        //         }
+        //         catch (error) 
+        //         {
+        //                 console.log(error)
+        //         }
+        // }
+
+        const askLocationPermission = async () => {
+                let {
+                        status: locationStatus,
+                } = await Location.requestForegroundPermissionsAsync()
+                if (locationStatus !=='granted') {
+                        console.log('Permission to access location was denied')
+                        setLocation(false)
+                        return
+                }
+                var location = await Location.getCurrentPositionAsync({})
+                setLocation(location)
+        }
+
+        useEffect(() => {
+                askLocationPermission()
+        }, [])
+
+        if (location === false) {
+                return (
+                        <View
+                                style={{
+                                        alignContent: 'center',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        flex: 1,
+                                }}
+                        >
+                                <Text style={{ fontWeight: 'bold', fontSize: 16, opacity: 0.8 }}>
+                                        Pas d'accès à la localisation
+                                </Text>
+                                <Text
+                                        style={{
+                                                textAlign: 'center',
+                                                color: '#777',
+                                                marginTop: 10,
+                                                paddingHorizontal: 10,
+                                        }}
+                                >
+                                        L'application a besoin de votre localisation pour fonctionner
+                                </Text>
+                                <TouchableNativeFeedback
+                                        background={TouchableNativeFeedback.Ripple('#ddd')}
+                                        useForeground={true}
+                                        onPress={() => askLocationPermission()}
+                                >
+                                        <View
+                                                style={{
+                                                        backgroundColor: '#fff',
+                                                        borderRadius: 10,
+                                                        padding: 10,
+                                                        marginTop: 20,
+                                                }}
+                                        >
+                                                <Text>Autoriser l'accès</Text>
+                                        </View>
+                                </TouchableNativeFeedback>
+                        </View>
+                )
+        }
 
         const CreateCertificat = async () => {
-                try {
-                        const generation = await fetchApi(`https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer/${donnees.requerant_Id.REQUERANT_ID}`, {
-                                method: 'POST',
-                                headers: { "Content-Type": "application/json" },
-                        })
+                if (!location) {
+                        let { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
+                        if (locationStatus !== 'granted') {
+                                return setLoading(false)
+                        }
+                        var loc = await Location.getCurrentPositionAsync({});
+                        setLocation(loc)
                 }
-                catch (error) {
-                        console.log(error)
+                const form = new FormData()
+                form.append('LATITUDE', location.coords.latitude)
+                form.append('LONGITUDE', location.coords.longitude)
+               form.append('user_id',user.user.USER_ID)
+
+                
+                try{
+                     const data = await fetch(`https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer/${donnees.requerant_Id.REQUERANT_ID}`,{
+                        method: "POST",
+                        body: form
+                        
+                        
+                })
+                toast.show({
+                        title: "La generation faite   avec succes",
+                        placement: "bottom",
+                        status: 'success',
+                        duration: 2000,
+                        width: '90%',
+                        minWidth: 300
+                })
                 }
-        }
+            catch(error)    
+            {
+             console.log(error)
+             toast.show({
+                title: "Echec generation faite   avec succes",
+                placement: "bottom",
+                status: 'success',
+                duration: 2000,
+                width: '90%',
+                minWidth: 300
+        })
+            }
+                
+        };
+
 
         return (
                 <>
 
 
 
-                                <StatusBar backgroundColor="#ddd" barStyle="dark-content" />
-                        <View style={{ flex: 1, backgroundColor: '#f1f1f1', justifyContent:"center" ,alignItems:"center"}}>
+                        <StatusBar backgroundColor="#ddd" barStyle="dark-content" />
+                        <View style={{ flex: 1, backgroundColor: '#f1f1f1', justifyContent: "center", alignItems: "center" }}>
                                 <View style={styles.requerant}>
                                         <View
                                                 style={{
@@ -103,7 +221,7 @@ export default function ValidationScren() {
                                                 }}
                                         >
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome name="phone" size={24} color="#F58424" />
+                                                        <Fontisto name="passport-alt" size={24} color="#F58424" />
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Document</Text>
@@ -113,26 +231,45 @@ export default function ValidationScren() {
                                                         </Text>
                                                 </View>
                                         </View>
+                                        <View
+                                                style={{
+                                                        flexDirection: 'row',
+                                                        alignContent: 'center',
+                                                        alignItems: 'center',
+                                                        marginTop: 5,
+                                                }}
+                                        >
+                                                <View style={styles.cardImage}>
+                                                        <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Numero du document</Text>
+                                                        <Text style={styles.titleResponse}>
+
+                                                                {donnees.requerantRDV.NUMERO_DOCUMENT}
+                                                        </Text>
+                                                </View>
+                                        </View>
                                 </View>
                                 <View style={styles.header}>
-                                                <Image source={require('../../../assets/login.png')} style={styles.image} />
-                                                <Text style={{ fontSize: 16 }}>Validation des données de test</Text>
-                                                <View style={{ marginTop: 10 }}>
-                                                        <Text style={{}}>Voulez-vous valider ces données ?</Text>
-                                                </View>
-                                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-                                                        <Button
-                                                                backgroundColor={"#F58424"} onPress={CreateCertificat}
-                                                        >
-                                                                valider
-                                                        </Button>
-                                                        <View style={{ padding: 10 }}></View>
-                                                        <Button
-                                                                backgroundColor={"#F58424"}
-                                                        >
-                                                                Annuler
-                                                        </Button>
-                                                </View>
+                                        <Image source={require('../../../assets/login.png')} style={styles.image} />
+                                        <Text style={{ fontSize: 16 }}>Validation des données de test</Text>
+                                        <View style={{ marginTop: 10 }}>
+                                                <Text style={{}}>Voulez-vous valider ces données ?</Text>
+                                        </View>
+                                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
+                                                <Button
+                                                        backgroundColor={"#F58424"} onPress={CreateCertificat}
+                                                >
+                                                        valider
+                                                </Button>
+                                                <View style={{ padding: 10 }}></View>
+                                                <Button
+                                                        backgroundColor={"#F58424"}
+                                                >
+                                                        Annuler
+                                                </Button>
+                                        </View>
                                 </View>
                         </View>
                 </>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, BackHandler, TouchableNativeFeedback, Animated, TouchableOpacity, TouchableWithoutFeedback, StatusBar, Text, View } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { Entypo, FontAwesome5, AntDesign, MaterialCommunityIcons,FontAwesome,MaterialIcons } from '@expo/vector-icons';
+import { Entypo, FontAwesome5, AntDesign, Fontisto, MaterialCommunityIcons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { Host, Portal } from 'react-native-portalize';
 
 import { Modalize } from "react-native-modalize";
@@ -12,15 +12,15 @@ import fetchApi from "../../helpers/fetchApi";
 import moment from 'moment'
 moment.updateLocale('fr', {
         calendar: {
-               
-                nextDay: 'DD-M-YYYY',
-                lastWeek: 'DD-M-YYYY',
-                sameElse: 'DD-M-YYYY',
+
+                nextDay: 'DD-MM-YYYY',
+                lastWeek: 'DD-MM-YYYY',
+                sameElse: 'DD-MM-YYYY',
         },
 })
 
 export default function ResultatTestSCreens() {
-        const [commentaire,SetCommentaire]=useState("")
+        const [commentaire, SetCommentaire] = useState("")
         const typeRef = useRef(null)
         const resultatRef = useRef(null)
         const testRef = useRef(null)
@@ -70,7 +70,7 @@ export default function ResultatTestSCreens() {
         };
 
         const [selectedTests, setselectedTests] = useState(null)
-        const [selectedResultat,setSelectedResultat] = useState(null)
+        const [selectedResultat, setSelectedResultat] = useState(null)
         const [selectedEchantillion, setSelectedEchantillion] = useState(null)
         const [selectedMethode, setSelectedMethode] = useState(null)
 
@@ -80,34 +80,34 @@ export default function ResultatTestSCreens() {
         const [loading3, typeEchantillions] = useFetch(`/echantillon/afficher/${selectedMethode?.METHODE_TEST_ID}`)
         const [loading4, methodeTests] = useFetch("/test/afficher")
         //Selection du methode par defaut
-        useEffect(() =>{
-                if(!loading4){
-                        const defautmethode= methodeTests.find(methode => methode.METHODE_TEST_ID==1)
+        useEffect(() => {
+                if (!loading4) {
+                        const defautmethode = methodeTests.find(methode => methode.METHODE_TEST_ID == 1)
                         setSelectedMethode(defautmethode)
                 }
-                
-        },[methodeTests])
-         
-        
+
+        }, [methodeTests])
+
+
         const CreateResultat = async () => {
                 setIsLoading(true)
                 try {
-                        const data = await fetchApi("/resultats",{
+                        const data = await fetchApi("/resultats", {
                                 method: "POST",
                                 body: JSON.stringify(
                                         {
-                                                METHODE_ID:selectedMethode.METHODE_TEST_ID,
-                                                DATE_PRELEVEMENT:donnees.requerantRDV.DATE_PRELEVEMENT,
-                                                TYPE_ECHANTILLON_ID:selectedEchantillion.TYPE_ECHANTILLON_ID,
-                                                TYPE_TEST_ID:selectedTests.TYPE_TEST_ID,
-                                                TEMPO_REQUERANT_ID:donnees.requerantRDV.TEMPO_REQUERANT_ID,
-                                                COMMENT:commentaire,
-                                                REQUERANT_STATUT_ID:resultat      
+                                                METHODE_ID: selectedMethode.METHODE_TEST_ID,
+                                                DATE_PRELEVEMENT: donnees.requerantRDV.DATE_PRELEVEMENT,
+                                                TYPE_ECHANTILLON_ID: selectedEchantillion.TYPE_ECHANTILLON_ID,
+                                                TYPE_TEST_ID: selectedTests.TYPE_TEST_ID,
+                                                TEMPO_REQUERANT_ID: donnees.requerantRDV.TEMPO_REQUERANT_ID,
+                                                COMMENT: commentaire,
+                                                REQUERANT_STATUT_ID: resultat
                                         }
                                 ),
                                 headers: { "Content-Type": "application/json" },
                         });
-                        
+
                         navigation.navigate("Home")
                         setIsLoading(false)
                         toast.show({
@@ -118,9 +118,9 @@ export default function ResultatTestSCreens() {
                                 width: '90%',
                                 minWidth: 300
                         })
-                       
+
                 }
-                
+
                 catch (error) {
                         console.log(error)
                         toast.show({
@@ -154,17 +154,17 @@ export default function ResultatTestSCreens() {
         }
 
         //check methode
-        const onCheckSelect =(methode) => {
+        const onCheckSelect = (methode) => {
                 setSelectedMethode(methode)
                 setSelectedEchantillion(null)
                 setselectedTests(null)
                 setSelectedResultat(null)
-                
+
 
 
         }
 
-        
+
         const TypesModalize = () => {
                 return (
                         <View style={styles.modalContent}>
@@ -242,137 +242,157 @@ export default function ResultatTestSCreens() {
         }
 
         return (
-                
+
                 <View style={{ marginBottom: 20 }}>
                         <ScrollView>
-                        <>
-                        <View style={styles.requerant}>
-                                        <View
-                                                style={{
-                                                        flexDirection: 'row',
-                                                        alignContent: 'center',
-                                                        alignItems: 'center',
-                                                        marginTop: 5,
-                                                }}
-                                        >
-                                                <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+                                <>
+                                        <View style={styles.requerant}>
+                                                <View
+                                                        style={{
+                                                                flexDirection: 'row',
+                                                                alignContent: 'center',
+                                                                alignItems: 'center',
+                                                                marginTop: 5,
+                                                        }}
+                                                >
+                                                        <View style={styles.cardImage}>
+                                                                <FontAwesome5 name="user" size={24} color="#F58424" />
 
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Nom et Prénom</Text>
+
+                                                                <Text style={styles.titleResponse}>
+
+                                                                        {donnees.requerantRDV.NOM}{' '} {donnees.requerantRDV.PRENOM}
+                                                                </Text>
+                                                        </View>
                                                 </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                <View
+                                                        style={{
+                                                                flexDirection: 'row',
+                                                                alignContent: 'center',
+                                                                alignItems: 'center',
+                                                                marginTop: 5,
+                                                        }}
+                                                >
 
-                                                        <Text style={styles.titleResponse}>
 
-                                                                {donnees.requerantRDV.NOM}{' '} {donnees.requerantRDV.PRENOM}
-                                                        </Text>
+                                                        <View style={styles.cardImage}>
+                                                                <Entypo name="mail" size={24} color="#F58424" />
+
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+
+                                                                <Text style={styles.titleNom}>Email</Text>
+
+                                                                <Text style={styles.titleResponse}>
+
+                                                                        {donnees.requerantRDV.EMAIL}
+                                                                </Text>
+                                                        </View>
+                                                </View>
+                                                <View
+                                                        style={{
+                                                                flexDirection: 'row',
+                                                                alignContent: 'center',
+                                                                alignItems: 'center',
+                                                                marginTop: 5,
+                                                        }}
+                                                >
+                                                        <View style={styles.cardImage}>
+                                                                <FontAwesome name="phone" size={24} color="#F58424" />
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Telephone</Text>
+                                                                <Text style={styles.titleResponse}>
+
+                                                                        {donnees.requerantRDV.TELEPHONE}
+                                                                </Text>
+                                                        </View>
+                                                </View>
+                                                <View
+                                                        style={{
+                                                                flexDirection: 'row',
+                                                                alignContent: 'center',
+                                                                alignItems: 'center',
+                                                                marginTop: 5,
+                                                        }}
+                                                >
+                                                        <View style={styles.cardImage}>
+                                                                <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Document</Text>
+                                                                <Text style={styles.titleResponse}>
+
+                                                                        {donnees.requerantRDV.DOCUMENT_DESCR}
+                                                                </Text>
+                                                        </View>
+                                                </View>
+
+                                                <View
+                                                        style={{
+                                                                flexDirection: 'row',
+                                                                alignContent: 'center',
+                                                                alignItems: 'center',
+                                                                marginTop: 5,
+                                                        }}
+                                                >
+                                                        <View style={styles.cardImage}>
+                                                                <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Numero du document</Text>
+                                                                <Text style={styles.titleResponse}>
+
+                                                                        {donnees.requerantRDV.NUMERO_DOCUMENT}
+                                                                </Text>
+                                                        </View>
                                                 </View>
                                         </View>
-                                        <View
-                                                style={{
-                                                        flexDirection: 'row',
-                                                        alignContent: 'center',
-                                                        alignItems: 'center',
-                                                        marginTop: 5,
-                                                }}
-                                        >
-
-
-                                                <View style={styles.cardImage}>
-                                                        <Entypo name="mail" size={24} color="#F58424" />
-
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-
-                                                        <Text style={styles.titleNom}>Email</Text>
-
-                                                        <Text style={styles.titleResponse}>
-
-                                                                {donnees.requerantRDV.EMAIL}
-                                                        </Text>
-                                                </View>
-                                        </View>
-                                        <View
-                                                style={{
-                                                        flexDirection: 'row',
-                                                        alignContent: 'center',
-                                                        alignItems: 'center',
-                                                        marginTop: 5,
-                                                }}
-                                        >
-                                                <View style={styles.cardImage}>
-                                                        <FontAwesome name="phone" size={24} color="#F58424" />
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Telephone</Text>
-                                                        <Text style={styles.titleResponse}>
-
-                                                                {donnees.requerantRDV.TELEPHONE}
-                                                        </Text>
-                                                </View>
-                                        </View>
-                                        <View
-                                                style={{
-                                                        flexDirection: 'row',
-                                                        alignContent: 'center',
-                                                        alignItems: 'center',
-                                                        marginTop: 5,
-                                                }}
-                                        >
-                                                <View style={styles.cardImage}>
-                                                        <FontAwesome name="phone" size={24} color="#F58424" />
-                                                </View>
-                                                <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Document</Text>
-                                                        <Text style={styles.titleResponse}>
-
-                                                                {donnees.requerantRDV.DOCUMENT_DESCR}
-                                                        </Text>
-                                                </View>
-                                        </View>
-                                </View>
-
-                                <View style={styles.container}>
-                                        <View style={styles.cardPrincipal}>
-                                                {methodeTests.map((methode, index) => {
-                                                        return (
-                                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} key={index}>
-                                                                        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                                                                <TouchableWithoutFeedback onPress={() => onCheckSelect(methode)}>
-                                                                                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 15 }} >
-                                                                                                {selectedMethode?.METHODE_TEST_ID == methode.METHODE_TEST_ID ? <MaterialCommunityIcons name="radiobox-marked" size={20} color="#007bff" style={{ marginLeft: -7 }} /> :
-                                                                                                        <MaterialCommunityIcons name="radiobox-blank" size={20} color="#777" style={{ marginLeft: -7 }} />}
-                                                                                                <Text style={{ ...styles.title, color: "#777" }}>{methode.DESCRIPTION}</Text>
-                                                                                        </View>
-                                                                                </TouchableWithoutFeedback>
+                                        <View style={styles.ligne}></View>
+                                        <View style={styles.container}>
+                                                <View style={styles.cardPrincipal}>
+                                                        {methodeTests.map((methode, index) => {
+                                                                return (
+                                                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} key={index}>
+                                                                                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                                                                        <TouchableWithoutFeedback onPress={() => onCheckSelect(methode)}>
+                                                                                                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 15 }} >
+                                                                                                        {selectedMethode?.METHODE_TEST_ID == methode.METHODE_TEST_ID ? <MaterialCommunityIcons name="radiobox-marked" size={20} color="#007bff" style={{ marginLeft: -7 }} /> :
+                                                                                                                <MaterialCommunityIcons name="radiobox-blank" size={20} color="#777" style={{ marginLeft: -7 }} />}
+                                                                                                        <Text style={{ ...styles.title, color: "#777" }}>{methode.DESCRIPTION}</Text>
+                                                                                                </View>
+                                                                                        </TouchableWithoutFeedback>
+                                                                                </View>
                                                                         </View>
-                                                                </View>
-                                                        )
-                                                })}
-                                                <View style={styles.formGroup}>
-                                                        <Text style={styles.title}>Date de Prélèvement des échantillons </Text>
-                                                        <TouchableOpacity style={styles.datePickerButton}>
-                                                                <View style={styles.iconDebutName}>
-                                                                        <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
-                                                                        <Text style={styles.debutName}>
-                                                                                Date
-                                                                        </Text>
-                                                                </View>
-                                                                <View style={styles.rightDate}>
-                                                                        <Text>
-                                                                                {moment(donnees.requerantRDV.DATE_PRELEVEMENT).calendar(null, {
-                                                                                       
-                                                                                        nextDay: 'DD-M-YYYY',
-                                                                                        lastWeek: 'DD-M-YYYY',
-                                                                                        sameElse: 'DD-M-YYYY',
-                                                                                })}
-                                                                                {moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('  HH:mm')}
-                                                                        </Text>
+                                                                )
+                                                        })}
+                                                        <View style={styles.formGroup}>
+                                                                <Text style={styles.title}>Date de Prélèvement des échantillons </Text>
+                                                                <TouchableOpacity style={styles.datePickerButton}>
+                                                                        <View style={styles.iconDebutName}>
+                                                                                <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
+                                                                                <Text style={styles.debutName}>
+                                                                                        Date
+                                                                                </Text>
+                                                                        </View>
+                                                                        <View style={styles.rightDate}>
+                                                                                <Text>
+                                                                                        {moment(donnees.requerantRDV.DATE_PRELEVEMENT).calendar(null, {
 
-                                                                </View>
-                                                        </TouchableOpacity>
-                                                </View>
-                                                {/* {isDisplayDate && <DateTimePicker
+                                                                                                nextDay: 'DD-MM-YYYY',
+                                                                                                lastWeek: 'DD-MM-YYYY',
+                                                                                                sameElse: 'DD-MM-YYYY',
+                                                                                        })}
+                                                                                        {moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('  HH:mm')}
+                                                                                </Text>
+
+                                                                        </View>
+                                                                </TouchableOpacity>
+                                                        </View>
+                                                        {/* {isDisplayDate && <DateTimePicker
                                                         testID="dateTimePicker"
                                                         value={mydate}
                                                         mode={displaymode}
@@ -380,106 +400,106 @@ export default function ResultatTestSCreens() {
                                                         display="default"
                                                         onChange={changeSelectedDate}
                                                 />} */}
-                                                <View style={styles.formGroup}>
-                                                        <Text style={styles.title}>
-                                                                Types d'échantillons
-                                                        </Text>
-                                                        <TouchableOpacity style={styles.openModalize} onPress={() => typeRef.current.open()}>
-                                                                <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        {selectedEchantillion != null ? selectedEchantillion.DESCRIPTION : "--Select--"}
+                                                        <View style={styles.formGroup}>
+                                                                <Text style={styles.title}>
+                                                                        Types d'échantillons
                                                                 </Text>
-                                                                <AntDesign name="caretdown" size={16} color="#777" />
-                                                        </TouchableOpacity>
-                                                </View>
-
-                                                <View style={styles.formGroup}>
-                                                        <Text style={styles.title}>
-                                                                Type de test
-                                                        </Text>
-                                                        <TouchableOpacity style={styles.openModalize} onPress={() => testRef.current.open()}>
-                                                                <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        {selectedTests != null ? selectedTests.DESCRIPTION : "--Select--"}
-                                                                </Text>
-                                                                <AntDesign name="caretdown" size={16} color="#777" />
-                                                        </TouchableOpacity>
-                                                </View>
-
-                                                <View style={styles.formGroup}>
-                                                        <Text style={styles.title}>
-                                                                Résultat de test
-                                                        </Text>
-                                                        <TouchableOpacity style={styles.openModalize} onPress={() => resultatRef.current.open()}>
-                                                                {resultat == 5 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        Positif
-                                                                </Text>}
-                                                                {resultat == 12 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        Négatif
-                                                                </Text>}
-                                                                {resultat == null && <Text style={styles.openModalizeLabel} numberOfLines={1}>
-                                                                        --Select--
-                                                                </Text>}
-                                                                <AntDesign name="caretdown" size={16} color="#777" />
-                                                        </TouchableOpacity>
-                                                </View>
-                                                <Text style={styles.title}>Date de réception des échantillons</Text>
-                                                <TouchableOpacity style={styles.datePickerButton} onPress={displayDatepickerNew}>
-                                                        <View style={styles.iconDebutName}>
-                                                                <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
-                                                                <Text style={styles.debutName}>
-                                                                        Date
-                                                                </Text>
+                                                                <TouchableOpacity style={styles.openModalize} onPress={() => typeRef.current.open()}>
+                                                                        <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                                {selectedEchantillion != null ? selectedEchantillion.DESCRIPTION : "--Select--"}
+                                                                        </Text>
+                                                                        <AntDesign name="caretdown" size={16} color="#777" />
+                                                                </TouchableOpacity>
                                                         </View>
-                                                        <View style={styles.rightDate}>
-                                                                <Text>{(myNewdate.getFullYear() + '-' + myNewdate.getMonth() + '-' + myNewdate.getDate())}</Text>
+
+                                                        <View style={styles.formGroup}>
+                                                                <Text style={styles.title}>
+                                                                        Type de test
+                                                                </Text>
+                                                                <TouchableOpacity style={styles.openModalize} onPress={() => testRef.current.open()}>
+                                                                        <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                                {selectedTests != null ? selectedTests.DESCRIPTION : "--Select--"}
+                                                                        </Text>
+                                                                        <AntDesign name="caretdown" size={16} color="#777" />
+                                                                </TouchableOpacity>
                                                         </View>
-                                                </TouchableOpacity>
-                                                {isDisplayDateNew && <DateTimePicker
-                                                        testID="dateTimePicker"
-                                                        value={myNewdate}
-                                                        mode={displaymodetype}
-                                                        is24Hour={true}
-                                                        display="default"
-                                                        onChange={changeSelectedDateNew}
-                                                />}
 
-                                               
-                                                <View style={styles.formGroup}>
-                                                        <Text style={styles.title}>
-                                                                Commentaire
-                                                        </Text>
-                                                        <Input
-                                                                placeholder="Tapez votre commentaire"
-                                                                size='md'
-                                                                borderRadius={10}
-                                                                backgroundColor={"#dde1ed"}
-                                                                multiline={true}
-                                                         onChangeText={(comm) =>SetCommentaire(comm)}
-                                                         value={commentaire}
-                                                        />
+                                                        <View style={styles.formGroup}>
+                                                                <Text style={styles.title}>
+                                                                        Résultat de test
+                                                                </Text>
+                                                                <TouchableOpacity style={styles.openModalize} onPress={() => resultatRef.current.open()}>
+                                                                        {resultat == 5 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                                Positif
+                                                                        </Text>}
+                                                                        {resultat == 12 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                                Négatif
+                                                                        </Text>}
+                                                                        {resultat == null && <Text style={styles.openModalizeLabel} numberOfLines={1}>
+                                                                                --Select--
+                                                                        </Text>}
+                                                                        <AntDesign name="caretdown" size={16} color="#777" />
+                                                                </TouchableOpacity>
+                                                        </View>
+                                                        <Text style={styles.title}>Date de réception des échantillons</Text>
+                                                        <TouchableOpacity style={styles.datePickerButton} onPress={displayDatepickerNew}>
+                                                                <View style={styles.iconDebutName}>
+                                                                        <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
+                                                                        <Text style={styles.debutName}>
+                                                                                Date
+                                                                        </Text>
+                                                                </View>
+                                                                <View style={styles.rightDate}>
+                                                                        <Text>{moment(myNewdate).format("DD-MM-YYYY")}</Text>
+                                                                </View>
+                                                        </TouchableOpacity>
+                                                        {isDisplayDateNew && <DateTimePicker
+                                                                testID="dateTimePicker"
+                                                                value={myNewdate}
+                                                                mode={displaymodetype}
+                                                                is24Hour={true}
+                                                                display="default"
+                                                                onChange={changeSelectedDateNew}
+                                                        />}
+
+
+                                                        <View style={styles.formGroup}>
+                                                                <Text style={styles.title}>
+                                                                        Commentaire
+                                                                </Text>
+                                                                <Input
+                                                                        placeholder="Tapez votre commentaire"
+                                                                        size='md'
+                                                                        borderRadius={10}
+                                                                        backgroundColor={"#dde1ed"}
+                                                                        multiline={true}
+                                                                        onChangeText={(comm) => SetCommentaire(comm)}
+                                                                        value={commentaire}
+                                                                />
+                                                        </View>
+
                                                 </View>
-
                                         </View>
-                                </View>
-                                <Button
-                                        //onPress={() => onSubmit()}
-                                        isLoading={isLoading}
-                                        //    isDisabled={nom == "" || prenom == "" || numero == "" || email == "" || adresse == "" || password == "" || confirmPassword == "" || sexe == null}
-                                        borderRadius={30}
-                                        marginHorizontal={20}
-                                        px={0}
-                                        py={2}
-                                        // width={"100%"}
-                                        marginTop={5}
-                                        onPress={CreateResultat}
-                                        size="lg"
-                                        backgroundColor={"#F58424"}
-                                        marginBottom={15}
-                                        _text={{
-                                                fontWeight: 'bold'
-                                        }}
-                                >
-                                        Enregistrer
-                                </Button>
+                                        <Button
+                                                //onPress={() => onSubmit()}
+                                                isLoading={isLoading}
+                                                //    isDisabled={nom == "" || prenom == "" || numero == "" || email == "" || adresse == "" || password == "" || confirmPassword == "" || sexe == null}
+                                                borderRadius={30}
+                                                marginHorizontal={20}
+                                                px={0}
+                                                py={2}
+                                                // width={"100%"}
+                                                marginTop={5}
+                                                onPress={CreateResultat}
+                                                size="lg"
+                                                backgroundColor={"#F58424"}
+                                                marginBottom={15}
+                                                _text={{
+                                                        fontWeight: 'bold'
+                                                }}
+                                        >
+                                                Enregistrer
+                                        </Button>
                                 </>
                         </ScrollView>
 
@@ -508,7 +528,7 @@ export default function ResultatTestSCreens() {
 const styles = StyleSheet.create({
         container: {
                 flex: 1,
-                 backgroundColor:"#ffff"
+                backgroundColor: "#ffff"
 
         },
         datePickerButton: {
@@ -526,6 +546,11 @@ const styles = StyleSheet.create({
         iconDebutName: {
                 flexDirection: "row",
                 alignItems: 'center'
+        },
+        ligne: {
+                borderTopWidth: 1,
+                borderTopColor: "#f1f1f1",
+
         },
         debutName: {
                 marginLeft: 10,
@@ -581,11 +606,12 @@ const styles = StyleSheet.create({
         requerant:
         {
                 backgroundColor: "#ffff",
-                width: "90%",
+                width: "100%",
                 alignSelf: "center",
                 padding: 10,
                 borderRadius: 10,
                 marginTop: 20,
+                paddingHorizontal: 20,
 
 
 
