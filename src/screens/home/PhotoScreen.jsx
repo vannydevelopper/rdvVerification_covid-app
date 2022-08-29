@@ -158,7 +158,7 @@ export default function PhotoScreen() {
 
                 }
 
-                console.log(form)
+                //console.log(form)
 
                 try {
                         const data = await fetchApi("/historique/ajouter",{
@@ -272,6 +272,16 @@ export default function PhotoScreen() {
                                                         <Text style={styles.titleResponse}>{donnees.requerantRDV.CommonName}</Text>
                                                 </View>
                                         </View>
+                                        <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                <View style={styles.cardImage}>
+                                                        <Fontisto name="passport-alt" size={24} color="#F58424" />
+
+                                                </View>
+                                                <View style={{ marginLeft: 13 }}>
+                                                        <Text style={styles.titleNom}>Numero du document</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.DOCUMENT_DESCR}</Text>
+                                                </View>
+                                        </View>
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
@@ -279,8 +289,8 @@ export default function PhotoScreen() {
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Document</Text>
-                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.DOCUMENT_ID}</Text>
+                                                        <Text style={styles.titleNom}>Numero du document</Text>
+                                                        <Text style={styles.titleResponse}>{donnees.requerantRDV.NUMERO_DOCUMENT}</Text>
                                                 </View>
                                         </View>
 

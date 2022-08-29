@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { StyleSheet, Text, View, StatusBar, Image } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Button, Icon, Input, FormControl, WarningOutlineIcon,useToast } from 'native-base'
+import { Button, Icon, Input, FormControl, WarningOutlineIcon, useToast } from 'native-base'
 import fetchApi from "../../helpers/fetchApi";
 import * as WebBrowser from 'expo-web-browser';
 import * as Location from 'expo-location'
@@ -14,7 +14,7 @@ export default function ValidationScren() {
         const [location, setLocation] = useState(null)
         const { donnees } = route.params
         const toast = useToast()
-        const user= useSelector(userSelector)
+        const user = useSelector(userSelector)
         // console.log(user.user.USER_ID)
         // console.log(donnees.requerant_Id)
 
@@ -24,8 +24,8 @@ export default function ValidationScren() {
         //                 let result = await WebBrowser.openBrowserAsync('https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer/${donnees.requerant_Id.REQUERANT_ID}');
         //                 setResult(result);
         //               }
-            //          const generation = await response.json()
-             //          console.log(generation)
+        //          const generation = await response.json()
+        //          console.log(generation)
         //         }
         //         catch (error) 
         //         {
@@ -37,7 +37,7 @@ export default function ValidationScren() {
                 let {
                         status: locationStatus,
                 } = await Location.requestForegroundPermissionsAsync()
-                if (locationStatus !=='granted') {
+                if (locationStatus !== 'granted') {
                         console.log('Permission to access location was denied')
                         setLocation(false)
                         return
@@ -105,38 +105,37 @@ export default function ValidationScren() {
                 const form = new FormData()
                 form.append('LATITUDE', location.coords.latitude)
                 form.append('LONGITUDE', location.coords.longitude)
-               form.append('user_id',user.user.USER_ID)
+                form.append('user_id', user.user.USER_ID)
+                //console.log(form)
 
-                
-                try{
-                     const data = await fetch(`https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer/${donnees.requerant_Id.REQUERANT_ID}`,{
-                        method: "POST",
-                        body: form
-                        
-                        
-                })
-                toast.show({
-                        title: "La generation faite   avec succes",
-                        placement: "bottom",
-                        status: 'success',
-                        duration: 2000,
-                        width: '90%',
-                        minWidth: 300
-                })
+                try {
+                        const data = await fetch(`https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer/${donnees.requerant_Id.REQUERANT_ID}`, {
+                                method: "POST",
+                                body: form
+
+
+                        })
+                        toast.show({
+                                title: "La generation du certificat faite   avec succes",
+                                placement: "bottom",
+                                status: 'success',
+                                duration: 2000,
+                                width: '90%',
+                                minWidth: 300
+                        })
                 }
-            catch(error)    
-            {
-             console.log(error)
-             toast.show({
-                title: "Echec generation faite   avec succes",
-                placement: "bottom",
-                status: 'success',
-                duration: 2000,
-                width: '90%',
-                minWidth: 300
-        })
-            }
-                
+                catch (error) {
+                        console.log(error)
+                        toast.show({
+                                title: "Echec de generation certificat",
+                                placement: "bottom",
+                                status: 'success',
+                                duration: 2000,
+                                width: '90%',
+                                minWidth: 300
+                        })
+                }
+
         };
 
 
