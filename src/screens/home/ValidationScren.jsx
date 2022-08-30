@@ -8,30 +8,17 @@ import * as Location from 'expo-location'
 import { useDispatch, useSelector } from "react-redux";
 import { MaterialIcons, Ionicons, FontAwesome5, AntDesign, Fontisto, FontAwesome, Entypo, Foundation } from '@expo/vector-icons';
 import { userSelector } from '../../store/selectors/userSelector';
+import { Alert } from 'react-native-web';
 
 export default function ValidationScren() {
         const route = useRoute()
         const [location, setLocation] = useState(null)
         const { donnees } = route.params
         const toast = useToast()
+        const navigation = useNavigation()
         const user = useSelector(userSelector)
-        // console.log(user.user.USER_ID)
-        // console.log(donnees.requerant_Id)
 
-        // const CreateCertificat = async () => {
-        //         try {
-
-        //                 let result = await WebBrowser.openBrowserAsync('https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer/${donnees.requerant_Id.REQUERANT_ID}');
-        //                 setResult(result);
-        //               }
-        //          const generation = await response.json()
-        //          console.log(generation)
-        //         }
-        //         catch (error) 
-        //         {
-        //                 console.log(error)
-        //         }
-        // }
+        const cancel = () => navigation.navigate("Home");
 
         const askLocationPermission = async () => {
                 let {
@@ -103,18 +90,23 @@ export default function ValidationScren() {
                         setLocation(loc)
                 }
                 const form = new FormData()
-                form.append('LATITUDE', location.coords.latitude)
-                form.append('LONGITUDE', location.coords.longitude)
+                form.append('latitude', location.coords.latitude)
+                form.append('longitude', location.coords.longitude)
                 form.append('user_id', user.user.USER_ID)
-                //console.log(form)
+
 
                 try {
-                        const data = await fetch(`https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer/${donnees.requerant_Id.REQUERANT_ID}`, {
+                        let resultat = await fetch(`https://app.mediabox.bi/covid_v2_dev/requerant/Voyageurs_es/edit_changer_mobile/${donnees.requerant_Id.REQUERANT_ID}`, {
                                 method: "POST",
                                 body: form
 
 
+
                         })
+
+                        const data = await resultat.text()
+                        console.log(data)
+                        navigation.navigate("Home")
                         toast.show({
                                 title: "La generation du certificat faite   avec succes",
                                 placement: "bottom",
@@ -263,8 +255,11 @@ export default function ValidationScren() {
                                                         valider
                                                 </Button>
                                                 <View style={{ padding: 10 }}></View>
+
                                                 <Button
                                                         backgroundColor={"#F58424"}
+                                                        onPress={cancel}
+
                                                 >
                                                         Annuler
                                                 </Button>

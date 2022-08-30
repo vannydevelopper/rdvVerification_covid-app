@@ -9,11 +9,10 @@ import NotHistory from "../../components/NotHistory";
 import NotFound from "../../components/NotFound";
 moment.updateLocale('fr', {
        calendar: {
-              sameDay: "[Aujourd'hui]",
-              lastDay: '[Hier]',
-              nextDay: 'DD-M-YYYY',
-              lastWeek: 'DD-M-YYYY',
-              sameElse: 'DD-M-YYYY',
+              
+              nextDay: 'DD-MM-YYYY',
+              lastWeek: 'DD-MM-YYYY',
+              sameElse: 'DD-MM-YYYY',
        },
 })
 
@@ -105,13 +104,12 @@ export default function HistoriqueScreen() {
                                                                                     <View style={styles.dateCard}>
                                                                                            <Text style={styles.itemDebut}>
                                                                                                   {moment(historique.DATE).calendar(null, {
-                                                                                                         sameDay: `[Aujourd'hui]`,
-                                                                                                         lastDay: `[Hier]`,
-                                                                                                         nextDay: 'DD-M-YYYY',
-                                                                                                         lastWeek: 'DD-M-YYYY',
-                                                                                                         sameElse: 'DD-M-YYYY',
+                                                                                                         
+                                                                                                         nextDay: 'DD-MM-YYYY',
+                                                                                                         lastWeek: 'DD-MM-YYYY',
+                                                                                                         sameElse: 'DD-MM-YYYY',
                                                                                                   })}
-                                                                                                  {moment(historique.DATE).format('  HH:mm')}
+                                                                                                  {moment(historique.DATE).format('DD-MM-YYYY')}
                                                                                            </Text>
                                                                                     </View>
                                                                              </View>

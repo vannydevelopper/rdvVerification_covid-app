@@ -10,11 +10,10 @@ import ResultScreen from "./ResultScreen";
 
 moment.updateLocale('fr', {
         calendar: {
-                sameDay: "[Aujourd'hui]",
-                lastDay: '[Hier]',
-                nextDay: 'DD-M-YYYY',
-                lastWeek: 'DD-M-YYYY',
-                sameElse: 'DD-M-YYYY',
+               
+                nextDay: 'DD-MM-YYYY',
+                lastWeek: 'DD-MM-YYYY',
+                sameElse: 'DD-MM-YYYY',
         },
 })
 
@@ -99,11 +98,10 @@ export default function HistoriqueDetailSCreen() {
                                                                 <Text style={styles.username}>Date de rendez vous:</Text>
                                                                 <Text style={styles.itemValue}>
                                                                         {moment(donnees.DATE_RENDEVOUS).calendar(null, {
-                                                                                sameDay: `[Aujourd'hui]`,
-                                                                                lastDay: `[Hier]`,
-                                                                                nextDay: 'DD-M-YYYY',
-                                                                                lastWeek: 'DD-M-YYYY',
-                                                                                sameElse: 'DD-M-YYYY',
+                                                                                
+                                                                                nextDay: 'DD-MM-YYYY',
+                                                                                lastWeek: 'DD-MM-YYYY',
+                                                                                sameElse: 'DD-MM-YYYY',
                                                                         })}
                                                                         {moment(donnees.DATE_RENDEVOUS).format('  HH:mm')}
                                                                 </Text>
