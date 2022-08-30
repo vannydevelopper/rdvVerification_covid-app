@@ -97,7 +97,8 @@ export default function ResultatTestSCreens() {
                                 body: JSON.stringify(
                                         {
                                                 METHODE_ID: selectedMethode.METHODE_TEST_ID,
-                                                DATE_PRELEVEMENT: donnees.requerantRDV.DATE_PRELEVEMENT,
+                                                DATE_PRELEVEMENT: moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('YYYY/MM/DD HH:mm:ss'),
+                                                DATE_RECEPTION:moment(myNewdate).format("YYYY/MM/DD"),
                                                 TYPE_ECHANTILLON_ID: selectedEchantillion.TYPE_ECHANTILLON_ID,
                                                 TYPE_TEST_ID: selectedTests.TYPE_TEST_ID,
                                                 TEMPO_REQUERANT_ID: donnees.requerantRDV.TEMPO_REQUERANT_ID,
@@ -107,7 +108,7 @@ export default function ResultatTestSCreens() {
                                 ),
                                 headers: { "Content-Type": "application/json" },
                         });
-
+                   
                         navigation.navigate("Home")
                         setIsLoading(false)
                         toast.show({

@@ -93,6 +93,7 @@ export default function ValidationScren() {
                 form.append('latitude', location.coords.latitude)
                 form.append('longitude', location.coords.longitude)
                 form.append('user_id', user.user.USER_ID)
+               // console.log(form)
 
 
                 try {

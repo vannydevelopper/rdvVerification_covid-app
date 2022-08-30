@@ -24,7 +24,7 @@ export default function ScanQrCodeScreen() {
 
        const handleBarCodeScanned = async ({ type, data }) => {
               setScanned(true);
-              // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+               alert(`Bar code with type ${type} and data ${data} has been scanned!`);
               //console.log(type)
               if (type == 256) {
                      var url = data
@@ -44,6 +44,7 @@ export default function ScanQrCodeScreen() {
                      //        navigation.goBack()
                      //        return navigation.navigate("Not",{donnees: "Qr code invalide"}) 
                      // }
+                     console.log(idPrindipal)
                      if (!idPrindipal) {
                             setErrors("Qr code invalide")
                             //const message = "Qr code invalide"
@@ -58,6 +59,7 @@ export default function ScanQrCodeScreen() {
                                    method: 'GET',
                                    headers: { "Content-Type": "application/json" },
                             })
+                            console.log(fetchScan)
                             if (fetchScan.messageResultat) {
                                    navigation.goBack()
                                    navigation.navigate('Resultat',{ donnees: fetchScan })
@@ -67,12 +69,12 @@ export default function ScanQrCodeScreen() {
                                    navigation.goBack()
                                    navigation.navigate("Photo",{ donnees: fetchScan })
                             }
-                            else
+                            else if(fetchScan.messageValidation)
                             {
                                    navigation.goBack()
                                    navigation.navigate("Validation", { donnees: fetchScan })
                             }
-                            // console.log(fetchScan)
+                            //console.log(fetchScan)
                             
                      }
                      catch (error) {
