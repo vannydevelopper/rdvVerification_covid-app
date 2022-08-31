@@ -24,7 +24,7 @@ export default function ScanQrCodeScreen() {
 
        const handleBarCodeScanned = async ({ type, data }) => {
               setScanned(true);
-               alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+               //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
               //console.log(type)
               if (type == 256) {
                      var url = data
@@ -44,7 +44,7 @@ export default function ScanQrCodeScreen() {
                      //        navigation.goBack()
                      //        return navigation.navigate("Not",{donnees: "Qr code invalide"}) 
                      // }
-                     console.log(idPrindipal)
+                     //console.log(idPrindipal)
                      if (!idPrindipal) {
                             setErrors("Qr code invalide")
                             //const message = "Qr code invalide"
@@ -74,7 +74,12 @@ export default function ScanQrCodeScreen() {
                                    navigation.goBack()
                                    navigation.navigate("Validation", { donnees: fetchScan })
                             }
-                            //console.log(fetchScan)
+                            else if(fetchScan.message)
+                            {
+                                   navigation.goBack()
+                                   navigation.navigate("apresvalidation",{ donnees: fetchScan })
+                            }
+                           // console.log(fetchScan)
                             
                      }
                      catch (error) {
@@ -127,7 +132,7 @@ export default function ScanQrCodeScreen() {
                                    <Text style={styles.scanTitle}>
                                           Scanner le QR code
                                    </Text>
-                                   <View style={styles.maskScan} />
+                                   <View style={styles.maskScan}/>
                                    <View style={styles.scanActions}>
                                           {/* {location && <Text style={{color: 'red'}}>{ calcCrow(qrCodeCoords.lat, qrCodeCoords.long, location.coords.latitude, location.coords.longitude) }</Text>} */}
                                           <TouchableNativeFeedback

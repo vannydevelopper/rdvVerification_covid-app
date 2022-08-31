@@ -9,6 +9,7 @@ import { Button, Icon, Input, FormControl, WarningOutlineIcon, useToast } from '
 import useFetch from "../../hooks/useFetch";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import fetchApi from "../../helpers/fetchApi";
+import * as Location from 'expo-location'
 import moment from 'moment'
 moment.updateLocale('fr', {
         calendar: {
@@ -22,6 +23,7 @@ moment.updateLocale('fr', {
 export default function ResultatTestSCreens() {
         const [commentaire, SetCommentaire] = useState("")
         const typeRef = useRef(null)
+        const [location, setLocation] = useState(null)
         const resultatRef = useRef(null)
         const testRef = useRef(null)
         const [resultat, setResultat] = useState(null)
@@ -54,6 +56,64 @@ export default function ResultatTestSCreens() {
         const [myNewdate, setmyNewdate] = useState(new Date());
         const [displaymodetype, setModeType] = useState('date');
         const [isDisplayDateNew, setShowNew] = useState(false);
+        const askLocationPermission = async () => {
+                let {
+                        status: locationStatus,
+                } = await Location.requestForegroundPermissionsAsync()
+                if (locationStatus !== 'granted') {
+                        console.log('Permission to access location was denied')
+                        setLocation(false)
+                        return
+                }
+                var location = await Location.getCurrentPositionAsync({})
+                setLocation(location)
+        }
+
+        useEffect(() => {
+                askLocationPermission()
+        }, [])
+        if (location === false) {
+                return (
+                        <View
+                                style={{
+                                        alignContent: 'center',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        flex: 1,
+                                }}
+                        >
+                                <Text style={{ fontWeight: 'bold', fontSize: 16, opacity: 0.8 }}>
+                                        Pas d'accès à la localisation
+                                </Text>
+                                <Text
+                                        style={{
+                                                textAlign: 'center',
+                                                color: '#777',
+                                                marginTop: 10,
+                                                paddingHorizontal: 10,
+                                        }}
+                                >
+                                        L'application a besoin de votre localisation pour fonctionner
+                                </Text>
+                                <TouchableNativeFeedback
+                                        background={TouchableNativeFeedback.Ripple('#ddd')}
+                                        useForeground={true}
+                                        onPress={() => askLocationPermission()}
+                                >
+                                        <View
+                                                style={{
+                                                        backgroundColor: '#fff',
+                                                        borderRadius: 10,
+                                                        padding: 10,
+                                                        marginTop: 20,
+                                                }}
+                                        >
+                                                <Text>Autoriser l'accès</Text>
+                                        </View>
+                                </TouchableNativeFeedback>
+                        </View>
+                )
+        }
 
         const changeSelectedDateNew = (event, selectedDateNew) => {
                 const currentDate = selectedDateNew || mydate;
@@ -90,6 +150,14 @@ export default function ResultatTestSCreens() {
 
 
         const CreateResultat = async () => {
+                if (!location) {
+                        let { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
+                        if (locationStatus !== 'granted') {
+                                return setLoading(false)
+                        }
+                        var loc = await Location.getCurrentPositionAsync({});
+                        setLocation(loc)
+                }
                 setIsLoading(true)
                 try {
                         const data = await fetchApi("/resultats", {
@@ -101,9 +169,13 @@ export default function ResultatTestSCreens() {
                                                 DATE_RECEPTION:moment(myNewdate).format("YYYY/MM/DD"),
                                                 TYPE_ECHANTILLON_ID: selectedEchantillion.TYPE_ECHANTILLON_ID,
                                                 TYPE_TEST_ID: selectedTests.TYPE_TEST_ID,
+                                                RESULTAT_ID:resultat,
+                                                LATITUDE: location?.coords?.latitude,
+                                                LONGITUDE: location?.coords?.longitude,
+                                                CONCLUSION:commentaire,
                                                 TEMPO_REQUERANT_ID: donnees.requerantRDV.TEMPO_REQUERANT_ID,
                                                 COMMENT: commentaire,
-                                                REQUERANT_STATUT_ID: resultat
+                                                REQUERANT_STATUT_ID:resultat
                                         }
                                 ),
                                 headers: { "Content-Type": "application/json" },
@@ -221,7 +293,7 @@ export default function ResultatTestSCreens() {
                 )
         }
 
-        console.log(resultat)
+       // console.log(resultat)
         const Test = () => {
                 return (
                         <View style={styles.modalContent}>
@@ -497,7 +569,7 @@ export default function ResultatTestSCreens() {
                                                 marginBottom={15}
                                                 _text={{
                                                         fontWeight: 'bold'
-                                                }}
+                                                }}ss
                                         >
                                                 Enregistrer
                                         </Button>

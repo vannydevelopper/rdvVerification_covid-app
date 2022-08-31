@@ -7,6 +7,7 @@ import PhotoScreen from "../screens/home/PhotoScreen";
 import NotFoundScreen from "../screens/home/NotFoundScreen";
 import ResultatTestSCreens from "../screens/home/ResultatTestScreens";
 import ValidationScren from "../screens/home/ValidationScren";
+import ApresValidationScreen from "../screens/home/ApresValidationScreen";
 
 const Stack = createNativeStackNavigator()
 
@@ -22,6 +23,7 @@ export default function HomeNavigator(){
                         <Stack.Screen name="Not" component={NotFoundScreen} options={{headerShown:false}}/>
                         <Stack.Screen name="Resultat" component={ResultatTestSCreens} options={{headerShown:false}}/>
                         <Stack.Screen name="Validation" component={ValidationScren} options={{headerShown:false}}/>
+                        <Stack.Screen name="apresvalidation" component={ApresValidationScreen} options={{headerShown:false}}/>
                 </Stack.Navigator>
         )
 }

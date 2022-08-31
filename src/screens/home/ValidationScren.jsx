@@ -245,9 +245,9 @@ export default function ValidationScren() {
                                 </View>
                                 <View style={styles.header}>
                                         <Image source={require('../../../assets/login.png')} style={styles.image} />
-                                        <Text style={{ fontSize: 16 }}>Validation des données de test</Text>
+                                        <Text style={{ fontSize: 16 }}>Validation des résultats  de test covid 19</Text>
                                         <View style={{ marginTop: 10 }}>
-                                                <Text style={{}}>Voulez-vous valider ces données ?</Text>
+                                                <Text style={{}}>Voulez-vous valider ces resultats ?</Text>
                                         </View>
                                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
                                                 <Button
