@@ -123,7 +123,7 @@ export default function ResultatTestSCreens() {
         };
         const showModeNew = (currentMode) => {
                 setShowNew(true);
-                setModeType(currentMode);
+                setModeType(currentMode);null
         };
         const displayDatepickerNew = () => {
                 showModeNew('date');
@@ -556,7 +556,7 @@ export default function ResultatTestSCreens() {
                                         <Button
                                                 //onPress={() => onSubmit()}
                                                 isLoading={isLoading}
-                                                //    isDisabled={nom == "" || prenom == "" || numero == "" || email == "" || adresse == "" || password == "" || confirmPassword == "" || sexe == null}
+                                                isDisabled={commentaire == ""  || !selectedTests || !selectedEchantillion || !selectedMethode}
                                                 borderRadius={30}
                                                 marginHorizontal={20}
                                                 px={0}

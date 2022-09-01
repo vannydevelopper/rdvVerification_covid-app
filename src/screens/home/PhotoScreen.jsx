@@ -33,8 +33,8 @@ export default function PhotoScreen() {
         const toast = useToast()
         const [isLoading, setIsLoading] = useState(false)
 
-        const { donnees} = route.params
-        
+        const { donnees } = route.params
+
         const dispatch = useDispatch()
         const user = useSelector(userSelector)
         //console.log(user)
@@ -50,7 +50,7 @@ export default function PhotoScreen() {
                 let {
                         status: locationStatus,
                 } = await Location.requestForegroundPermissionsAsync()
-                if (locationStatus !=='granted') {
+                if (locationStatus !== 'granted') {
                         console.log('Permission to access location was denied')
                         setLocation(false)
                         return
@@ -58,7 +58,7 @@ export default function PhotoScreen() {
                 var location = await Location.getCurrentPositionAsync({})
                 setLocation(location)
         }
-     
+
         useEffect(() => {
                 askLocationPermission()
         }, [])
@@ -161,7 +161,7 @@ export default function PhotoScreen() {
                 //console.log(form)
 
                 try {
-                        const data = await fetchApi("/historique/ajouter",{
+                        const data = await fetchApi("/historique/ajouter", {
                                 method: "POST",
                                 body: form
 
@@ -194,7 +194,7 @@ export default function PhotoScreen() {
 
         }
 
-       const onTakePictureSelect = async () =>{
+        const onTakePictureSelect = async () => {
                 photoTypeSelectRef.current?.close()
                 const photo = await ImagePicker.launchCameraAsync({
                         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -264,7 +264,7 @@ export default function PhotoScreen() {
                                         </View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                <MaterialCommunityIcons name="ski-cross-country" size={24} color="#F58424" />
+                                                        <MaterialCommunityIcons name="ski-cross-country" size={24} color="#F58424" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -294,7 +294,7 @@ export default function PhotoScreen() {
                                                 </View>
                                         </View>
 
-                                        
+
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
                                                         <AntDesign name="phone" size={24} color="#F58424" />
@@ -314,7 +314,7 @@ export default function PhotoScreen() {
                                                         <Text style={styles.titleNom}>Adresse Email</Text>
                                                         <Text style={styles.titleResponse}>{donnees.requerantRDV.EMAIL}</Text>
                                                 </View>
-                                
+
                                         </View>
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
@@ -337,7 +337,7 @@ export default function PhotoScreen() {
                                                 </View>
                                         </View>
 
-                                       
+
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
@@ -347,7 +347,7 @@ export default function PhotoScreen() {
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Date de Rendez vous</Text>
                                                         <Text style={styles.titleResponse}>
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null,{
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
                                                                         sameDay: `[Aujourd'hui]`,
                                                                         lastDay: `[Hier]`,
                                                                         nextDay: 'DD-M-YYYY',
@@ -388,7 +388,7 @@ export default function PhotoScreen() {
                                                 </View>
 
                                         </View>
-       
+
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
@@ -423,9 +423,9 @@ export default function PhotoScreen() {
 
                                         </View>
                                 </View>}
-       
 
-                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS),'days')) ?
+
+                                {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) ?
                                         <View style={{ flexDirection: "row" }}>
                                                 <View>
                                                         <Text style={{ color: 'red', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
@@ -477,9 +477,9 @@ export default function PhotoScreen() {
                                                         <View style={{ flex: 1 }}>
                                                                 <Text style={{
                                                                         color: 'red', fontSize: 15,
-                                                                        fontWeight: 'bold', textAlign:'center'
+                                                                        fontWeight: 'bold', textAlign: 'center'
                                                                 }}>ATTENTION!!!!</Text>
-                                                                <Text style={{ color: 'red',textAlign:"center" }}>
+                                                                <Text style={{ color: 'red', textAlign: "center" }}>
                                                                         Votre date de demamde de  rendez-vous ({moment(donnees.requerantRDV.DATE_RENDEVOUS).format('DD-M-YYYY')})
                                                                         ne correspond  pas à la date d'aujourd'hui({moment().format('DD-M-YYYY')})
                                                                 </Text>
@@ -488,7 +488,7 @@ export default function PhotoScreen() {
                                         </View>
                                 }
                         </ScrollView>
-                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS ), 'days')) &&
+                        {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) &&
                                 <Button
                                         borderRadius={15}
                                         isDisabled={imagepassport == null}
@@ -555,8 +555,8 @@ const styles = StyleSheet.create({
         },
         ligne: {
                 borderTopWidth: 1,
-                
-                marginVertical:10,
+
+                marginVertical: 10,
                 borderTopColor: "#F58424"
         },
         titleDetails: {
@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
         titleHistorique: {
                 fontWeight: "bold",
                 color: '#F58424',
-                fontSize:15,
+                fontSize: 15,
                 marginHorizontal: 20,
                 //marginHorizontal: 70
         },

@@ -25,7 +25,7 @@ export default function HomeScreen() {
                                 borderRadius={15}
                                 onPress={() => navigation.navigate('Scan')}
                                 mt={7}
-                                backgroundColor={"#F58424"}
+                                backgroundColor={"#318CE7"}
                                 py={3.5}
                                 marginHorizontal={80}
                                 leftIcon={

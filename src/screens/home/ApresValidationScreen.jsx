@@ -4,18 +4,15 @@ import { View, Text, TouchableNativeFeedback, Image, StyleSheet } from 'react-na
 export default function ApresValidationScreen() {
 
     return (
-        <View style={styles.errorCard}>
-            <View style={{ ...styles.addImage2 }}>
-                <Image source={require('../../../assets/images/errors.png')}  style={{ width: '70%', height: '70%' ,justifyContent:"center",alignItems:"center"}} />
+        <>
+            <View style={styles.notfoundContainer}>
+                <Image source={require('../../../assets/images/errors1.png')} style={{ width: '70%', height: '70%',resizeMode:"center", justifyContent: "center", alignItems: "center" }} />
+
+
+
+                <Text style={{ color: 'red', textAlign: "center",fontSize:15 }} >Ce rendez-vous a été traité avec success </Text>
             </View>
-
-            <Text style={{
-                color: 'red', fontSize: 15,
-                fontWeight: 'bold', textAlign: 'center'
-            }}>ATTENTION!!!!</Text>
-            <Text style={{ color: 'red', textAlign: "center" }} >Cet certificat est déjà validé</Text>
-
-        </View> 
+        </>
 
 
 
@@ -24,17 +21,14 @@ export default function ApresValidationScreen() {
 
 }
 const styles = StyleSheet.create({
-    errorCard: {
-        marginHorizontal: 20,
-        padding: 10,
-        backgroundColor: "#fff",
-        borderRadius: 10,
-        elevation: 8,
-        borderWidth: 2,
-        borderColor: "#fff",
-        marginTop: 50,
-        marginBottom: 20
+
+    notfoundContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //marginBottom: 95
+        marginVertical: 180
     },
-    
+
 })
 
