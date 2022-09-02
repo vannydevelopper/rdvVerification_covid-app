@@ -250,7 +250,7 @@ export default function ResultatTestSCreens() {
                                                                                 <MaterialCommunityIcons name="radiobox-blank" size={24} color="#777" />
                                                                         }
 
-                                                                        <Text numberOfLines={1} style={styles.modalText}>{echantillion.DESCRIPTION}</Text>
+                                                                        <Text numberOfLines={1} style={{...styles.modalText, marginLeft:5}}>{echantillion.DESCRIPTION}</Text>
                                                                 </View>
                                                         </TouchableNativeFeedback>
                                                 )
@@ -273,7 +273,7 @@ export default function ResultatTestSCreens() {
                                                 <View style={styles.modalItem}>
                                                         {resultat == 5 ? <MaterialCommunityIcons name="radiobox-marked" size={24} color="#007bff" /> :
                                                                 <MaterialCommunityIcons name="radiobox-blank" size={24} color="#777" />}
-                                                        <Text numberOfLines={1} style={styles.modalText}>Positif</Text>
+                                                        <Text numberOfLines={1} style={{...styles.modalText, marginLeft:7}}>Positif</Text>
                                                 </View>
                                         </TouchableNativeFeedback>
                                         <TouchableNativeFeedback onPress={() => {
@@ -283,7 +283,7 @@ export default function ResultatTestSCreens() {
                                                 <View style={styles.modalItem}>
                                                         {resultat == 12 ? <MaterialCommunityIcons name="radiobox-marked" size={24} color="#007bff" /> :
                                                                 <MaterialCommunityIcons name="radiobox-blank" size={24} color="#777" />}
-                                                        <Text numberOfLines={1} style={styles.modalText}>Negatif</Text>
+                                                        <Text numberOfLines={1} style={{...styles.modalText, marginLeft:7}}>Negatif</Text>
                                                 </View>
                                         </TouchableNativeFeedback>
 
@@ -304,7 +304,7 @@ export default function ResultatTestSCreens() {
                                                                 <View style={styles.modalItem} >
                                                                         {selectedTests?.TYPE_TEST_ID == test.TYPE_TEST_ID ? <MaterialCommunityIcons name="radiobox-marked" size={24} color="#007bff" /> :
                                                                                 <MaterialCommunityIcons name="radiobox-blank" size={24} color="#777" />}
-                                                                        <Text numberOfLines={1} style={styles.modalText}>{test.DESCRIPTION}</Text>
+                                                                        <Text numberOfLines={1} style={{...styles.modalText, marginLeft:5}}>{test.DESCRIPTION}</Text>
                                                                 </View>
                                                         </TouchableNativeFeedback>
                                                 )
@@ -329,7 +329,7 @@ export default function ResultatTestSCreens() {
                                                         }}
                                                 >
                                                         <View style={styles.cardImage}>
-                                                                <FontAwesome5 name="user" size={24} color="#F58424" />
+                                                                <FontAwesome5 name="user" size={24} color="#0a5744" />
 
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
@@ -352,7 +352,7 @@ export default function ResultatTestSCreens() {
 
 
                                                         <View style={styles.cardImage}>
-                                                                <Entypo name="mail" size={24} color="#F58424" />
+                                                                <Entypo name="mail" size={24} color="#0a5744" />
 
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
@@ -374,10 +374,10 @@ export default function ResultatTestSCreens() {
                                                         }}
                                                 >
                                                         <View style={styles.cardImage}>
-                                                                <FontAwesome name="phone" size={24} color="#F58424" />
+                                                                <FontAwesome name="phone" size={24} color="#0a5744" />
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
-                                                                <Text style={styles.titleNom}>Telephone</Text>
+                                                                <Text style={styles.titleNom}>Téléphone</Text>
                                                                 <Text style={styles.titleResponse}>
 
                                                                         {donnees.requerantRDV.TELEPHONE}
@@ -393,7 +393,7 @@ export default function ResultatTestSCreens() {
                                                         }}
                                                 >
                                                         <View style={styles.cardImage}>
-                                                                <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                                <Fontisto name="passport-alt" size={24} color="#0a5744" />
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
                                                                 <Text style={styles.titleNom}>Document</Text>
@@ -413,10 +413,10 @@ export default function ResultatTestSCreens() {
                                                         }}
                                                 >
                                                         <View style={styles.cardImage}>
-                                                                <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                                <Fontisto name="passport-alt" size={24} color="#0a5744" />
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
-                                                                <Text style={styles.titleNom}>Numero du document</Text>
+                                                                <Text style={styles.titleNom}>Numéro du document</Text>
                                                                 <Text style={styles.titleResponse}>
 
                                                                         {donnees.requerantRDV.NUMERO_DOCUMENT}
@@ -435,7 +435,7 @@ export default function ResultatTestSCreens() {
                                                                                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 15 }} >
                                                                                                         {selectedMethode?.METHODE_TEST_ID == methode.METHODE_TEST_ID ? <MaterialCommunityIcons name="radiobox-marked" size={20} color="#007bff" style={{ marginLeft: -7 }} /> :
                                                                                                                 <MaterialCommunityIcons name="radiobox-blank" size={20} color="#777" style={{ marginLeft: -7 }} />}
-                                                                                                        <Text style={{ ...styles.title, color: "#777" }}>{methode.DESCRIPTION}</Text>
+                                                                                                        <Text style={{...styles.title, color: "#777" }}>{methode.DESCRIPTION}</Text>
                                                                                                 </View>
                                                                                         </TouchableWithoutFeedback>
                                                                                 </View>
@@ -443,7 +443,10 @@ export default function ResultatTestSCreens() {
                                                                 )
                                                         })}
                                                         <View style={styles.formGroup}>
+                                                                <View style={{flexDirection:"row"}}>
                                                                 <Text style={styles.title}>Date de Prélèvement des échantillons </Text>
+                                                                <Text style={styles.validation}>*</Text>
+                                                                </View>
                                                                 <TouchableOpacity style={styles.datePickerButton}>
                                                                         <View style={styles.iconDebutName}>
                                                                                 <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
@@ -453,13 +456,8 @@ export default function ResultatTestSCreens() {
                                                                         </View>
                                                                         <View style={styles.rightDate}>
                                                                                 <Text>
-                                                                                        {moment(donnees.requerantRDV.DATE_PRELEVEMENT).calendar(null, {
-
-                                                                                                nextDay: 'DD-MM-YYYY',
-                                                                                                lastWeek: 'DD-MM-YYYY',
-                                                                                                sameElse: 'DD-MM-YYYY',
-                                                                                        })}
-                                                                                        {moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('  HH:mm')}
+                                    
+                                                                                        {moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('DD-MM-YYYY HH:mm:ss')}
                                                                                 </Text>
 
                                                                         </View>
@@ -474,9 +472,12 @@ export default function ResultatTestSCreens() {
                                                         onChange={changeSelectedDate}
                                                 />} */}
                                                         <View style={styles.formGroup}>
+                                                                <View style={{flexDirection:"row"}}>
                                                                 <Text style={styles.title}>
                                                                         Types d'échantillons
                                                                 </Text>
+                                                                <Text style={styles.validation}>*</Text>
+                                                                </View>
                                                                 <TouchableOpacity style={styles.openModalize} onPress={() => typeRef.current.open()}>
                                                                         <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                                 {selectedEchantillion != null ? selectedEchantillion.DESCRIPTION : "--Select--"}
@@ -486,9 +487,12 @@ export default function ResultatTestSCreens() {
                                                         </View>
 
                                                         <View style={styles.formGroup}>
+                                                                <View style={{flexDirection:"row"}}>
                                                                 <Text style={styles.title}>
                                                                         Type de test
                                                                 </Text>
+                                                                <Text style={styles.validation}>*</Text>
+                                                                </View>
                                                                 <TouchableOpacity style={styles.openModalize} onPress={() => testRef.current.open()}>
                                                                         <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                                 {selectedTests != null ? selectedTests.DESCRIPTION : "--Select--"}
@@ -498,9 +502,12 @@ export default function ResultatTestSCreens() {
                                                         </View>
 
                                                         <View style={styles.formGroup}>
+                                                                <View style={{flexDirection:"row"}}>
                                                                 <Text style={styles.title}>
                                                                         Résultat de test
                                                                 </Text>
+                                                                <Text style={styles.validation}>*</Text>
+                                                                </View>
                                                                 <TouchableOpacity style={styles.openModalize} onPress={() => resultatRef.current.open()}>
                                                                         {resultat == 5 && <Text style={styles.openModalizeLabel} numberOfLines={1}>
                                                                                 Positif
@@ -514,7 +521,10 @@ export default function ResultatTestSCreens() {
                                                                         <AntDesign name="caretdown" size={16} color="#777" />
                                                                 </TouchableOpacity>
                                                         </View>
+                                                        <View style={{flexDirection:"row"}}>
                                                         <Text style={styles.title}>Date de réception des échantillons</Text>
+                                                        <Text style={styles.validation}>*</Text>
+                                                        </View>
                                                         <TouchableOpacity style={styles.datePickerButton} onPress={displayDatepickerNew}>
                                                                 <View style={styles.iconDebutName}>
                                                                         <MaterialIcons name="calendar-today" size={18} color="#777" style={styles.icon} />
@@ -556,7 +566,7 @@ export default function ResultatTestSCreens() {
                                         <Button
                                                 //onPress={() => onSubmit()}
                                                 isLoading={isLoading}
-                                                isDisabled={commentaire == ""  || !selectedTests || !selectedEchantillion || !selectedMethode}
+                                                isDisabled={ !selectedTests || !selectedEchantillion || !selectedMethode}
                                                 borderRadius={30}
                                                 marginHorizontal={20}
                                                 px={0}
@@ -565,7 +575,7 @@ export default function ResultatTestSCreens() {
                                                 marginTop={5}
                                                 onPress={CreateResultat}
                                                 size="lg"
-                                                backgroundColor={"#F58424"}
+                                                backgroundColor={"#0a5744"}
                                                 marginBottom={15}
                                                 _text={{
                                                         fontWeight: 'bold'
@@ -694,4 +704,9 @@ const styles = StyleSheet.create({
                 fontSize: 15,
                 fontWeight: "bold"
         },
+        validation:{
+                fontSize: 22,
+                color:"red",
+                marginLeft: 5
+        }
 })

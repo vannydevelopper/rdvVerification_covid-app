@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-const primaryColor = "#F58424"
+const primaryColor = "#0a5744"
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 export default function BotomTabBar({ state, descriptors, navigation }) {

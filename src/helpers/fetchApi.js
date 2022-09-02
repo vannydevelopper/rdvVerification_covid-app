@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const API_URL =false
-  ? "http://app.mediabox.bi:1480"
+  ? "https://app.mediabox.bi:1490"
   : "http://192.168.43.84:8000";
 /**
  * consomer une api avec les options par défaut

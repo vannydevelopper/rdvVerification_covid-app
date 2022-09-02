@@ -112,7 +112,7 @@ export default function LoginScreen() {
                                                 py={2}
                                                 borderWidth={0}
                                                 borderBottomWidth={1}
-                                                borderBottomColor={'#F58424'}
+                                                borderBottomColor={'#0a5744'}
                                                 onChangeText={(em) => setEmail(em)}
                                                 value={USERNAME}
                                                 _focus={{
@@ -152,7 +152,7 @@ export default function LoginScreen() {
                                                 py={2}
                                                 borderWidth={0}
                                                 borderBottomWidth={1}
-                                                borderBottomColor={'#F58424'}
+                                                borderBottomColor={'#0a5744'}
                                                 _focus={{
                                                         borderBottomColor: primaryColor
                                                 }}
@@ -174,30 +174,14 @@ export default function LoginScreen() {
                                                 isLoading={loading}
                                                 onPress={handleLogin}
                                                 mt={5}
-                                                backgroundColor={"#F58424"}
+                                                backgroundColor={"#0a5744"}
                                                 py={3.5}
                                                 _text={{ color: '#fff', fontWeight: 'bold' }}
                                         >
                                                 Se connecter
                                         </Button>
 
-                                        <Button
-                                                //onPress={() => navigation.navigate('Registre')}
-                                                borderRadius={15}
-                                                mt={5}
-                                                px={12}
-                                                py={3}
-                                                size="lg"
-                                                backgroundColor={"transparent"}
-                                                borderColor={"#F58424"}
-                                                borderWidth={1}
-                                                _text={{
-                                                        fontWeight: 'bold',
-                                                        color: "#F58424"
-                                                }}
-                                        >
-                                                S'inscrire
-                                        </Button>
+                                       
                                 </View>
                         </ScrollView>
                         {/* </ImageBackground> */}

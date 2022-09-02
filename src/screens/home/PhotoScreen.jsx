@@ -126,9 +126,9 @@ export default function PhotoScreen() {
                         const manipResult = await manipulateAsync(
                                 imagebordereaux.uri,
                                 [
-                                        { resize: { width: 300 } }
+                                        { resize: { width: 500 } }
                                 ],
-                                { compress: 0.3, format: SaveFormat.JPEG }
+                                { compress: 0.7, format: SaveFormat.JPEG }
                         );
                         let localUri = manipResult.uri;
                         let filename = localUri.split('/').pop();
@@ -144,9 +144,9 @@ export default function PhotoScreen() {
                         const manipResult = await manipulateAsync(
                                 imagepassport.uri,
                                 [
-                                        { resize: { width: 300 } }
+                                        { resize: { width: 500 } }
                                 ],
-                                { compress: 0.3, format: SaveFormat.JPEG }
+                                { compress: 0.8, format: SaveFormat.JPEG }
                         );
                         let localUri = manipResult.uri;
                         let filename = localUri.split('/').pop();
@@ -233,7 +233,7 @@ export default function PhotoScreen() {
                 <>
                         <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
-                                        <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#F58424' }}>
+                                        <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#0a5744' }}>
                                                 <Ionicons name="arrow-back-outline" size={24} color="#000" />
                                         </View>
                                 </TouchableNativeFeedback>
@@ -254,7 +254,7 @@ export default function PhotoScreen() {
                                         <View style={styles.ligne}></View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+                                                        <FontAwesome5 name="user" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -264,32 +264,32 @@ export default function PhotoScreen() {
                                         </View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <MaterialCommunityIcons name="ski-cross-country" size={24} color="#F58424" />
+                                                        <MaterialCommunityIcons name="ski-cross-country" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Nationalite</Text>
+                                                        <Text style={styles.titleNom}>Nationalité</Text>
                                                         <Text style={styles.titleResponse}>{donnees.requerantRDV.CommonName}</Text>
                                                 </View>
                                         </View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                        <Fontisto name="passport-alt" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Numero du document</Text>
+                                                        <Text style={styles.titleNom}>Document</Text>
                                                         <Text style={styles.titleResponse}>{donnees.requerantRDV.DOCUMENT_DESCR}</Text>
                                                 </View>
                                         </View>
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                        <Fontisto name="passport-alt" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Numero du document</Text>
+                                                        <Text style={styles.titleNom}>Numéro du document</Text>
                                                         <Text style={styles.titleResponse}>{donnees.requerantRDV.NUMERO_DOCUMENT}</Text>
                                                 </View>
                                         </View>
@@ -297,7 +297,7 @@ export default function PhotoScreen() {
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <AntDesign name="phone" size={24} color="#F58424" />
+                                                        <AntDesign name="phone" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -307,7 +307,7 @@ export default function PhotoScreen() {
                                         </View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <Entypo name="mail" size={24} color="#F58424" />
+                                                        <Entypo name="mail" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -319,7 +319,7 @@ export default function PhotoScreen() {
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+                                                        <AntDesign name="calendar" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -341,20 +341,14 @@ export default function PhotoScreen() {
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+                                                        <AntDesign name="calendar" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Date de Rendez vous</Text>
                                                         <Text style={styles.titleResponse}>
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  HH:mm')}
+                                                              
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  DD-M-YYYY')}
                                                         </Text>
                                                 </View>
                                         </View>
@@ -496,7 +490,7 @@ export default function PhotoScreen() {
                                         onPress={sendData}
                                         marginHorizontal={20}
                                         mt={5}
-                                        backgroundColor={"#F58424"}
+                                        backgroundColor={"#0a5744"}
                                         py={3.5}
                                         _text={{ color: '#fff', fontWeight: 'bold' }}
                                 >
@@ -582,7 +576,7 @@ const styles = StyleSheet.create({
         },
         titleHistorique: {
                 fontWeight: "bold",
-                color: '#F58424',
+                color: '#0a5744',
                 fontSize: 15,
                 marginHorizontal: 20,
                 //marginHorizontal: 70

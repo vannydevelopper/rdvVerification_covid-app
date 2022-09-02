@@ -10,7 +10,7 @@ import ResultScreen from "./ResultScreen";
 
 moment.updateLocale('fr', {
         calendar: {
-               
+
                 nextDay: 'DD-MM-YYYY',
                 lastWeek: 'DD-MM-YYYY',
                 sameElse: 'DD-MM-YYYY',
@@ -24,11 +24,13 @@ export default function HistoriqueDetailSCreen() {
         const [showImageModal, setShowImageModal] = useState(false)
         const [imageIndex, setImageIndex] = useState(0)
         const [loading, setLoading] = useState(false)
-        // console.log(donnees)
-
+        const isProd = true
+        const bordereauPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_bordereau/" : "http://192.168.43.84:8000/images/photo_brd/"
+        const candidatPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_candidat/" : "http://192.168.43.84:8000/images/photo_prs/"
         var imageUrls = []
-        if (donnees.PATH_PASSEPORT) imageUrls.push(donnees.PATH_PASSEPORT)
-        if (donnees.PATH_BORDEREAU) imageUrls.push(donnees.PATH_BORDEREAU)
+
+        if (donnees.PATH_PASSEPORT) imageUrls.push(`${candidatPath}${donnees.PATH_PASSEPORT}`)
+        if (donnees.PATH_BORDEREAU) imageUrls.push(`${bordereauPath}${donnees.PATH_BORDEREAU}`)
         return (loading ?
                 <View style={{ flex: 1, justifyContent: 'center' }}>
                         <ActivityIndicator animating={true} size="large" color={"black"} />
@@ -36,7 +38,7 @@ export default function HistoriqueDetailSCreen() {
                 <>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
-                                        <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#F58424' }}>
+                                        <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#0a5744' }}>
                                                 <Ionicons name="arrow-back-outline" size={24} color="#000" />
                                         </View>
                                 </TouchableNativeFeedback>
@@ -47,85 +49,89 @@ export default function HistoriqueDetailSCreen() {
                         <ScrollView keyboardShouldPersistTaps="handled">
                                 <View style={{ paddingHorizontal: 10 }}>
                                         <View style={styles.DetailCard}>
-                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                        <View style={styles.cardImage}>
-                                                                <FontAwesome5 name="user" size={24} color="#F58424" />
-
-                                                        </View>
-                                                        <View style={styles.detailItem}>
-                                                                <Text style={styles.username}>Nom et Prenom:</Text>
-                                                                <Text style={styles.itemValue}>{donnees.REQUERANT_NOM} {donnees.REQUERANT_PRENOM}</Text>
-                                                        </View>
-                                                </View>
+                                                
 
                                                 <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                         <View style={styles.cardImage}>
-                                                                <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                        <FontAwesome5 name="user" size={24} color="#0a5744" />
 
                                                         </View>
-                                                        <View style={styles.detailItem}>
-                                                                <Text style={styles.username}>Numero du document:</Text>
-                                                                <Text style={styles.itemValue}>{donnees.CNI_PASSPORT_CPGL}</Text>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                                <Text style={styles.titleResponse}>{donnees.REQUERANT_NOM} {donnees.REQUERANT_PRENOM}</Text>
                                                         </View>
                                                 </View>
+
                                                 <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                         <View style={styles.cardImage}>
-                                                                <Entypo name="mail" size={24} color="#F58424" />
+                                                        <Fontisto name="passport-alt" size={24} color="#0a5744" />
 
                                                         </View>
-                                                        <View style={styles.detailItem}>
-                                                                <Text style={styles.username}>Email:</Text>
-                                                                <Text style={styles.itemValue}>{donnees.EMAIL}</Text>
-                                                        </View>
-                                                </View>
-                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }} >
-
-                                                        <View style={styles.detailItem}>
-                                                                <View style={styles.cardImage}>
-                                                                        <AntDesign name="calendar" size={24} color="#F58424" />
-
-                                                                </View>
-                                                                <Text style={styles.username}>Age:</Text>
-                                                                <Text style={styles.itemValue}>{donnees.AGE}</Text>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Numero du document</Text>
+                                                                <Text style={styles.titleResponse}>{donnees.CNI_PASSPORT_CPGL}</Text>
                                                         </View>
                                                 </View>
+
                                                 <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
-                                                        <View style={styles.detailItem}>
-                                                                <View style={styles.cardImage}>
-                                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+                                                        <View style={styles.cardImage}>
+                                                        <Entypo name="mail" size={24} color="#0a5744" />
 
-                                                                </View>
-                                                                <Text style={styles.username}>Date de rendez vous:</Text>
-                                                                <Text style={styles.itemValue}>
-                                                                        {moment(donnees.DATE_RENDEVOUS).calendar(null, {
-                                                                                
-                                                                                nextDay: 'DD-MM-YYYY',
-                                                                                lastWeek: 'DD-MM-YYYY',
-                                                                                sameElse: 'DD-MM-YYYY',
-                                                                        })}
-                                                                        {moment(donnees.DATE_RENDEVOUS).format('  HH:mm')}
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Email</Text>
+                                                                <Text style={styles.titleResponse}>{donnees.EMAIL}</Text>
+                                                        </View>
+                                                </View>
+
+                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                        <View style={styles.cardImage}>
+                                                        <AntDesign name="calendar" size={24} color="#0a5744" />
+
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Age</Text>
+                                                                <Text style={styles.titleResponse}>{donnees.AGE} ans</Text>
+                                                        </View>
+                                                </View>
+
+                                                <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
+                                                        <View style={styles.cardImage}>
+                                                        <AntDesign name="calendar" size={24} color="#0a5744" />
+
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Date rendez-vous</Text>
+                                                                <Text style={styles.titleResponse}>
+                                                                {moment(donnees.DATE_RENDEVOUS).format('  DD-MM-YYYY')}
                                                                 </Text>
                                                         </View>
                                                 </View>
+
                                                 <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                         <View style={styles.cardImage}>
-                                                                <AntDesign name="phone" size={24} color="#F58424" />
+                                                        <AntDesign name="phone" size={24} color="#0a5744" />
 
                                                         </View>
-                                                        <View style={styles.detailItem}>
-                                                                <Text style={styles.username}>Telephone:</Text>
-                                                                <Text style={styles.itemValue}>{donnees.TELEPHONE}</Text>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                <Text style={styles.titleNom}>Téléphone</Text>
+                                                                <Text style={styles.titleResponse}>
+                                                                {donnees.TELEPHONE}
+                                                                </Text>
                                                         </View>
                                                 </View>
+
                                         </View>
                                         <View style={styles.imagePrincipal}>
-                                                <Text style={styles.titleImages}>Image du passport</Text>
+
+                                                <Text style={styles.titleImages}>Image du candidat</Text>
                                                 {donnees.PATH_PASSEPORT != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                                         setImageIndex(0)
                                                         setShowImageModal(true)
                                                 }}>
-                                                        <Image source={{ uri: donnees.PATH_PASSEPORT }} style={styles.DetaImage} />
+                                                        <Image source={{ uri: `${candidatPath}${donnees.PATH_PASSEPORT}` }} style={styles.DetaImage} />
                                                 </TouchableOpacity>}
+
                                                 {donnees.PATH_BORDEREAU != null &&
                                                         <>
                                                                 <Text style={styles.titleImages}>Image du bordereau</Text>
@@ -133,13 +139,13 @@ export default function HistoriqueDetailSCreen() {
                                                                         setImageIndex(1)
                                                                         setShowImageModal(true)
                                                                 }}>
-                                                                        <Image source={{ uri: donnees.PATH_BORDEREAU }} style={styles.DetaImage} />
+                                                                        <Image source={{ uri: `${bordereauPath}${donnees.PATH_BORDEREAU}` }} style={styles.DetaImage} />
                                                                 </TouchableOpacity>
                                                         </>}
                                         </View>
                                 </View>
-                                
-                                
+
+
                         </ScrollView>
                         <Modal visible={showImageModal} transparent={true} onRequestClose={() => setShowImageModal(false)}>
                                 <ImageViewer
@@ -173,13 +179,15 @@ export default function HistoriqueDetailSCreen() {
 
 const styles = StyleSheet.create({
         DetailCard: {
-                backgroundColor: '#fff',
-                paddingHorizontal: 30,
+                marginHorizontal: 20,
+                padding: 10,
+                backgroundColor: "#fff",
                 borderRadius: 10,
-                marginTop: 15,
-                elevation: 10,
-                marginLeft: 0,
-                shadowColor: '#c4c4c4',
+                elevation: 8,
+                borderWidth: 2,
+                borderColor: "#fff",
+                marginTop: 10,
+                marginBottom: 10
         },
         detailItem: {
                 borderBottomColor: "#ddd",
@@ -190,7 +198,7 @@ const styles = StyleSheet.create({
 
         },
         username: {
-                fontWeight: 'bold',
+
                 fontSize: 15
         },
         itemValue: {
@@ -209,7 +217,7 @@ const styles = StyleSheet.create({
                 borderRadius: 5
         },
         titleHistorique: {
-                color: "#F58424"
+                color: "#0a5744"
         },
         titleImages: {
                 fontSize: 15,
@@ -225,8 +233,12 @@ const styles = StyleSheet.create({
                 alignItems: "center",
                 justifyContent: "center"
         },
-        button:{
-                borderRadius:10,
-                
+        button: {
+                borderRadius: 10,
+
+        },
+        titleNom: {
+                fontSize: 13,
+                fontWeight: "bold"
         }
 })

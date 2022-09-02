@@ -51,7 +51,7 @@ export default function HistoriqueScreen() {
        return (
               <>
                      {historiques.length != 0 &&<View style={styles.rechercheCard}>
-                            <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 3, color: "#F58424" }}>Historique</Text>
+                            <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 3, color: "#0a5744" }}>Historique</Text>
                             <Input
                                    placeholder="recherche"
                                    size='md'
@@ -84,7 +84,7 @@ export default function HistoriqueScreen() {
                                                                       <View style={styles.cardPrincipal}>
                                                                              <View style={styles.cardPosition}>
                                                                                     <View style={styles.cardImage}>
-                                                                                           <MaterialIcons name="qr-code-scanner" size={24} color="#F58424" />
+                                                                                           <MaterialIcons name="qr-code-scanner" size={24} color="#0a5744" />
                                                                                     </View>
                                                                                     <View style={styles.cardDescripetion}>
                                                                                            <View style={styles.CardItems}>
@@ -103,12 +103,7 @@ export default function HistoriqueScreen() {
                                                                                     <View ></View>
                                                                                     <View style={styles.dateCard}>
                                                                                            <Text style={styles.itemDebut}>
-                                                                                                  {moment(historique.DATE).calendar(null, {
-                                                                                                         
-                                                                                                         nextDay: 'DD-MM-YYYY',
-                                                                                                         lastWeek: 'DD-MM-YYYY',
-                                                                                                         sameElse: 'DD-MM-YYYY',
-                                                                                                  })}
+                                                                                                
                                                                                                   {moment(historique.DATE).format('DD-MM-YYYY')}
                                                                                            </Text>
                                                                                     </View>
@@ -179,7 +174,7 @@ const styles = StyleSheet.create({
        ligne: {
               borderTopWidth: 1,
               marginTop: 10,
-              borderTopColor: "#F58424"
+              borderTopColor: "#0a5744"
        },
        itemDebut: {
               fontSize: 9,

@@ -160,7 +160,7 @@ export default function ValidationScren() {
                                                 }}
                                         >
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+                                                        <FontAwesome5 name="user" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -183,7 +183,7 @@ export default function ValidationScren() {
 
 
                                                 <View style={styles.cardImage}>
-                                                        <Entypo name="mail" size={24} color="#F58424" />
+                                                        <Entypo name="mail" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -205,10 +205,10 @@ export default function ValidationScren() {
                                                 }}
                                         >
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome name="phone" size={24} color="#F58424" />
+                                                        <FontAwesome name="phone" size={24} color="#0a5744" />
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Telephone</Text>
+                                                        <Text style={styles.titleNom}>Téléphone</Text>
                                                         <Text style={styles.titleResponse}>
 
                                                                 {donnees.requerantRDV.TELEPHONE}
@@ -224,7 +224,7 @@ export default function ValidationScren() {
                                                 }}
                                         >
                                                 <View style={styles.cardImage}>
-                                                        <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                        <Fontisto name="passport-alt" size={24} color="#0a5744" />
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Document</Text>
@@ -243,10 +243,10 @@ export default function ValidationScren() {
                                                 }}
                                         >
                                                 <View style={styles.cardImage}>
-                                                        <Fontisto name="passport-alt" size={24} color="#F58424" />
+                                                        <Fontisto name="passport-alt" size={24} color="#0a5744" />
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Numero du document</Text>
+                                                        <Text style={styles.titleNom}>Numéro du document</Text>
                                                         <Text style={styles.titleResponse}>
 
                                                                 {donnees.requerantRDV.NUMERO_DOCUMENT}
@@ -262,10 +262,10 @@ export default function ValidationScren() {
                                                 }}
                                         >
                                                 <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+                                                        <AntDesign name="calendar" size={24} color="#0a5744" />
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Date prelevement</Text>
+                                                        <Text style={styles.titleNom}>Date prélèvement</Text>
                                                         <Text style={styles.titleResponse}>
 
                                                                 {moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('DD-MM-YYYY')}
@@ -281,18 +281,18 @@ export default function ValidationScren() {
                                                 }}
                                         >
                                                 <View style={styles.cardImage}>
-                                                        <Foundation name="results" size={24} color="#F58424" />
+                                                        <Foundation name="results" size={24} color="#0a5744" />
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
                                                         {donnees.requerantRDV.REQUERANT_STATUT_ID == 5 ?
-                                                                <Text style={[styles.titleNom, { color: 'green' }]}>Resultat</Text> : null}
-                                                        {donnees.requerantRDV.REQUERANT_STATUT_ID == 5 ? <Text style={[styles.titleResponse, { color: "green" }]}>
+                                                                <Text style={[styles.titleNom, { color: 'red' }]}>Résultat</Text> : null}
+                                                        {donnees.requerantRDV.REQUERANT_STATUT_ID == 5 ? <Text style={[styles.titleResponse, { color: "red" }]}>
                                                                 Positif
                                                         </Text> : null}
                                                         {donnees.requerantRDV.REQUERANT_STATUT_ID == 12 ?
-                                                                <Text style={[styles.titleNom, { color: 'red' }]}>Resultat</Text> : null}
-                                                        {donnees.requerantRDV.REQUERANT_STATUT_ID == 12 ? <Text style={[styles.titleResponse, { color: "red" }]}>
-                                                                Negatif
+                                                                <Text style={[styles.titleNom, { color: 'green' }]}>Resultat</Text> : null}
+                                                        {donnees.requerantRDV.REQUERANT_STATUT_ID == 12 ? <Text style={[styles.titleResponse, { color: "green" }]}>
+                                                                Négatif
                                                         </Text> : null}
                                                 </View>
                                         </View>
@@ -305,10 +305,10 @@ export default function ValidationScren() {
                                                 }}
                                         >
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome5 name="user" size={24} color="#F58424" />
+                                                        <FontAwesome5 name="user" size={24} color="#0a5744" />
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Agent</Text>
+                                                        <Text style={styles.titleNom}>Laborantin</Text>
                                                         <Text style={styles.titleResponse}>
 
                                                                 {user.user.USER_FNAME} {user.user.USER_LNAME}
@@ -318,7 +318,7 @@ export default function ValidationScren() {
                                 </View>
                                 <View style={styles.header}>
                                         <Image source={require('../../../assets/login.png')} style={styles.image} />
-                                        <Text style={{ fontSize: 16 }}>Validation des résultats  de test covid 19</Text>
+                                        <Text style={{ fontSize: 16 }}>Validation des résultats  de test covid-19</Text>
                                         <View style={{ marginTop: 10 }}>
                                                 <Text style={{}}>Voulez-vous valider ces resultats ?</Text>
                                         </View>
@@ -328,7 +328,7 @@ export default function ValidationScren() {
 
 
                                                 <Button
-                                                        backgroundColor={"#F58424"}
+                                                        // backgroundColor={"#ddd"}
                                                         onPress={cancel}
 
                                                 >
@@ -337,7 +337,7 @@ export default function ValidationScren() {
                                                 <View style={{ padding: 10 }}></View>
                                                 <Button
                                                         isLoading={isLoading}
-                                                        backgroundColor={"#000080"} onPress={CreateCertificat}
+                                                        backgroundColor={"#0a5744"} onPress={CreateCertificat}
                                                 >
                                                         valider
                                                 </Button>

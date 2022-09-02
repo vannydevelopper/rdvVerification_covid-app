@@ -39,7 +39,7 @@ export default function ProfilCard(){
                      </View>
                      <TouchableNativeFeedback onPress={onLogOut}>
                             <View style={styles.moreBtn}>
-                                   <MaterialIcons name="logout" size={20} color="#777" />
+                                   <MaterialIcons name="logout" size={20} color="#0a5744" />
                                    <Text style={{ ...styles.actionTitle, ...styles.moreInfoBtnText }}>Déconnexion</Text>
                             </View>
                      </TouchableNativeFeedback>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
        },
        actionTitle: {
               color: 'blue',
-              color: '#F58424',
+              color: '#0a5744',
               fontWeight: 'bold',
               opacity: 0.8,
               fontSize: 10

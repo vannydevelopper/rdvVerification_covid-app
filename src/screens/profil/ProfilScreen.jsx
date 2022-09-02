@@ -14,7 +14,7 @@ const Profil = () =>{
                      <View style={styles.detailCard}>
                             <View style={styles.cardImage}>
                                    <View style={styles.imagecard}>
-                                          <EvilIcons name="user" size={35} color="#F58424" />
+                                          <EvilIcons name="user" size={35} color="#0a5744" />
                                    </View>
                                    <View style={styles.names}>
                                           <Text style={styles.itemTitle}>Nom</Text>
@@ -23,16 +23,16 @@ const Profil = () =>{
                             </View>
                             <View style={styles.cardImage}>
                                    <View style={styles.imagecard}>
-                                          <EvilIcons name="user" size={35} color="#F58424" />
+                                          <EvilIcons name="user" size={35} color="#0a5744" />
                                    </View>
                                    <View style={styles.names}>
-                                          <Text style={styles.itemTitle}>Prenom</Text>
+                                          <Text style={styles.itemTitle}>Prénom</Text>
                                           <Text style={styles.itemValue}>{user.user.USER_LNAME}</Text>
                                    </View>
                             </View>
                             <View style={styles.cardImage}>
                                    <View style={styles.imagecard}>
-                                   <Entypo name="mail" size={24} color="#F58424" />
+                                   <Entypo name="mail" size={24} color="#0a5744" />
                                    </View>
                                    <View style={styles.names}>
                                           <Text style={styles.itemTitle}>Email</Text>

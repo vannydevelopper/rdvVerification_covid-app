@@ -11,7 +11,7 @@ export default function HomeScreen() {
                 <View style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
                         <StatusBar backgroundColor="#ddd" barStyle="dark-content" />
                         <View style={styles.header}>
-                                <Text style={{ fontSize: 17, fontWeight: 'bold', opacity: 0.6,marginBottom:10 }}>Rendez-vous Test covid</Text>
+                                <Text style={{ fontSize: 17, fontWeight: 'bold', opacity: 0.5,marginBottom:10 }}>Rendez-vous Test covid-19</Text>
                                 <View style={styles.imageContainer}>
                                         <Image source={require('../../../assets/qr.png')} style={{ ...styles.image, }} />
                                 </View>
@@ -25,7 +25,7 @@ export default function HomeScreen() {
                                 borderRadius={15}
                                 onPress={() => navigation.navigate('Scan')}
                                 mt={7}
-                                backgroundColor={"#318CE7"}
+                                backgroundColor={"#0a5744"}
                                 py={3.5}
                                 marginHorizontal={80}
                                 leftIcon={
