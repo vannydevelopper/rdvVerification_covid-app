@@ -6,7 +6,7 @@ export default function NotHistory(){
                 <View style={styles.notfoundContainer}>
                         <Image source={require('../../assets/images/not-found.png')} style={styles.notfoundImage}/>
                         <Text style={styles.notfoundText}> 
-                            Rendez vous invalide
+                            Rendez-vous invalide
                      </Text>  
                 </View>
         )

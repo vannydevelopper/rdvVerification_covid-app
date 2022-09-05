@@ -169,7 +169,7 @@ export default function PhotoScreen() {
                         navigation.navigate("Home")
                         setIsLoading(false)
                         toast.show({
-                                title: "L'enregistrement est faite avec succes",
+                                title: "L'enregistrement est faite avec succès",
                                 placement: "bottom",
                                 status: 'success',
                                 duration: 2000,
@@ -325,14 +325,8 @@ export default function PhotoScreen() {
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Date de Naissance</Text>
                                                         <Text style={styles.titleResponse}>
-                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).calendar(null, {
-                                                                        sameDay: `[Aujourd'hui]`,
-                                                                        lastDay: `[Hier]`,
-                                                                        nextDay: 'DD-M-YYYY',
-                                                                        lastWeek: 'DD-M-YYYY',
-                                                                        sameElse: 'DD-M-YYYY',
-                                                                })}
-                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).format('  HH:mm')}
+                                                              
+                                                                {moment(donnees.requerantRDV.DATE_NAISSANCE).format('DD-MM-YYYY')}
                                                         </Text>
                                                 </View>
                                         </View>
@@ -341,14 +335,14 @@ export default function PhotoScreen() {
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#0a5744" />
+                                                        <AntDesign name="calendar" size={24} color="#0a5744"/>
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Date de Rendez vous</Text>
                                                         <Text style={styles.titleResponse}>
                                                               
-                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('  DD-M-YYYY')}
+                                                                {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('DD-M-YYYY  HH:MM:SS')}
                                                         </Text>
                                                 </View>
                                         </View>
@@ -361,7 +355,7 @@ export default function PhotoScreen() {
                                         <View style={styles.ligne}></View>
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <Entypo name="mail" size={24} color="#F58424" />
+                                                        <Entypo name="mail" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -373,7 +367,7 @@ export default function PhotoScreen() {
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <FontAwesome name="cc-visa" size={24} color="#F58424" />
+                                                        <FontAwesome name="cc-visa" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -386,7 +380,7 @@ export default function PhotoScreen() {
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <Foundation name="dollar-bill" size={24} color="#F58424" />
+                                                        <Foundation name="dollar-bill" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -398,7 +392,7 @@ export default function PhotoScreen() {
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#F58424" />
+                                                        <AntDesign name="calendar" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
@@ -411,7 +405,7 @@ export default function PhotoScreen() {
                                                                         lastWeek: 'DD-M-YYYY',
                                                                         sameElse: 'DD-M-YYYY',
                                                                 })}
-                                                                {moment(donnees.payement.DATE_INSERT_PAYEMENT).format('  HH:mm')}
+                                                                {moment(donnees.payement.DATE_INSERT_PAYEMENT).format('  HH:mm:ss')}
                                                         </Text>
                                                 </View>
 
@@ -422,9 +416,12 @@ export default function PhotoScreen() {
                                 {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) ?
                                         <View style={{ flexDirection: "row" }}>
                                                 <View>
-                                                        <Text style={{ color: 'red', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
-                                                                Photo du voyageur *
+                                                        <View style={{ flexDirection: "row" }}>
+                                                        <Text  style={styles.title}>
+                                                                Photo du voyageur
                                                         </Text>
+                                                        <Text style={styles.validation}>*</Text>
+                                                        </View>
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
                                                                         <View style={{ ...styles.addImage }}>
@@ -446,6 +443,7 @@ export default function PhotoScreen() {
                                                         <Text style={{ color: 'red', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
                                                                 Photo Bordereau *
                                                         </Text>
+                                                        <Text style={styles.validation}>*</Text>
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
                                                                         <View style={{ ...styles.addImage }}>
@@ -569,6 +567,11 @@ const styles = StyleSheet.create({
                 fontSize: 13,
                 fontWeight: "bold"
         },
+        validation:{
+                fontSize: 22,
+                color:"red",
+                marginLeft:2
+        },
         titleResponse: {
                 fontSize: 13,
                 fontWeight: "bold",
@@ -600,6 +603,15 @@ const styles = StyleSheet.create({
                 alignItems: 'center',
                 borderColor: '#777',
                 borderWidth: 1
+        },
+        title: {
+                
+                fontWeight: 'bold',
+                fontSize: 16,
+                color: 'black', 
+                fontWeight: 'bold',
+                //  marginTop: 10, 
+                 textAlign: "center"
         }
 
 

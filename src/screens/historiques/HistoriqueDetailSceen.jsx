@@ -10,7 +10,8 @@ import ResultScreen from "./ResultScreen";
 
 moment.updateLocale('fr', {
         calendar: {
-
+                sameDay: "[Aujourd'hui]",
+                lastDay: '[Hier]',
                 nextDay: 'DD-MM-YYYY',
                 lastWeek: 'DD-MM-YYYY',
                 sameElse: 'DD-MM-YYYY',
@@ -24,7 +25,7 @@ export default function HistoriqueDetailSCreen() {
         const [showImageModal, setShowImageModal] = useState(false)
         const [imageIndex, setImageIndex] = useState(0)
         const [loading, setLoading] = useState(false)
-        const isProd = true
+        const isProd = false
         const bordereauPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_bordereau/" : "http://192.168.43.84:8000/images/photo_brd/"
         const candidatPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_candidat/" : "http://192.168.43.84:8000/images/photo_prs/"
         var imageUrls = []
@@ -103,7 +104,7 @@ export default function HistoriqueDetailSCreen() {
                                                         <View style={{ marginLeft: 13 }}>
                                                                 <Text style={styles.titleNom}>Date rendez-vous</Text>
                                                                 <Text style={styles.titleResponse}>
-                                                                {moment(donnees.DATE_RENDEVOUS).format('  DD-MM-YYYY')}
+                                                                {moment(donnees.DATE_RENDEVOUS).format('DD-MM-YYYY  HH:MM:SS')}
                                                                 </Text>
                                                         </View>
                                                 </View>

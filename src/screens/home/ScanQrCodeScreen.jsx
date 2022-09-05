@@ -24,7 +24,7 @@ export default function ScanQrCodeScreen() {
 
        const handleBarCodeScanned = async ({ type, data }) => {
               setScanned(true);
-               //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+               alert(`Bar code with type ${type} and data ${data} has been scanned!`);
               //console.log(type)
               if (type == 256) {
                      var url = data
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
        },
        scanTitle: {
               color: '#fff',
-              backgroundColor: '#F58424',
+              backgroundColor: '#0a5744',
               fontSize: 16,
               padding: 15,
               borderRadius: 10
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
               backgroundColor: 'transparent'
        },
        actionBtn: {
-              backgroundColor: '#F58424',
+              backgroundColor: '#0a5744',
               padding: 10,
               borderRadius: 100,
               justifyContent: 'center',

@@ -21,7 +21,7 @@ moment.updateLocale('fr', {
 })
 
 export default function ResultatTestSCreens() {
-        const [commentaire, SetCommentaire] = useState("")
+        const [commentaire, SetCommentaire] = useState("")  
         const typeRef = useRef(null)
         const [location, setLocation] = useState(null)
         const resultatRef = useRef(null)
@@ -53,6 +53,7 @@ export default function ResultatTestSCreens() {
 
 
         //recuperation des dates
+        console.log(donnees)
         const [myNewdate, setmyNewdate] = useState(new Date());
         const [displaymodetype, setModeType] = useState('date');
         const [isDisplayDateNew, setShowNew] = useState(false);
@@ -184,7 +185,7 @@ export default function ResultatTestSCreens() {
                         navigation.navigate("Home")
                         setIsLoading(false)
                         toast.show({
-                                title: "L'enregistrement est faite avec succes",
+                                title: "L'enregistrement est faite avec succès",
                                 placement: "bottom",
                                 status: 'success',
                                 duration: 2000,
@@ -283,7 +284,7 @@ export default function ResultatTestSCreens() {
                                                 <View style={styles.modalItem}>
                                                         {resultat == 12 ? <MaterialCommunityIcons name="radiobox-marked" size={24} color="#007bff" /> :
                                                                 <MaterialCommunityIcons name="radiobox-blank" size={24} color="#777" />}
-                                                        <Text numberOfLines={1} style={{...styles.modalText, marginLeft:7}}>Negatif</Text>
+                                                        <Text numberOfLines={1} style={{...styles.modalText, marginLeft:7}}>Négatif</Text>
                                                 </View>
                                         </TouchableNativeFeedback>
 
@@ -457,7 +458,7 @@ export default function ResultatTestSCreens() {
                                                                         <View style={styles.rightDate}>
                                                                                 <Text>
                                     
-                                                                                        {moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('DD-MM-YYYY HH:mm:ss')}
+                                                                                        {moment(donnees.requerantRDV.DATE_PRELEVEMENT).format('DD-MM-YYYY  HH:mm:ss')}
                                                                                 </Text>
 
                                                                         </View>
@@ -533,7 +534,7 @@ export default function ResultatTestSCreens() {
                                                                         </Text>
                                                                 </View>
                                                                 <View style={styles.rightDate}>
-                                                                        <Text>{moment(myNewdate).format("DD-MM-YYYY")}</Text>
+                                                                        <Text>{moment(myNewdate).format("DD-MM-YYYY  HH:mm:ss")}</Text>
                                                                 </View>
                                                         </TouchableOpacity>
                                                         {isDisplayDateNew && <DateTimePicker

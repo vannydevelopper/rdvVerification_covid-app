@@ -15,7 +15,7 @@ export default function NotFoundScreen(){
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
                                         <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#F58424' }}>
-                                                <Ionicons name="arrow-back-outline" size={24} color="#000" />
+                                                <Ionicons name="arrow-back-outline" size={24} color="#0a5744" />
                                         </View>
                                 </TouchableNativeFeedback>
                                 <View style={{ justifyContent: "center", alignItems: "center", alignSelf: "center" }}>

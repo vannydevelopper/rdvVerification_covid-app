@@ -119,7 +119,7 @@ export default function ValidationScren() {
                         navigation.navigate("Home")
                         setIsLoading(false)
                         toast.show({
-                                title: "La generation du certificat faite   avec succes",
+                                title: "La generation du certificat faite   avec succès",
                                 placement: "bottom",
                                 status: 'success',
                                 duration: 2000,
