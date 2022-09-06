@@ -79,7 +79,7 @@ export default function ScanQrCodeScreen() {
                                    navigation.goBack()
                                    navigation.navigate("apresvalidation",{ donnees: fetchScan })
                             }
-                           // console.log(fetchScan)
+                         
                             
                      }
                      catch (error) {
@@ -89,7 +89,14 @@ export default function ScanQrCodeScreen() {
                             if (error.message) {
                                    navigation.goBack()
                                    navigation.navigate("Not", { donnees: error.message })
+                            
                             }
+                            // else if(error.NonAccess)
+                            // {
+                            //        navigation.goBack()
+                            //        navigation.navigate("nonDroit", { donnees: error.message })
+                            
+                            // }
                      } finally {
                             setLoading(false)
                      }

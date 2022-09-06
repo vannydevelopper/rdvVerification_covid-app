@@ -440,10 +440,12 @@ export default function PhotoScreen() {
                                                 </View>
 
                                                 {!donnees.payement && <View>
-                                                        <Text style={{ color: 'red', fontWeight: 'bold', marginTop: 10, textAlign: "center" }}>
-                                                                Photo Bordereau *
+                                                        <View style={{ flexDirection: "row" }}>
+                                                        <Text  style={styles.title}>
+                                                                Photo du voyageur
                                                         </Text>
                                                         <Text style={styles.validation}>*</Text>
+                                                        </View>
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
                                                                         <View style={{ ...styles.addImage }}>

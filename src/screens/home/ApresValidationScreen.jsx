@@ -124,7 +124,7 @@ export default function ApresValidationScren() {
                                 <View style={styles.ligne}></View>
                                 <View style={{ backgroundColor: '#f1f1f1', justifyContent: "center", alignItems: "center" }}>
                                         <View style={styles.titleDetails}>
-                                                <Text style={{ fontSize: 15, fontWeight: "bold" }}> Informations du voyageur</Text>
+                                                <Text style={{ fontSize: 15, fontWeight: "bold",borderRadius:2}}> Informations du voyageur</Text>
                                         </View>
                                         <View style={styles.requerant}>
 
@@ -273,6 +273,32 @@ export default function ApresValidationScren() {
                                                                 </Text>
                                                         </View>
                                                 </View>
+
+                                                <View
+                                                        style={{
+                                                                flexDirection: 'row',
+                                                                alignContent: 'center',
+                                                                alignItems: 'center',
+                                                                marginTop: 5,
+                                                        }}
+                                                >
+                                                        <View style={styles.cardImage}>
+                                                        <Fontisto name="origin" size={24} color="#0a5744" />
+                                                        </View>
+                                                        <View style={{ marginLeft: 13 }}>
+                                                                {donnees.requerantRDV.PROVENANCE == 1 ?
+                                                                        <Text style={[styles.titleNom]}>provenance</Text> : null}
+                                                                {donnees.requerantRDV.PROVENANCE == 1 ? <Text style={[styles.titleResponse]}>
+                                                                       Entrant
+                                                                </Text> : null}
+                                                                {donnees.requerantRDV.PROVENANCE == 2 ?
+                                                                        <Text style={[styles.titleNom]}>provenance</Text> : null}
+                                                                {donnees.requerantRDV.PROVENANCE == 2 ? <Text style={[styles.titleResponse]}>
+                                                                        Sortant
+                                                                </Text> : null}
+                                                        </View>
+                                                </View>
+
 
 
 

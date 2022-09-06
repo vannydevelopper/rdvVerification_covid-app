@@ -542,6 +542,7 @@ export default function ResultatTestSCreens() {
                                                                 value={myNewdate}
                                                                 mode={displaymodetype}
                                                                 is24Hour={true}
+                                                                maximumDate={new Date()}
                                                                 display="default"
                                                                 onChange={changeSelectedDateNew}
                                                         />}

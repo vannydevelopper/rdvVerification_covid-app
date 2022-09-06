@@ -14,7 +14,7 @@ export default function NotFoundScreen(){
                 <>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", paddingHorizontal: 20, }}>
                                 <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
-                                        <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#F58424' }}>
+                                        <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#0a5744' }}>
                                                 <Ionicons name="arrow-back-outline" size={24} color="#0a5744" />
                                         </View>
                                 </TouchableNativeFeedback>
@@ -37,7 +37,7 @@ export default function NotFoundScreen(){
 const styles = StyleSheet.create({
         titleHistorique: {
                 fontWeight: "bold",
-                color: '#F58424',
+                color: '#0a5744',
                 fontSize:15,
                 marginHorizontal: 20,
                 //marginHorizontal: 70
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
                 marginBottom: 95
          },
          notfoundImage: {
-                width: "35%",
-                height: "35%",
+                width: "50%",
+                height: "50%",
          },
          notfoundText: {
                 marginTop: 20,
