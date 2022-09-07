@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { StyleSheet, Text, View, StatusBar,TouchableNativeFeedback, Modal, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, StatusBar, TouchableNativeFeedback, Modal, Image, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Button, Icon, Input, FormControl, WarninrgOutlineIcon, useToast, ScrollView } from 'native-base'
 import fetchApi from "../../helpers/fetchApi";
@@ -32,7 +32,7 @@ export default function ApresValidationScren() {
         const [isLoading, setIsLoading] = useState(false)
 
         const cancel = () => navigation.navigate("Home");
-        const isProd = false
+        const isProd = true
         const bordereauPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_bordereau/" : "http://192.168.43.84:8000/images/photo_brd/"
         const candidatPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_candidat/" : "http://192.168.43.84:8000/images/photo_prs/"
 
@@ -105,26 +105,26 @@ export default function ApresValidationScren() {
 
 
         return (
-                <>     
-                <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
-                        <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
-                                <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#0a5744' }}>
-                                        <Ionicons name="arrow-back-outline" size={24} color="#000" />
-                                </View>
-                        </TouchableNativeFeedback>
-                        <View style={{ justifyContent: "center", alignItems: "center", alignSelf: "center" }}>
+                <>
+                        <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
+                                <TouchableNativeFeedback onPress={() => navigation.goBack()} useForeground>
+                                        <View style={{ borderRadius: 50, padding: 10, overflow: 'hidden', opacity: 0.8, backgroundColor: '#0a5744' }}>
+                                                <Ionicons name="arrow-back-outline" size={24} color="#000" />
+                                        </View>
+                                </TouchableNativeFeedback>
+                                <View style={{ justifyContent: "center", alignItems: "center", alignSelf: "center" }}>
                                         <Text style={styles.titleHistorique}>
-                                        {user.user.USER_FNAME} {user.user.USER_LNAME}
+                                                {user.user.USER_FNAME} {user.user.USER_LNAME}
                                         </Text>
                                 </View>
-                </View>
+                        </View>
                         <ScrollView>
                                 <StatusBar backgroundColor="#ddd" barStyle="dark-content" />
 
                                 <View style={styles.ligne}></View>
                                 <View style={{ backgroundColor: '#f1f1f1', justifyContent: "center", alignItems: "center" }}>
                                         <View style={styles.titleDetails}>
-                                                <Text style={{ fontSize: 15, fontWeight: "bold",borderRadius:2}}> Informations du voyageur</Text>
+                                                <Text style={{ fontSize: 15, fontWeight: "bold", borderRadius: 2 }}> Informations du voyageur</Text>
                                         </View>
                                         <View style={styles.requerant}>
 
@@ -283,13 +283,13 @@ export default function ApresValidationScren() {
                                                         }}
                                                 >
                                                         <View style={styles.cardImage}>
-                                                        <Fontisto name="origin" size={24} color="#0a5744" />
+                                                                <Fontisto name="origin" size={24} color="#0a5744" />
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
                                                                 {donnees.requerantRDV.PROVENANCE == 1 ?
                                                                         <Text style={[styles.titleNom]}>provenance</Text> : null}
                                                                 {donnees.requerantRDV.PROVENANCE == 1 ? <Text style={[styles.titleResponse]}>
-                                                                       Entrant
+                                                                        Entrant
                                                                 </Text> : null}
                                                                 {donnees.requerantRDV.PROVENANCE == 2 ?
                                                                         <Text style={[styles.titleNom]}>provenance</Text> : null}
@@ -518,13 +518,19 @@ export default function ApresValidationScren() {
                                                         <View style={styles.cardImage}>
                                                                 <AntDesign name="calendar" size={24} color="#0a5744" />
                                                         </View>
+
                                                         <View style={{ marginLeft: 13 }}>
+
                                                                 <Text style={styles.titleNom}>Date  téléchargement certificat</Text>
-                                                                <Text style={styles.titleResponse}>
+                                                                {donnees.requerantRDV.DATE_TELECHARGEMENT_CERTIFICAT &&
+                                                                        <Text style={styles.titleResponse}>
 
                                                                         {moment(donnees.requerantRDV.DATE_TELECHARGEMENT_CERTIFICAT).format('DD-MM-YYYY HH:mm:ss')}
-                                                                </Text>
+                                                                        </Text>
+                                                                }
+
                                                         </View>
+
                                                 </View>
 
 

@@ -25,7 +25,7 @@ export default function HistoriqueDetailSCreen() {
         const [showImageModal, setShowImageModal] = useState(false)
         const [imageIndex, setImageIndex] = useState(0)
         const [loading, setLoading] = useState(false)
-        const isProd = false
+        const isProd =true
         const bordereauPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_bordereau/" : "http://192.168.43.84:8000/images/photo_brd/"
         const candidatPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_candidat/" : "http://192.168.43.84:8000/images/photo_prs/"
         var imageUrls = []
@@ -124,7 +124,8 @@ export default function HistoriqueDetailSCreen() {
 
                                         </View>
                                         <View style={styles.imagePrincipal}>
-
+                                                {donnees.PATH_PASSEPORT != null &&
+                                             <>
                                                 <Text style={styles.titleImages}>Image du candidat</Text>
                                                 {donnees.PATH_PASSEPORT != null && <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                                         setImageIndex(0)
@@ -132,7 +133,7 @@ export default function HistoriqueDetailSCreen() {
                                                 }}>
                                                         <Image source={{ uri: `${candidatPath}${donnees.PATH_PASSEPORT}` }} style={styles.DetaImage} />
                                                 </TouchableOpacity>}
-
+                                              </>}
                                                 {donnees.PATH_BORDEREAU != null &&
                                                         <>
                                                                 <Text style={styles.titleImages}>Image du bordereau</Text>

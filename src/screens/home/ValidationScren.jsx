@@ -122,7 +122,7 @@ export default function ValidationScren() {
                                 title: "La generation du certificat faite   avec succès",
                                 placement: "bottom",
                                 status: 'success',
-                                duration: 2000,
+                                duration: 6000,
                                 width: '90%',
                                 minWidth: 300
                         })
@@ -133,7 +133,7 @@ export default function ValidationScren() {
                                 title: "Echec de generation certificat",
                                 placement: "bottom",
                                 status: 'success',
-                                duration: 2000,
+                                duration: 6000,
                                 width: '90%',
                                 minWidth: 300
                         })

@@ -188,7 +188,7 @@ export default function ResultatTestSCreens() {
                                 title: "L'enregistrement est faite avec succès",
                                 placement: "bottom",
                                 status: 'success',
-                                duration: 2000,
+                                duration: 6000,
                                 width: '90%',
                                 minWidth: 300
                         })
@@ -201,7 +201,7 @@ export default function ResultatTestSCreens() {
                                 title: "L'enregistrement a echoue",
                                 placement: "bottom",
                                 status: 'success',
-                                duration: 2000,
+                                duration: 6000,
                                 width: '90%',
                                 minWidth: 300
                         })

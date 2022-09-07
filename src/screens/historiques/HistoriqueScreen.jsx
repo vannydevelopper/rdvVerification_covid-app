@@ -9,7 +9,8 @@ import NotHistory from "../../components/NotHistory";
 import NotFound from "../../components/NotFound";
 moment.updateLocale('fr', {
        calendar: {
-              
+              sameDay: "[Aujourd'hui]",
+              lastDay: '[Hier]',
               nextDay: 'DD-MM-YYYY',
               lastWeek: 'DD-MM-YYYY',
               sameElse: 'DD-MM-YYYY',
@@ -45,12 +46,12 @@ export default function HistoriqueScreen() {
        }
 
        useFocusEffect(useCallback(() => {
-                     fetchHistoriques()
+              fetchHistoriques()
        }, [q]))
 
        return (
               <>
-                     {historiques.length != 0 &&<View style={styles.rechercheCard}>
+                     {historiques.length != 0 && <View style={styles.rechercheCard}>
                             <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 3, color: "#0a5744" }}>Historique</Text>
                             <Input
                                    placeholder="recherche"
@@ -73,47 +74,74 @@ export default function HistoriqueScreen() {
                      {loading ?
                             <View style={{ flex: 1, justifyContent: 'center' }}>
                                    <ActivityIndicator animating={true} size="large" color={"black"} />
-                            </View>:
+                            </View> :
                             <View>
-                                  {historiques.length == 0 ? <NotFound style={{marginTop:10}}/> :
-                                   <ScrollView keyboardShouldPersistTaps="handled">
-                                          <View style={{marginBottom:80}}>
-                                                 {historiques.map((historique, index) => {
-                                                        return (
-                                                               <TouchableNativeFeedback key={index} onPress={() => navigation.navigate("Details", { donnees: historique })}>
-                                                                      <View style={styles.cardPrincipal}>
-                                                                             <View style={styles.cardPosition}>
-                                                                                    <View style={styles.cardImage}>
-                                                                                           <MaterialIcons name="qr-code-scanner" size={24} color="#0a5744" />
-                                                                                    </View>
-                                                                                    <View style={styles.cardDescripetion}>
-                                                                                           <View style={styles.CardItems}>
-                                                                                                  <View style={{ flexDirection: "row" }}>
-                                                                                                         <Text style={styles.itemTitle} numberOfLines={2}>{historique.REQUERANT_NOM}  {historique.REQUERANT_PRENOM}</Text>
-                                                                                                  </View>
+                                   {historiques.length == 0 ? <NotFound style={{ marginTop: 10 }} /> :
+                                          <ScrollView keyboardShouldPersistTaps="handled">
+                                                 <View style={{ marginBottom: 80 }}>
+                                                        {historiques.map((historique, index) => {
+                                                               return (
+                                                                      <TouchableNativeFeedback key={index} onPress={() => navigation.navigate("Details", { donnees: historique })}>
+                                                                             <View style={styles.cardPrincipal}>
+                                                                                    <View style={styles.cardPosition}>
+                                                                                           <View style={styles.cardImage}>
+                                                                                                  <MaterialIcons name="qr-code-scanner" size={24} color="#0a5744" />
                                                                                            </View>
-                                                                                           <Text style={styles.itemDescription}>{historique.EMAIL}</Text>
-                                                                                           <Text style={styles.itemDescription1}>{historique.TELEPHONE}</Text>
-                                                                                           {/* {historique.PHOTO_BRD != null && <Image source={{ uri: historique.PHOTO_BRD }} style={styles.DetaImage} />}
+                                                                                           <View style={styles.cardDescripetion}>
+                                                                                                  <View style={styles.CardItems}>
+                                                                                                         <View style={{ flexDirection: "row" }}>
+                                                                                                                <Text style={styles.itemTitle} numberOfLines={2}>{historique.REQUERANT_NOM}  {historique.REQUERANT_PRENOM}</Text>
+                                                                                                         </View>
+                                                                                                  </View>
+                                                                                                  <Text style={styles.itemDescription}>{historique.EMAIL}</Text>
+                                                                                                  <Text style={styles.itemDescription1}>{historique.TELEPHONE}</Text>
+                                                                                                  {/* {historique.PHOTO_BRD != null && <Image source={{ uri: historique.PHOTO_BRD }} style={styles.DetaImage} />}
                                                                              {historique.PHOTO_PRS != null && <Image source={{ uri: historique.PHOTO_PRS }} style={styles.DetaImage} />} */}
+                                                                                           </View>
+                                                                                    </View>
+                                                                                    <View style={styles.ligne}></View>
+                                                                                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 5 }}>
+
+                                                                                           <View style={styles.etape} >
+                                                                                                  {historique.ETAPE == 1 &&
+                                                                                                         <Text  >
+                                                                                                                prélèvement du voyageur
+                                                                                                         </Text>
+                                                                                                  }
+                                                                                                  {historique.ETAPE == 3 &&
+                                                                                                         <Text  >
+                                                                                                                Attribution des résultats
+                                                                                                         </Text>
+                                                                                                  }
+                                                                                                  {historique.ETAPE == 4 &&
+                                                                                                         <Text  >
+                                                                                                                Validation des résultats
+                                                                                                         </Text>
+                                                                                                  }
+                                                                                           </View>
+                                                                                           <View style={styles.dateCard}>
+                                                 
+
+                                                                                                  <Text style={styles.itemDebut}>
+                                                                                                  {moment(historique.DATE).calendar(null,{
+                                                                                                          sameDay: "[Aujourd'hui]",
+                                                                                                          lastDay: '[Hier]',
+                                                                                                          nextDay: 'DD-MM-YYYY',
+                                                                                                          lastWeek: 'DD-MM-YYYY',
+                                                                                                          sameElse: 'DD-MM-YYYY',
+
+                                                                                                  })}
+
+                                                                                                  {moment(historique.DATE).format(' HH:MM:')}
+                                                                                                  </Text>
+                                                                                           </View>
                                                                                     </View>
                                                                              </View>
-                                                                             <View style={styles.ligne}></View>
-                                                                             <View style={{ flexDirection: "row", justifyContent: "flex-end", marginTop: 5 }}>
-                                                                                    <View ></View>
-                                                                                    <View style={styles.dateCard}>
-                                                                                           <Text style={styles.itemDebut}>
-                                                                                                
-                                                                                                  {moment(historique.DATE).format('DD-MM-YYYY')}
-                                                                                           </Text>
-                                                                                    </View>
-                                                                             </View>
-                                                                      </View>
-                                                               </TouchableNativeFeedback>
-                                                        )
-                                                 })}
-                                          </View>
-                                   </ScrollView>}
+                                                                      </TouchableNativeFeedback>
+                                                               )
+                                                        })}
+                                                 </View>
+                                          </ScrollView>}
                             </View>}
               </>
        )
@@ -188,6 +216,16 @@ const styles = StyleSheet.create({
               padding: 3,
               borderRadius: 3,
               justifyContent: "center",
+              alignItems: "center",
+              marginTop: 8
+       },
+       etape: {
+              // fontSize:12,
+              // backgroundColor: "#ddd",
+              //minWidth: "45%",
+              padding: 3,
+              borderRadius: 3,
+              justifyContent: "space-between",
               alignItems: "center",
               marginTop: 8
        },

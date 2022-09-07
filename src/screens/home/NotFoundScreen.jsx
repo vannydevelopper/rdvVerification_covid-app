@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
                 marginBottom: 95
          },
          notfoundImage: {
-                width: "50%",
-                height: "50%",
+                width: "60%",
+                height: "40%",
          },
          notfoundText: {
                 marginTop: 20,
