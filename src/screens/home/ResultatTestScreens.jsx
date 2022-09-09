@@ -334,7 +334,7 @@ export default function ResultatTestSCreens() {
 
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
-                                                                <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                                <Text style={styles.titleNom}>Identification</Text>
 
                                                                 <Text style={styles.titleResponse}>
 

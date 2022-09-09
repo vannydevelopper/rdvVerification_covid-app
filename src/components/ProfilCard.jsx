@@ -32,7 +32,7 @@ export default function ProfilCard(){
                                    <Text style={styles.actionValue}>{user.user.TEL}</Text>
                             </View>
                             <View style={styles.actionPv}>
-                                   <Text style={styles.actionTitle}>Date d'insertion</Text>
+                                   <Text style={styles.actionTitle}>Date de création</Text>
                                    {/* <Text style={styles.actionValue}>12/2/2022</Text> */}
                                    <Text style={styles.itemValue}>12/03/2022</Text>
                             </View>

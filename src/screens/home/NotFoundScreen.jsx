@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
          },
          notfoundImage: {
                 width: "60%",
-                height: "40%",
+                height: "50%",
          },
          notfoundText: {
                 marginTop: 20,

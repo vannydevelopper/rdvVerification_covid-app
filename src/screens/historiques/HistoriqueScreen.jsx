@@ -36,7 +36,7 @@ export default function HistoriqueScreen() {
                             headers: { "Content-Type": "application/json" }
                      })
                      setHistoriques(histo)
-                     console.log(histo)
+                    // console.log(histo)
               }
 
               catch (error) {
@@ -123,7 +123,7 @@ export default function HistoriqueScreen() {
                                                  
 
                                                                                                   <Text style={styles.itemDebut}>
-                                                                                                  {moment(historique.DATE).calendar(null,{
+                                                                                                  {moment(historique.DATE_INSERTION).calendar(null,{
                                                                                                           sameDay: "[Aujourd'hui]",
                                                                                                           lastDay: '[Hier]',
                                                                                                           nextDay: 'DD-MM-YYYY',
@@ -132,7 +132,7 @@ export default function HistoriqueScreen() {
 
                                                                                                   })}
 
-                                                                                                  {moment(historique.DATE).format(' HH:MM:')}
+                                                                                                  {moment(historique.DATE_INSERTION).format(' HH:MM:SS')}
                                                                                                   </Text>
                                                                                            </View>
                                                                                     </View>

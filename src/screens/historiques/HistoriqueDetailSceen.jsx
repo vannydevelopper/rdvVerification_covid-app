@@ -25,7 +25,7 @@ export default function HistoriqueDetailSCreen() {
         const [showImageModal, setShowImageModal] = useState(false)
         const [imageIndex, setImageIndex] = useState(0)
         const [loading, setLoading] = useState(false)
-        const isProd =true
+        const isProd =false
         const bordereauPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_bordereau/" : "http://192.168.43.84:8000/images/photo_brd/"
         const candidatPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_candidat/" : "http://192.168.43.84:8000/images/photo_prs/"
         var imageUrls = []
@@ -58,7 +58,7 @@ export default function HistoriqueDetailSCreen() {
 
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
-                                                                <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                                <Text style={styles.titleNom}>Identifications</Text>
                                                                 <Text style={styles.titleResponse}>{donnees.REQUERANT_NOM} {donnees.REQUERANT_PRENOM}</Text>
                                                         </View>
                                                 </View>
@@ -69,7 +69,7 @@ export default function HistoriqueDetailSCreen() {
 
                                                         </View>
                                                         <View style={{ marginLeft: 13 }}>
-                                                                <Text style={styles.titleNom}>Numero du document</Text>
+                                                                <Text style={styles.titleNom}>Numéro du document</Text>
                                                                 <Text style={styles.titleResponse}>{donnees.CNI_PASSPORT_CPGL}</Text>
                                                         </View>
                                                 </View>

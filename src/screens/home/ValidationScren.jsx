@@ -119,12 +119,12 @@ export default function ValidationScren() {
                         navigation.navigate("Home")
                         setIsLoading(false)
                         toast.show({
-                                title: "La generation du certificat faite   avec succès",
+                                title: "Validation des résultats est faite avec succèss",
                                 placement: "bottom",
                                 status: 'success',
                                 duration: 6000,
                                 width: '90%',
-                                minWidth: 300
+                                minWidth: 350
                         })
                 }
                 catch (error) {
@@ -164,7 +164,7 @@ export default function ValidationScren() {
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                        <Text style={styles.titleNom}>Identification</Text>
 
                                                         <Text style={styles.titleResponse}>
 

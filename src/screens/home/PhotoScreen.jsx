@@ -258,7 +258,7 @@ export default function PhotoScreen() {
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Nom et Prénom</Text>
+                                                        <Text style={styles.titleNom}>Identification</Text>
                                                         <Text style={styles.titleResponse}>{donnees.requerantRDV.NOM}  {donnees.requerantRDV.PRENOM}</Text>
                                                 </View>
                                         </View>
@@ -325,7 +325,7 @@ export default function PhotoScreen() {
                                                 <View style={{ marginLeft: 13 }}>
                                                         <Text style={styles.titleNom}>Date de Naissance</Text>
                                                         <Text style={styles.titleResponse}>
-                                                              
+
                                                                 {moment(donnees.requerantRDV.DATE_NAISSANCE).format('DD-MM-YYYY')}
                                                         </Text>
                                                 </View>
@@ -335,13 +335,13 @@ export default function PhotoScreen() {
 
                                         <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center", marginTop: 5 }}>
                                                 <View style={styles.cardImage}>
-                                                        <AntDesign name="calendar" size={24} color="#0a5744"/>
+                                                        <AntDesign name="calendar" size={24} color="#0a5744" />
 
                                                 </View>
                                                 <View style={{ marginLeft: 13 }}>
-                                                        <Text style={styles.titleNom}>Date de Rendez vous</Text>
+                                                        <Text style={styles.titleNom}>Date de Rendez-vous</Text>
                                                         <Text style={styles.titleResponse}>
-                                                              
+
                                                                 {moment(donnees.requerantRDV.DATE_RENDEVOUS).format('DD-M-YYYY  HH:MM:SS')}
                                                         </Text>
                                                 </View>
@@ -414,13 +414,15 @@ export default function PhotoScreen() {
 
 
                                 {(moment().isSame(moment(donnees.requerantRDV.DATE_RENDEVOUS), 'days')) ?
-                                        <View style={{ flexDirection: "row" }}>
-                                                <View>
-                                                        <View style={{ flexDirection: "row" }}>
-                                                        <Text  style={styles.title}>
-                                                                Photo du voyageur
-                                                        </Text>
-                                                        <Text style={styles.validation}>*</Text>
+                                        <View style={{ flexDirection: "row", justifyContent: 'space-between', paddingHorizontal: 20 }}>
+                                                <View style={{ flex: 1 }}>
+                                                        <View>
+                                                                <View style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'center' }}>
+                                                                        <Text style={styles.image}>
+                                                                                Photo du voyageur
+                                                                        </Text>
+                                                                        <Text style={styles.validation}>*</Text>
+                                                                </View>
                                                         </View>
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagepassport ? <TouchableWithoutFeedback onPress={onTakePictureSelect}>
@@ -439,12 +441,15 @@ export default function PhotoScreen() {
                                                         </View>
                                                 </View>
 
-                                                {!donnees.payement && <View>
-                                                        <View style={{ flexDirection: "row" }}>
-                                                        <Text  style={styles.title}>
-                                                                Photo du voyageur
-                                                        </Text>
-                                                        <Text style={styles.validation}>*</Text>
+                                                {!donnees.payement && <View style={{ flex: 1 }}>
+
+                                                        <View>
+                                                                <View style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'center' }}>
+                                                                        <Text style={styles.image}>
+                                                                                Image du bordereau
+                                                                        </Text>
+                                                                        <Text style={styles.validation}>*</Text>
+                                                                </View>
                                                         </View>
                                                         <View style={styles.addImageContainer}>
                                                                 {!imagebordereaux ? <TouchableWithoutFeedback onPress={onTakePictureBordereaux}>
@@ -503,19 +508,18 @@ export default function PhotoScreen() {
 const styles = StyleSheet.create({
 
         addImageContainer: {
-                paddingHorizontal: 20,
-                marginTop: 5,
-                flexDirection: 'row',
-                alignItems: 'center'
+                flex: 1,
+               // backgroundColor: 'blue'
         },
         addImage: {
-                width: 137,
-                height: 150,
+                width: '80%',
+                height: 130,
                 borderRadius: 5,
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderColor: '#777',
-                borderWidth: 1
+                borderWidth: 1,
+                alignSelf: 'center'
         },
         removeFavoritesBadge: {
                 position: 'absolute',
@@ -569,10 +573,10 @@ const styles = StyleSheet.create({
                 fontSize: 13,
                 fontWeight: "bold"
         },
-        validation:{
+        validation: {
                 fontSize: 22,
-                color:"red",
-                marginLeft:2
+                color: "red",
+                marginLeft: 2
         },
         titleResponse: {
                 fontSize: 13,
@@ -607,14 +611,25 @@ const styles = StyleSheet.create({
                 borderWidth: 1
         },
         title: {
-                
+
                 fontWeight: 'bold',
                 fontSize: 16,
-                color: 'black', 
+                color: 'black',
                 fontWeight: 'bold',
                 //  marginTop: 10, 
-                 textAlign: "center"
-        }
+                textAlign: "left"
 
+        },
+        image: {
+
+                fontWeight: 'bold',
+                fontSize: 14,
+                color: 'black',
+                fontWeight: 'bold',
+                //  marginTop: 10, 
+                textAlign: "center",
+                alignSelf: 'center'
+
+        }
 
 })
