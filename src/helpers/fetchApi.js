@@ -22,8 +22,7 @@ export default async function fetchApi(url, options = {}) {
     ...options,
   });
   if (response.ok) {
-    var test = response.json();
-    console.log(test)
+    return response.json();
   } else {
     console.log(response.status);
     throw await response.json();

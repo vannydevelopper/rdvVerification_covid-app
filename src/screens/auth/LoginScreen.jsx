@@ -14,7 +14,7 @@ export default function LoginScreen() {
         const { height } = useWindowDimensions()
         const passwordInputRef = useRef(null)
         const [USERNAME, setEmail] = useState("");
-        const dispatch=useDispatch()
+        const dispatch = useDispatch()
         const [USER_PASSWORD, setPassword] = useState("");
         const [location, setLocation] = useState(null)
         const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function LoginScreen() {
         const navigation = useNavigation()
 
         const handleLogin = async () => {
-                 setLoading(true);
+                setLoading(true);
                 if (!location) {
                         let { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
                         if (locationStatus !== 'granted') {
@@ -35,11 +35,12 @@ export default function LoginScreen() {
                 const form = new FormData()
                 form.append('USERNAME', USERNAME)
                 form.append('USER_PASSWORD', USER_PASSWORD)
+
                 form.append('lat', location?.coords?.latitude)
                 form.append('long', location?.coords?.longitude)
-
+                
                 console.log(form)
-              
+
                 // const user = {
                 //         USERNAME,
                 //         USER_PASSWORD,
@@ -49,21 +50,22 @@ export default function LoginScreen() {
                 //console.log(user)
                 setErrors(null)
                 try {
-                        const userData = await fetchApi ("/users/login", {
-                                  method: "POST",
+                        const userData = await fetchApi("/users/login", {
+                                method: "POST",
                                 //   body: JSON.stringify(user),
-                                  body: form,
+                                body: form,
                                 //   headers: { "Content-Type": "application/json" },
                         });
+                        console.log(userData)
                         await AsyncStorage.setItem("user", JSON.stringify(userData));
                         dispatch(setUserAction(userData));
                         setLoading(false);
-              }
-               catch (error) {
+                }
+                catch (error) {
                         console.log(error)
                         setErrors(error.errors)
-              }
-              setLoading(false);
+                }
+                setLoading(false);
         }
         const askLocationPermission = async () => {
                 let { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
@@ -106,7 +108,7 @@ export default function LoginScreen() {
                         {/* <ImageBackground imageStyle={{ flex: 1, resizeMode: "contain", opacity: 0.5, transform: [{ scale: 2 }], alignSelf: "center", height: "100%" }} source={require('../../../assets/images/home3.png')}> */}
                         <ScrollView keyboardShouldPersistTaps="handled">
                                 <View style={styles.container}>
-                                        <Image source={require('../../../assets/login.png')} style={{ ...styles.image, resizeMode: "center", height: (30 * height - StatusBar.currentHeight) /100 }} />
+                                        <Image source={require('../../../assets/login.png')} style={{ ...styles.image, resizeMode: "center", height: (30 * height - StatusBar.currentHeight) / 100 }} />
                                         <Text style={styles.title}>Connexion</Text>
                                         <Input
                                                 placeholder='Email ou numéro de téléphone'
@@ -135,43 +137,43 @@ export default function LoginScreen() {
                                                 autoCompleteType='off'
                                         />
                                         <View>
-                                        {errors&&<Text style={styles.textcolor}>{errors.main}</Text>}
+                                                {errors && <Text style={styles.textcolor}>{errors.main}</Text>}
                                         </View>
                                         <FormControl isInvalid={errors && errors.password}>
-                                        <Input
-                                                placeholder='Mot de passe'
-                                                InputLeftElement={
-                                                        <Icon
-                                                                as={<Ionicons name="lock-closed-outline" size={20} color="#777" />}
-                                                                size={6}
-                                                                mr="2"
-                                                                color="muted.400"
-                                                        />}
-                                                InputRightElement={
-                                                        <Icon
-                                                                as={<Ionicons name={!showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#777" />}
-                                                                size={6}
-                                                                mr="2"
-                                                                color="muted.400"
-                                                                onPress={() => setShowPassword(t => !t)}
-                                                        />}
-                                                secureTextEntry={!showPassword}
-                                                onChangeText={(em) => setPassword(em)}
-                                                value={USER_PASSWORD}
-                                                py={2}
-                                                borderWidth={0}
-                                                borderBottomWidth={1}
-                                                borderBottomColor={'#0a5744'}
-                                                _focus={{
-                                                        borderBottomColor: primaryColor
-                                                }}
-                                                returnKeyType="go"
-                                                mt={3}
-                                                ref={passwordInputRef}
-                                        />
-                                        {errors && errors.password &&<FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-                                                {errors.password}
-                                        </FormControl.ErrorMessage>}
+                                                <Input
+                                                        placeholder='Mot de passe'
+                                                        InputLeftElement={
+                                                                <Icon
+                                                                        as={<Ionicons name="lock-closed-outline" size={20} color="#777" />}
+                                                                        size={6}
+                                                                        mr="2"
+                                                                        color="muted.400"
+                                                                />}
+                                                        InputRightElement={
+                                                                <Icon
+                                                                        as={<Ionicons name={!showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#777" />}
+                                                                        size={6}
+                                                                        mr="2"
+                                                                        color="muted.400"
+                                                                        onPress={() => setShowPassword(t => !t)}
+                                                                />}
+                                                        secureTextEntry={!showPassword}
+                                                        onChangeText={(em) => setPassword(em)}
+                                                        value={USER_PASSWORD}
+                                                        py={2}
+                                                        borderWidth={0}
+                                                        borderBottomWidth={1}
+                                                        borderBottomColor={'#0a5744'}
+                                                        _focus={{
+                                                                borderBottomColor: primaryColor
+                                                        }}
+                                                        returnKeyType="go"
+                                                        mt={3}
+                                                        ref={passwordInputRef}
+                                                />
+                                                {errors && errors.password && <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                                                        {errors.password}
+                                                </FormControl.ErrorMessage>}
                                         </FormControl>
                                         <TouchableOpacity>
                                                 <Text style={styles.forgetPass}>Mot de passe oublié</Text>
@@ -190,7 +192,7 @@ export default function LoginScreen() {
                                                 Se connecter
                                         </Button>
 
-                                       
+
                                 </View>
                         </ScrollView>
                         {/* </ImageBackground> */}
@@ -222,7 +224,7 @@ const styles = StyleSheet.create({
                 textAlign: 'right',
                 marginTop: 10
         },
-        textcolor:{
-                color:"red"
+        textcolor: {
+                color: "red"
         }
 })
