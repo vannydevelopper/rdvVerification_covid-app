@@ -32,19 +32,28 @@ export default function LoginScreen() {
                         var loc = await Location.getCurrentPositionAsync({});
                         setLocation(loc)
                 }
-                const user = {
-                        USERNAME,
-                        USER_PASSWORD,
-                        lat: location?.coords?.latitude,
-                        long: location?.coords?.longitude,
-                };
-                // console.log(user)
+                const form = new FormData()
+                form.append('USERNAME', USERNAME)
+                form.append('USER_PASSWORD', USER_PASSWORD)
+                form.append('lat', location?.coords?.latitude)
+                form.append('long', location?.coords?.longitude)
+
+                console.log(form)
+              
+                // const user = {
+                //         USERNAME,
+                //         USER_PASSWORD,
+                //         lat: location?.coords?.latitude,
+                //         long: location?.coords?.longitude,
+                // };
+                //console.log(user)
                 setErrors(null)
                 try {
                         const userData = await fetchApi ("/users/login", {
                                   method: "POST",
-                                  body: JSON.stringify(user),
-                                  headers: { "Content-Type": "application/json" },
+                                //   body: JSON.stringify(user),
+                                  body: form,
+                                //   headers: { "Content-Type": "application/json" },
                         });
                         await AsyncStorage.setItem("user", JSON.stringify(userData));
                         dispatch(setUserAction(userData));

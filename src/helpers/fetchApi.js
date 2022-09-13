@@ -22,9 +22,10 @@ export default async function fetchApi(url, options = {}) {
     ...options,
   });
   if (response.ok) {
-    return response.json();
+    var test = response.json();
+    console.log(test)
   } else {
-    console.log(response);
+    console.log(response.status);
     throw await response.json();
   }
 }
