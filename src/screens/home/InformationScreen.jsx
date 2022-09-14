@@ -8,9 +8,9 @@ export default function InformationScreen() {
         const { donnees } = route.params
         const [showImageModal, setShowImageModal] = useState(false)
         const [imageIndex, setImageIndex] = useState(0)
-        console.log(donnees)
+        //console.log(donnees)
 
-        const isProd = false
+        const isProd = true
         const bordereauPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_bordereau/" : "http://192.168.43.84:8000/images/photo_brd/"
         const candidatPath = isProd ? "https://app.mediabox.bi/covid_v2_dev/uploads/image_candidat/" : "http://192.168.43.84:8000/images/photo_prs/"
 
