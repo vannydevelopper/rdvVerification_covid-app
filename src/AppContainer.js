@@ -17,7 +17,7 @@ export default function AppContainer(){
         useEffect(()=>{
                 (async function(){
                        const user = await AsyncStorage.getItem("user")
-                       //await AsyncStorage.removeItem('user')
+                //        await AsyncStorage.removeItem('user')
                        dispatch(setUserAction(JSON.parse(user)))
                        setUserLoading(false)
                 }) ()
